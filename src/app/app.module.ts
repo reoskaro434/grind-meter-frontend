@@ -19,6 +19,8 @@ import {ToastrModule} from "ngx-toastr";
 import {ToastComponent} from "./perfect-projects/body/toast/toast.component";
 import {SignUpComponent} from "./perfect-projects/body/sign-up/sign-up.component";
 import {SignInComponent} from "./perfect-projects/body/sign-in/sign-in.component";
+import {DailyWorkoutReportComponent} from "./perfect-projects/body/daily-workout-raport/daily-workout-report.component";
+import { UpdateExerciseMenuComponent } from './perfect-projects/body/daily-workout-raport/update-exercise-menu/update-exercise-menu.component';
 
 
 
@@ -33,7 +35,9 @@ import {SignInComponent} from "./perfect-projects/body/sign-in/sign-in.component
     PerfectProjectsComponent,
     NavbarComponent,
     SignUpComponent,
-    SignInComponent
+    SignInComponent,
+    DailyWorkoutReportComponent,
+    UpdateExerciseMenuComponent
   ],
   imports: [
     BrowserModule,

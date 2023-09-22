@@ -1,0 +1,49 @@
+<div>
+  <form (ngSubmit)="onSubmit()"  #updateExerciseForm="ngForm">
+    <span>{{exercise.title}}</span>
+    <br>
+    <br>
+    <div class="form-group">
+      <label for="inputSeries">Number of series:</label>
+          <input class="form-control"
+                 type="number"
+                 id="inputSeries"
+                 name="inputSeries"
+                 [(ngModel)]="inputSeries"
+                 (ngModelChange)="updateRepetitionsArray(inputSeries ? inputSeries : 0)"
+                 required
+                 #series="ngModel">
+          <small *ngIf="!series.valid && series.touched" class="form-text text-danger">Specify number of series</small>
+    </div>
+      <label *ngIf="inputRepetitionsArray.length > 0">Number of repetitions:</label>
+      <div class="d-flex">
+      <div class="form-group" *ngFor="let r of inputRepetitionsArray; let i = index">
+        <input class="form-control"
+               type="number"
+               id="inputRepetitions{{i}}"
+               name="inputRepetitions{{i}}"
+               [(ngModel)]=r.value
+               required
+               #repetitions="ngModel"
+               min="1" step="1">
+        <small *ngIf="!repetitions.valid && repetitions.touched" class="form-text text-danger"></small>
+      </div>
+      </div>
+    <label  *ngIf="inputWeightArray.length > 0" >Weight (kg):</label>
+    <div class="d-flex">
+    <div class="form-group" *ngFor="let w of inputWeightArray; let i = index">
+          <input class="form-control"
+                 type="number"
+                 id="inputWeight{{i}}"
+                 name="inputWeight{{i}}"
+                 [(ngModel)]="w.value"
+                 required #weight="ngModel">
+          <small *ngIf="!weight.valid && weight.touched" class="form-text text-danger"></small>
+    </div>
+    </div>
+    <div class="mt-2">
+      <button type="submit" class="btn btn-primary" [disabled]="!updateExerciseForm.valid">Update exercise</button>
+    </div>
+  </form>
+</div>
+

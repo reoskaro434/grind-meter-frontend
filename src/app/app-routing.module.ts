@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuardService} from "./services/auth-guard.service";
 import {PerfectProjectsComponent} from "./perfect-projects/perfect-projects.component";
-import {ProjectListComponent} from "./perfect-projects/body/project-list/project-list.component";
+import {DailyWorkoutReportComponent} from "./perfect-projects/body/daily-workout-raport/daily-workout-report.component";
 import {SignUpComponent} from "./perfect-projects/body/sign-up/sign-up.component";
 import {SignInComponent} from "./perfect-projects/body/sign-in/sign-in.component";
 import {NotFoundComponent} from "./perfect-projects/body/not-found/not-found.component";
@@ -13,7 +13,7 @@ import {MyProfileComponent} from "./perfect-projects/body/my-profile/my-profile.
 const routes: Routes = [
   {
     path: '', component: PerfectProjectsComponent, children: [
-      {path: '', component: ProjectListComponent},
+      {path: '', component: DailyWorkoutReportComponent},
       {path: 'sign-up', component: SignUpComponent},
       {path: 'sign-in', component: SignInComponent},
       {
