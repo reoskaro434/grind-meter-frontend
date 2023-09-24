@@ -27,6 +27,7 @@ export class AccessApiCallerService {
   }
 
   public signUp(signUpUser: SignUpUser) {
+    console.log(signUpUser);
     return this.http.post<{ success: boolean }>(
       `${environment.apiURL}/access/sign-up`,
       {"newUser": signUpUser});

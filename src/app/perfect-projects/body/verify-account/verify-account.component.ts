@@ -17,7 +17,6 @@ export class VerifyAccountComponent implements OnInit {
 
   constructor(private accessApiCaller: AccessApiCallerService,
               private toast: ToastService,
-              private auth: AuthService,
               private route: ActivatedRoute,
               private router: Router) {
   }

@@ -133,3 +133,5 @@ dist
 .idea
 .vscode
 .editorconfig
+
+cert

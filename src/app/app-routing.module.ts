@@ -13,7 +13,8 @@ import {MyProfileComponent} from "./perfect-projects/body/my-profile/my-profile.
 const routes: Routes = [
   {
     path: '', component: PerfectProjectsComponent, children: [
-      {path: '', component: DailyWorkoutReportComponent},
+      {path: 'todays-workout', component: DailyWorkoutReportComponent},
+      // {path: 'active-workout', component: DailyWorkoutReportComponent},
       {path: 'sign-up', component: SignUpComponent},
       {path: 'sign-in', component: SignInComponent},
       {

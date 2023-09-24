@@ -60,6 +60,13 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "host": "grind-meter.com",
+            "port": 4200,
+            "ssl": true,
+            "sslKey": "cert/grind-meter.key.pem",
+            "sslCert": "cert/grind-meter.cert.pem"
+          },
           "configurations": {
             "production": {
               "browserTarget": "golden-coin:build:production"

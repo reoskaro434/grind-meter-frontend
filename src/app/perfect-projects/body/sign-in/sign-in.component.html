@@ -1,31 +1,31 @@
-<!--<form (ngSubmit)="onSubmit()" #signInForm="ngForm">-->
-<!--  <div class="form-group">-->
-<!--    <label for="inputNickname">Nickname</label>-->
-<!--    <input type="text"-->
-<!--           class="form-control"-->
-<!--           id="inputNickname"-->
-<!--           name="inputNickname"-->
-<!--           placeholder="Enter nickname"-->
-<!--           required-->
-<!--           [(ngModel)]="inputUsername"-->
-<!--           #nickname="ngModel">-->
-<!--    <small *ngIf="!nickname.valid && nickname.touched" class="form-text text-danger">-->
-<!--      Enter a nickname.-->
-<!--    </small>-->
-<!--  </div>-->
-<!--  <div class="form-group">-->
-<!--    <label for="inputPassword">Password</label>-->
-<!--    <input type="password"-->
-<!--           class="form-control"-->
-<!--           id="inputPassword"-->
-<!--           name="inputPassword"-->
-<!--           placeholder="Password"-->
-<!--           required-->
-<!--           [(ngModel)]="inputPassword"-->
-<!--            #password="ngModel">-->
-<!--    <small *ngIf="!password.valid && password.touched" class="form-text text-danger">-->
-<!--      Enter a password.-->
-<!--    </small>-->
-<!--  </div>-->
-<!--  <button type="submit" class="btn btn-primary" [disabled]="!signInForm.valid">Sign in</button>-->
-<!--</form>-->
+<form (ngSubmit)="onSubmit()" #signInForm="ngForm">
+  <div class="form-group">
+    <label for="inputNickname">Nickname</label>
+    <input type="text"
+           class="form-control"
+           id="inputNickname"
+           name="inputNickname"
+           placeholder="Enter nickname"
+           required
+           [(ngModel)]="inputUsername"
+           #nickname="ngModel">
+    <small *ngIf="!nickname.valid && nickname.touched" class="form-text text-danger">
+      Enter a nickname.
+    </small>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword">Password</label>
+    <input type="password"
+           class="form-control"
+           id="inputPassword"
+           name="inputPassword"
+           placeholder="Password"
+           required
+           [(ngModel)]="inputPassword"
+            #password="ngModel">
+    <small *ngIf="!password.valid && password.touched" class="form-text text-danger">
+      Enter a password.
+    </small>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="!signInForm.valid">Sign in</button>
+</form>

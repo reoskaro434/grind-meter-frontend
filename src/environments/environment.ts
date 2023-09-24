@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiURL:  "https://api.perfect-projects.link:5000"
+  apiURL:  "https://api.grind-meter.com:8000"
 };

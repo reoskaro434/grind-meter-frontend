@@ -26,6 +26,7 @@ export class SignInComponent implements OnInit {
       password: this.inputPassword
     }).subscribe(
       (response) => {
+        console.log(response);
         this.auth.setAuthorization(response.payload.accessToken);
         this.router.navigate(["/"]);
       });
