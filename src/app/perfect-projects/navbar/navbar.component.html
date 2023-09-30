@@ -1,20 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNavAltMarkup">
     <div class="navbar-nav" *ngIf="getUsername() !== ''">
-      <a class="nav-item nav-link active" routerLink="/todays-workout">Today's Workout</a>
-      <a class="nav-item nav-link active" routerLink="/active-workout">Active Workout</a>
-      <a class="nav-item nav-link active" [routerLink]="['/my-profile']">My Profile</a>
+      <a class="nav-item nav-link active" routerLink="/my-profile/todays-workout">Today's Workout</a>
+<!--      <a class="nav-item nav-link active" routerLink="/active-workout">Active Workout</a>-->
+      <a class="nav-item nav-link active" routerLink="/my-profile">My Profile</a>
     </div>
-    <div *ngIf="getUsername() === '';else userSigned" class="d-flex">
-      <a class="nav-item nav-link" routerLink="/sign-in">sign in</a>
-      <a class="nav-item nav-link" routerLink="/sign-up">sign up</a>
+    <div *ngIf="getUsername() === '';else userSigned" class="navbar-nav">
+      <a class="nav-item nav-link" routerLink="/sign-in">Sign in</a>
+      <a class="nav-item nav-link" routerLink="/sign-up">Sign up</a>
     </div>
-    <ng-template #userSigned class="d-flex">
-    <div class="btn-group" ngbDropdown role="group">
-      <button class="btn btn-light" ngbDropdownToggle>{{getUsername()}} </button>
-      <div class="dropdown-menu" ngbDropdownMenu>
-        <button ngbDropdownItem (click)="onSignOut()">Sign out</button>
-      </div>
+    <ng-template #userSigned class="navbar-nav">
+    <div class="btn-group" role="group">
+      <span class="btn btn-light" routerLink="/my-profile" >{{getUsername()}} </span>
+      <span class="btn btn-light" (click)="onSignOut()">Sign out</span>
     </div>
   </ng-template>
   </div>

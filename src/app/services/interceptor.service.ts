@@ -30,10 +30,13 @@ export class InterceptorService implements HttpInterceptor {
     if (this.excludedUrls.includes(request.url) || this.auth.getUsername() === "") {
       return next.handle(request);
     }
+
     if (this.auth.getAccessToken() === "") {
       return this.handle401Error(request, next);
     }
+
     request = this.injectAccessToken(request);
+
     return next.handle(request).pipe(catchError(error => {
         if (error.status === 401) {
           return this.handle401Error(request, next);
@@ -59,7 +62,7 @@ export class InterceptorService implements HttpInterceptor {
 
   private injectAccessToken(request: HttpRequest<any>) {
     return request.clone({
-      headers: request.headers.set('accessToken', this.auth.getAccessToken()),
+      headers: request.headers.set('access_token', this.auth.getAccessToken()),
     });
   }
 }

@@ -2,28 +2,29 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuardService} from "./services/auth-guard.service";
 import {PerfectProjectsComponent} from "./perfect-projects/perfect-projects.component";
-import {DailyWorkoutReportComponent} from "./perfect-projects/body/daily-workout-raport/daily-workout-report.component";
+import {DailyWorkoutReportComponent} from "./perfect-projects/body/my-profile/daily-workout-raport/daily-workout-report.component";
 import {SignUpComponent} from "./perfect-projects/body/sign-up/sign-up.component";
 import {SignInComponent} from "./perfect-projects/body/sign-in/sign-in.component";
 import {NotFoundComponent} from "./perfect-projects/body/not-found/not-found.component";
 import {VerifyAccountComponent} from "./perfect-projects/body/verify-account/verify-account.component";
 import {ProjectPageComponent} from "./perfect-projects/body/project-page/project-page.component";
 import {MyProfileComponent} from "./perfect-projects/body/my-profile/my-profile.component";
+import {StartPageComponent} from "./perfect-projects/body/start-page/start-page.component";
+import {
+  GeneralStatisticsComponent
+} from "./perfect-projects/body/my-profile/general-statistics/general-statistics.component";
 
 const routes: Routes = [
   {
     path: '', component: PerfectProjectsComponent, children: [
-      {path: 'todays-workout', component: DailyWorkoutReportComponent},
-      // {path: 'active-workout', component: DailyWorkoutReportComponent},
+      {path: '', component: StartPageComponent},
       {path: 'sign-up', component: SignUpComponent},
       {path: 'sign-in', component: SignInComponent},
       {
         path: 'my-profile', canActivate: [AuthGuardService], component: MyProfileComponent,
         children: [
-          // {path: '', component: MyProjectListComponent},
-          // {path: 'add-project', component: AddProjectComponent},
-          // {path: 'edit-project/:projectId', component: EditProjectComponent},
-          // {path: 'saved-projects', component: SavedProjectsComponent}
+          {path: '', component: GeneralStatisticsComponent},
+          {path: 'todays-workout', component: DailyWorkoutReportComponent},
         ]
       },
       {path: 'project/:projectId', component: ProjectPageComponent},

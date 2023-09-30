@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BasicExerciseData} from "../../../../models/basic-exercise-data";
-import {FinishedExerciseData} from "../../../../models/finished-exercise-data";
+import {BasicExerciseData} from "../../../../../models/basic-exercise-data";
+import {FinishedExerciseData} from "../../../../../models/finished-exercise-data";
 
 @Component({
   selector: 'app-update-exercise-menu',

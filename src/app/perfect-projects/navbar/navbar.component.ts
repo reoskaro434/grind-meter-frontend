@@ -27,11 +27,10 @@ export class NavbarComponent implements OnInit {
 
   public onSignOut(){
     this.accessApiCaller.signOut().subscribe((response)=>{
-      console.log(response);
-        if (response.success){
+        if (response){
           this.toast.showMessage("You were signed out", ToastType.INFO);
           this.auth.cleanAuthorization();
-          this.router.navigate(["/"]);
+          this.router.navigate(["/"]).then();
         }
     });
   }

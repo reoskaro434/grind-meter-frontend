@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CookieService} from "ngx-cookie-service";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,8 @@ export class AuthService {
   }
 
   public cleanAuthorization() {
-    this.cookie.delete("username","/", ".perfect-projects.link", true, "None");
+    this.cookie.delete("username","/", environment.domain, true, "None");
+    this.cookie.delete("refreshToken","/", environment.apiDomain, true, "Strict");
     this.accessToken = "";
   }
 }

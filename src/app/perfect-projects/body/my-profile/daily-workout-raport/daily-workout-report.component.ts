@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BasicProjectData} from "../../../models/basic-project-data";
-import {BasicExerciseData} from "../../../models/basic-exercise-data";
+import {BasicExerciseData} from "../../../../models/basic-exercise-data";
 
 @Component({
   selector: 'daily-workout-report',

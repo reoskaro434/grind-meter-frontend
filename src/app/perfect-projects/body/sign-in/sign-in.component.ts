@@ -28,7 +28,7 @@ export class SignInComponent implements OnInit {
       (response) => {
         console.log(response);
         this.auth.setAuthorization(response.payload.accessToken);
-        this.router.navigate(["/"]);
+        this.router.navigate(["/my-profile"]);
       });
   }
 }
