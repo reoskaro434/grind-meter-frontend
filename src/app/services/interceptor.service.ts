@@ -62,7 +62,7 @@ export class InterceptorService implements HttpInterceptor {
 
   private injectAccessToken(request: HttpRequest<any>) {
     return request.clone({
-      headers: request.headers.set('access_token', this.auth.getAccessToken()),
+      headers: request.headers.set('authorization', this.auth.getAccessToken()),
     });
   }
 }

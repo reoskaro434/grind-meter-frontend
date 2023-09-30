@@ -10,12 +10,13 @@ import {FinishedExerciseData} from "../../../../../models/finished-exercise-data
 export class UpdateExerciseMenuComponent implements OnInit{
   @Input() exercise!: BasicExerciseData;
 
-  inputSeries?: number;
+  inputSeries!: number;
   inputRepetitionsArray: ({value: number|null})[] = [];
   inputWeightArray: ({value: number|null})[] = [];
 
   ngOnInit() {
-
+   this.inputSeries = 1;
+   this.updateExerciseArrays(this.inputSeries);
   }
 
   onSubmit() {
@@ -41,7 +42,7 @@ export class UpdateExerciseMenuComponent implements OnInit{
     }
   }
 
-  updateRepetitionsArray(inputSeries: number) {
+  updateExerciseArrays(inputSeries: number) {
     const currentLength = this.inputRepetitionsArray.length
 
     if(currentLength === inputSeries)

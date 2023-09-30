@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {BasicExerciseData} from "../../../../models/basic-exercise-data";
+import {ExercisesApiCallerService} from "../../../../api-caller/exercises-api-caller.service";
+import {map} from "rxjs";
+import {catchError} from "rxjs/operators";
 
 @Component({
   selector: 'daily-workout-report',
@@ -29,13 +32,14 @@ export class DailyWorkoutReportComponent implements OnInit {
 
   activeExercise: BasicExerciseData | null = null;
 
-  constructor() {
-  }
+  constructor(private exerciseApiCaller: ExercisesApiCallerService) {}
 
   ngOnInit(): void {
-    // TODO download exercises list from the server...
-
-    this.activeExercise = this.exercises.length > 0 ? this.exercises[0] : null;
+    this.exerciseApiCaller.getActiveExercises()
+      .pipe(map((response) => {
+        this.exercises = response.payload.exercises;
+        this.activeExercise = this.exercises.length > 0 ? this.exercises[0] : null;
+      }));
   }
 
   openExerciseUpdateMenu(id: string): void {

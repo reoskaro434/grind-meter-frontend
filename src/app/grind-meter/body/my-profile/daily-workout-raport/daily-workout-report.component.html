@@ -1,6 +1,11 @@
 <div>
-  <ul class="exercise-list">
-    <li  [ngStyle]="{'color': (exercise === activeExercise) ? 'green' : 'red'}" *ngFor="let exercise of exercises" (click)="openExerciseUpdateMenu(exercise.id)">{{ exercise.title }}</li>
+  <ul class="list-group">
+    <li class="list-group-item"
+        [ngClass]="{'active': exercise === activeExercise}"
+        *ngFor="let exercise of exercises"
+        (click)="openExerciseUpdateMenu(exercise.id)">
+      <span>{{ exercise.title }}</span>
+    </li>
   </ul>
 </div>
 <div *ngIf="activeExercise">
