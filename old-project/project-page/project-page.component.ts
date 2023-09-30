@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {ProjectApiCallerService} from "../../../api-caller/project-api-caller.service";
-import {ProjectData} from "../../../models/project-data";
-import {ToastService} from "../../../services/toast.service";
-import {ToastType} from "../../../enums/toast-type";
+import {ProjectApiCallerService} from "../project-api-caller.service";
+import {ProjectData} from "../project-data";
+import {ToastService} from "../../src/app/services/toast.service";
+import {ToastType} from "../../src/app/enums/toast-type";
 
 @Component({
   selector: 'app-project-page',

@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
-import {ProjectData} from "../models/project-data";
-import {BasicProjectData} from "../models/basic-project-data";
-import {ProjectPageData} from "../models/project-page-data";
+import {environment} from "../src/environments/environment";
+import {ProjectData} from "./project-data";
+import {BasicProjectData} from "./basic-project-data";
+import {ProjectPageData} from "./project-page-data";
 
 @Injectable({
   providedIn: 'root'

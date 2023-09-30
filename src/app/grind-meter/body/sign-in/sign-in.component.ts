@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
 import {AccessApiCallerService} from "../../../api-caller/access-api-caller.service";
+import {ToastService} from "../../../services/toast.service";
+import {ToastType} from "../../../enums/toast-type";
 
 @Component({
   selector: 'app-sign-in',
@@ -14,7 +16,8 @@ export class SignInComponent implements OnInit {
 
   constructor(private accessApiCaller: AccessApiCallerService,
               private auth: AuthService,
-              private router: Router) {
+              private router: Router,
+              private toast: ToastService) {
   }
 
   ngOnInit(): void {
@@ -26,9 +29,10 @@ export class SignInComponent implements OnInit {
       password: this.inputPassword
     }).subscribe(
       (response) => {
-        console.log(response);
         this.auth.setAuthorization(response.payload.accessToken);
         this.router.navigate(["/my-profile"]);
+      }, error => {
+        this.toast.showMessage("Could not sign in, check credentials..", ToastType.ERROR);
       });
   }
 }

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
-import {ScoresData} from "../models/scores-data";
+import {environment} from "../src/environments/environment";
+import {ScoresData} from "./scores-data";
 
 @Injectable({
   providedIn: 'root'

@@ -10,15 +10,11 @@ import {Router} from "@angular/router";
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
-
+export class NavbarComponent {
   constructor(private auth: AuthService,
               private accessApiCaller: AccessApiCallerService,
               private toast: ToastService,
               private router: Router) {
-  }
-
-  ngOnInit(): void {
   }
 
   public getUsername() {
