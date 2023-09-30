@@ -11,8 +11,8 @@ import {ProjectPageComponent} from "../../old-project/project-page/project-page.
 import {MyProfileComponent} from "./grind-meter/body/my-profile/my-profile.component";
 import {StartPageComponent} from "./grind-meter/body/start-page/start-page.component";
 import {
-  GeneralStatisticsComponent
-} from "./grind-meter/body/my-profile/general-statistics/general-statistics.component";
+  StatisticsComponent
+} from "./grind-meter/body/my-profile/statistics/statistics.component";
 
 const routes: Routes = [
   {
@@ -23,8 +23,8 @@ const routes: Routes = [
       {
         path: 'my-profile', canActivate: [AuthGuardService], component: MyProfileComponent,
         children: [
-          {path: '', component: GeneralStatisticsComponent},
-          {path: 'todays-workout', component: DailyWorkoutReportComponent},
+          {path: '', component: DailyWorkoutReportComponent},
+          {path: 'statistics', component: StatisticsComponent},
         ]
       },
       {path: 'project/:projectId', component: ProjectPageComponent},

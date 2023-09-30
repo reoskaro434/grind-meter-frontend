@@ -25,8 +25,8 @@ import {VerifyAccountComponent} from "./grind-meter/body/verify-account/verify-a
 import {MyProfileComponent} from "./grind-meter/body/my-profile/my-profile.component";
 import {StartPageComponent} from "./grind-meter/body/start-page/start-page.component";
 import {
-  GeneralStatisticsComponent
-} from "./grind-meter/body/my-profile/general-statistics/general-statistics.component";
+  StatisticsComponent
+} from "./grind-meter/body/my-profile/statistics/statistics.component";
 import {NotFoundComponent} from "./grind-meter/body/not-found/not-found.component";
 
 
@@ -49,7 +49,7 @@ import {NotFoundComponent} from "./grind-meter/body/not-found/not-found.componen
     MyProfileComponent,
     ToastComponent,
     StartPageComponent,
-    GeneralStatisticsComponent,
+    StatisticsComponent,
     NotFoundComponent
   ],
   imports: [
