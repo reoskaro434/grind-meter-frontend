@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {AccessApiCallerService} from "../../api-caller/access-api-caller.service";
 import {ToastService} from "../../services/toast.service";
@@ -26,7 +26,7 @@ export class NavbarComponent {
         if (response){
           this.toast.showMessage("You were signed out", ToastType.INFO);
           this.auth.cleanAuthorization();
-          this.router.navigate(["/"]).then();
+          this.router.navigate(["/"]).then(() => window.location.reload());
         }
     });
   }
