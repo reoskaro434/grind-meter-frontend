@@ -1,3 +1,7 @@
 <div>
-  ManageExerciseComponent
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let exercise of exercises">
+      <span>{{ exercise.name }}</span>
+    </li>
+  </ul>
 </div>

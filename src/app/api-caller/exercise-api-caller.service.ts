@@ -15,4 +15,8 @@ export class ExerciseApiCallerService {
   public addExercise(exercise: NewExercise) {
     return this.http.post<{}>(`${environment.apiURL}/user-exercise/add-exercise`, exercise);
   }
+
+  public getExercisePage(page: number) {
+    return this.http.get<Exercise[]>(`${environment.apiURL}/user-exercise/get-exercise/${page}`);
+  }
 }

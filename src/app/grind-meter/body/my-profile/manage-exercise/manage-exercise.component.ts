@@ -1,4 +1,8 @@
 import {Component, OnInit} from '@angular/core';
+import {Exercise} from "../../../../models/exercise";
+import {ExerciseApiCallerService} from "../../../../api-caller/exercise-api-caller.service";
+import {ToastService} from "../../../../services/toast.service";
+import {map} from "rxjs";
 
 
 @Component({
@@ -7,9 +11,12 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./manage-exercise.component.css']
 })
 export class ManageExerciseComponent implements OnInit {
-  constructor() {
-  }
+  exercises: Exercise[] = [];
+  constructor(private exerciseApiCaller: ExerciseApiCallerService,
+              private toast: ToastService)
+  {}
   public ngOnInit(): void {
+    this.exerciseApiCaller.getExercisePage(1).pipe(map((exercises) => this.exercises = exercises)).subscribe(); //TODO pagination
   }
   public onSubmit() {
   }

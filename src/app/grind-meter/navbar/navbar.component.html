@@ -6,8 +6,8 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-      <div *ngIf="isSigned">
-        <ul class="nav nav-pills" *ngIf="isSigned">
+      <div *ngIf="isSigned()">
+        <ul class="nav nav-pills" *ngIf="isSigned()">
           <li class="nav-item">
             <a class="nav-link" aria-current="page" routerLink="/my-profile/daily-report">
               Daily Report
@@ -32,7 +32,7 @@
       </div>
     </div>
     <div class="d-flex">
-      <div *ngIf="isSigned">
+      <div *ngIf="isSigned()">
         <ul class="nav justify-content-end">
           <li class="nav-item">
             <a class="nav-link" (click)="onSignOut()">
@@ -41,7 +41,7 @@
           </li>
         </ul>
       </div>
-      <div *ngIf="!isSigned">
+      <div *ngIf="!isSigned()">
         <ul class="nav justify-content-end">
           <li class="nav-item">
             <a class="nav-item nav-link " routerLink="/sign-in">Sign in</a>

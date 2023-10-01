@@ -30,7 +30,7 @@ export class SignInComponent implements OnInit {
     }).subscribe(
       (response) => {
         this.auth.setAuthorization(response.payload.accessToken);
-        this.router.navigate(["/my-profile"]).then(() => window.location.reload());
+        this.router.navigate(["/my-profile"]).then();
       }, () => {
         this.toast.showMessage("Could not sign in, check credentials..", ToastType.ERROR);
       });

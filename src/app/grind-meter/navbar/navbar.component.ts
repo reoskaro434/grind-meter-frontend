@@ -11,9 +11,6 @@ import {Router} from "@angular/router";
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-
-  isSigned = this.auth.getUsername() !== "";
-
   username = this.auth.getUsername();
   constructor(private auth: AuthService,
               private accessApiCaller: AccessApiCallerService,
@@ -26,8 +23,12 @@ export class NavbarComponent {
         if (response){
           this.toast.showMessage("You were signed out", ToastType.INFO);
           this.auth.cleanAuthorization();
-          this.router.navigate(["/"]).then(() => window.location.reload());
+          this.router.navigate(["/"]).then();
         }
     });
+  }
+
+  isSigned(){
+    return this.auth.getUsername() !== "";
   }
 }
