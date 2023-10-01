@@ -1,19 +1,56 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNavAltMarkup">
-    <div class="navbar-nav" *ngIf="getUsername() !== ''">
-      <a class="nav-item nav-link active" routerLink="/my-profile/todays-workout">Today's Workout</a>
-<!--      <a class="nav-item nav-link active" routerLink="/active-workout">Active Workout</a>-->
-      <a class="nav-item nav-link active" routerLink="/my-profile">My Profile</a>
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="">GM</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <div *ngIf="isSigned">
+        <ul class="nav nav-pills" *ngIf="isSigned">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" routerLink="/my-profile/daily-report">
+              Daily Report
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" routerLink="/my-profile/add-exercise">
+              Add Exercise
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" routerLink="/my-profile/manage-exercise">
+              Manage
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" routerLink="/my-profile/statistics">
+              Statistics
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div *ngIf="getUsername() === '';else userSigned" class="navbar-nav">
-      <a class="nav-item nav-link" routerLink="/sign-in">Sign in</a>
-      <a class="nav-item nav-link" routerLink="/sign-up">Sign up</a>
+    <div class="d-flex">
+      <div *ngIf="isSigned">
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link" (click)="onSignOut()">
+              Sign out ({{username}})
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div *ngIf="!isSigned">
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <a class="nav-item nav-link " routerLink="/sign-in">Sign in</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-item nav-link" routerLink="/sign-up">Sign up</a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <ng-template #userSigned class="navbar-nav">
-    <div class="btn-group" role="group">
-      <span class="btn btn-light" routerLink="/my-profile" >{{getUsername()}} </span>
-      <span class="btn btn-light" (click)="onSignOut()">Sign out</span>
-    </div>
-  </ng-template>
   </div>
 </nav>

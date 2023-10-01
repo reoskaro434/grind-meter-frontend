@@ -11,14 +11,14 @@ import {Router} from "@angular/router";
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+
+  isSigned = this.auth.getUsername() !== "";
+
+  username = this.auth.getUsername();
   constructor(private auth: AuthService,
               private accessApiCaller: AccessApiCallerService,
               private toast: ToastService,
               private router: Router) {
-  }
-
-  public getUsername() {
-    return this.auth.getUsername();
   }
 
   public onSignOut(){

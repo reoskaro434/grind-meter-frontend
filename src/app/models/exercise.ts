@@ -1,5 +1,5 @@
 export enum ExerciseType {
-  Lift = "lift"
+  Lift = "LIFT"
 }
 export interface Exercise {
   id: string,

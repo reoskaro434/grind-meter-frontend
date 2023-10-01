@@ -19,8 +19,8 @@ import {provideToastr, ToastrModule} from "ngx-toastr";
 import {ToastComponent} from "./grind-meter/body/toast/toast.component";
 import {SignUpComponent} from "./grind-meter/body/sign-up/sign-up.component";
 import {SignInComponent} from "./grind-meter/body/sign-in/sign-in.component";
-import {DailyWorkoutReportComponent} from "./grind-meter/body/my-profile/daily-workout-raport/daily-workout-report.component";
-import { LiftExerciseMenuComponent } from './grind-meter/body/my-profile/daily-workout-raport/lift-exercise-menu/lift-exercise-menu.component';
+import {DailyWorkoutReportComponent} from "./grind-meter/body/my-profile/daily-workout-report/daily-workout-report.component";
+import { LiftExerciseMenuComponent } from './grind-meter/body/my-profile/daily-workout-report/lift-exercise-menu/lift-exercise-menu.component';
 import {VerifyAccountComponent} from "./grind-meter/body/verify-account/verify-account.component";
 import {MyProfileComponent} from "./grind-meter/body/my-profile/my-profile.component";
 import {StartPageComponent} from "./grind-meter/body/start-page/start-page.component";
@@ -28,6 +28,9 @@ import {
   StatisticsComponent
 } from "./grind-meter/body/my-profile/statistics/statistics.component";
 import {NotFoundComponent} from "./grind-meter/body/not-found/not-found.component";
+import {AddExerciseComponent} from "./grind-meter/body/my-profile/add-exercise/add-exercise.component";
+import {ManageExerciseComponent} from "./grind-meter/body/my-profile/manage-exercise/manage-exercise.component";
+import {NgbCollapse, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -50,7 +53,9 @@ import {NotFoundComponent} from "./grind-meter/body/not-found/not-found.componen
     ToastComponent,
     StartPageComponent,
     StatisticsComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AddExerciseComponent,
+    ManageExerciseComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +66,7 @@ import {NotFoundComponent} from "./grind-meter/body/not-found/not-found.componen
     ToastrModule.forRoot({
       toastComponent: ToastComponent,
     }),
+    NgbModule
   ],
   providers: [
     [CookieService],

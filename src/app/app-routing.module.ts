@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuardService} from "./services/auth-guard.service";
 import {GrindMeterComponent} from "./grind-meter/grind-meter.component";
-import {DailyWorkoutReportComponent} from "./grind-meter/body/my-profile/daily-workout-raport/daily-workout-report.component";
+import {DailyWorkoutReportComponent} from "./grind-meter/body/my-profile/daily-workout-report/daily-workout-report.component";
 import {SignUpComponent} from "./grind-meter/body/sign-up/sign-up.component";
 import {SignInComponent} from "./grind-meter/body/sign-in/sign-in.component";
 import {NotFoundComponent} from "./grind-meter/body/not-found/not-found.component";
@@ -13,6 +13,8 @@ import {StartPageComponent} from "./grind-meter/body/start-page/start-page.compo
 import {
   StatisticsComponent
 } from "./grind-meter/body/my-profile/statistics/statistics.component";
+import {ManageExerciseComponent} from "./grind-meter/body/my-profile/manage-exercise/manage-exercise.component";
+import {AddExerciseComponent} from "./grind-meter/body/my-profile/add-exercise/add-exercise.component";
 
 const routes: Routes = [
   {
@@ -24,7 +26,10 @@ const routes: Routes = [
         path: 'my-profile', canActivate: [AuthGuardService], component: MyProfileComponent,
         children: [
           {path: '', component: DailyWorkoutReportComponent},
+          {path: 'daily-report', component: DailyWorkoutReportComponent},
           {path: 'statistics', component: StatisticsComponent},
+          {path: 'manage-exercise', component: ManageExerciseComponent},
+          {path: 'add-exercise', component: AddExerciseComponent},
         ]
       },
       {path: 'project/:projectId', component: ProjectPageComponent},

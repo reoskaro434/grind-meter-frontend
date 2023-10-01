@@ -1,8 +1,6 @@
-import {Exercise} from "./exercise";
-
 export enum WeightUnit {
-  Kilogram = "kg",
-  Pound = "lb"
+  Kilogram = "KG",
+  Pound = "LB"
 }
 
 export interface Weight {
