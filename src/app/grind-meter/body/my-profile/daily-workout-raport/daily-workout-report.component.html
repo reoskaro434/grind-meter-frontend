@@ -1,13 +1,13 @@
 <div>
   <ul class="list-group">
     <li class="list-group-item"
-        [ngClass]="{'active': exercise === activeExercise}"
+        [ngClass]="{'active': exercise === currentExercise}"
         *ngFor="let exercise of exercises"
         (click)="openExerciseUpdateMenu(exercise.id)">
-      <span>{{ exercise.title }}</span>
+      <span>{{ exercise.name }}</span>
     </li>
   </ul>
 </div>
-<div *ngIf="activeExercise">
-  <app-update-exercise-menu [exercise]=activeExercise ></app-update-exercise-menu>
+<div *ngIf="currentExercise">
+  <app-lift-exercise-menu [exercise]=currentExercise ></app-lift-exercise-menu>
 </div>

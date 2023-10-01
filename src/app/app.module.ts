@@ -20,7 +20,7 @@ import {ToastComponent} from "./grind-meter/body/toast/toast.component";
 import {SignUpComponent} from "./grind-meter/body/sign-up/sign-up.component";
 import {SignInComponent} from "./grind-meter/body/sign-in/sign-in.component";
 import {DailyWorkoutReportComponent} from "./grind-meter/body/my-profile/daily-workout-raport/daily-workout-report.component";
-import { UpdateExerciseMenuComponent } from './grind-meter/body/my-profile/daily-workout-raport/update-exercise-menu/update-exercise-menu.component';
+import { LiftExerciseMenuComponent } from './grind-meter/body/my-profile/daily-workout-raport/lift-exercise-menu/lift-exercise-menu.component';
 import {VerifyAccountComponent} from "./grind-meter/body/verify-account/verify-account.component";
 import {MyProfileComponent} from "./grind-meter/body/my-profile/my-profile.component";
 import {StartPageComponent} from "./grind-meter/body/start-page/start-page.component";
@@ -44,7 +44,7 @@ import {NotFoundComponent} from "./grind-meter/body/not-found/not-found.componen
     SignUpComponent,
     SignInComponent,
     DailyWorkoutReportComponent,
-    UpdateExerciseMenuComponent,
+    LiftExerciseMenuComponent,
     VerifyAccountComponent,
     MyProfileComponent,
     ToastComponent,

@@ -10,7 +10,7 @@ export class ExercisesApiCallerService {
   constructor(private http: HttpClient) {
   }
 
-  public getActiveExercises() {
-    return this.http.get<{payload:{ exercises: any }}>(`${environment.apiURL}/exercises`);
+  public getDailyExercises() {
+    return this.http.get<{payload:{ exercises: any }}>(`${environment.apiURL}/daily-exercises`);
   }
 }

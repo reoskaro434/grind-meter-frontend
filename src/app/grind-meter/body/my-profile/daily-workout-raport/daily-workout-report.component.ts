@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {BasicExerciseData} from "../../../../models/basic-exercise-data";
+import {Exercise, ExerciseType} from "../../../../models/exercise";
 import {ExercisesApiCallerService} from "../../../../api-caller/exercises-api-caller.service";
 import {map} from "rxjs";
 import {catchError} from "rxjs/operators";
+import {LiftExerciseReport} from "../../../../models/lift-exercise-report";
 
 @Component({
   selector: 'daily-workout-report',
@@ -11,40 +12,45 @@ import {catchError} from "rxjs/operators";
 })
 export class DailyWorkoutReportComponent implements OnInit {
 
-  exercises: BasicExerciseData[] = [
+  exercises: Exercise[] = [
     {
       id: 'id123bench press',
-      title: 'bench press'
+      name: 'bench press',
+      type: ExerciseType.Lift
     },
     {
       id: 'id123squat',
-      title: 'squat'
+      name: 'squat',
+      type: ExerciseType.Lift
     },
     {
       id: 'id123biceps curls',
-      title: 'biceps curls'
+      name: 'biceps curls',
+      type: ExerciseType.Lift
     },
     {
       id: 'id123lat pulldowns',
-      title: 'lat pulldowns'
+      name: 'lat pulldowns',
+      type: ExerciseType.Lift
     }
   ];
 
-  activeExercise: BasicExerciseData | null = null;
+  currentExercise: Exercise | null = null;
 
+  dailyExerciseReports = [];
   constructor(private exerciseApiCaller: ExercisesApiCallerService) {}
 
   ngOnInit(): void {
-    this.exerciseApiCaller.getActiveExercises()
+    this.exerciseApiCaller.getDailyExercises()
       .pipe(map((response) => {
         this.exercises = response.payload.exercises;
-        this.activeExercise = this.exercises.length > 0 ? this.exercises[0] : null;
+        this.currentExercise = this.exercises.length > 0 ? this.exercises[0] : null;
       }));
   }
 
   openExerciseUpdateMenu(id: string): void {
     const exercise = this.exercises.find((exercise) => exercise.id === id);
     if (exercise)
-      this.activeExercise = exercise;
+      this.currentExercise = exercise;
   }
 }

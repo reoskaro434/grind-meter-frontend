@@ -1,0 +1,47 @@
+<div class="mt-2">
+  <form (ngSubmit)="onSubmit()" #updateExerciseForm="ngForm">
+    <fieldset>
+      <legend>{{exercise.name}}</legend>
+      <div>
+        <label for="inputSets" class="form-label">Number of sets: {{liftExerciseReport.sets.length}}</label>
+        <input type="range" class="form-range" min="0" max="10" id="inputSets" name="inputSets" [(ngModel)]="inputSets"
+               (ngModelChange)="updateExerciseArrays(inputSets)" #series="ngModel">
+      </div>
+      <div>
+        <div class="d-flex flex-wrap bd-highlight mt-2" *ngIf="liftExerciseReport.sets.length > 0">
+          <div *ngFor="let singleSet of liftExerciseReport.sets; let i = index">
+            <div class="border m-1 border-light">
+                <div class="form-group m-1">
+                  <label>Repetitions:</label>
+                  <input class="form-control"
+                         type="number"
+                         id="inputRepetitions{{i}}"
+                         name="inputRepetitions{{i}}"
+                         [(ngModel)]=singleSet.repetitions
+                         required
+                         #repetitions="ngModel"
+                         [ngClass]="{'is-invalid': !isInputRepetitionsValid(singleSet.repetitions) && repetitions.touched}"
+                         min="1" step="1">
+                </div>
+                <div class="form-group m-1">
+                  <label>Weight ({{singleSet.weight.unit}}):</label>
+                  <input class="form-control"
+                         type="number"
+                         id="inputWeight{{i}}"
+                         name="inputWeight{{i}}"
+                         [(ngModel)]="singleSet.weight.mass"
+                         required
+                         #weight="ngModel"
+                         [ngClass]="{'is-invalid': !isInputWeightValid(singleSet.weight.mass) && weight.touched}">
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-2">
+        <button type="submit" class="btn btn-primary" [disabled]="isButtonDisabled()">Save</button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
