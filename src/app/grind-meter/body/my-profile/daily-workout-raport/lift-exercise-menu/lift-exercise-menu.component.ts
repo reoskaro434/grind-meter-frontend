@@ -44,7 +44,11 @@ export class LiftExerciseMenuComponent implements OnInit{
     if(currentLength < inputSeries) {
       const missingFields = inputSeries - currentLength;
       for (let i = 0; i < missingFields; i++) {
-        this.liftExerciseReport.sets.push({repetitions: null as any, weight: {unit: WeightUnit.Kilogram, mass: null as any}});
+        this.liftExerciseReport.sets.push({
+          repetitions: null as any,
+          weight: {unit: WeightUnit.Kilogram, mass: null as any},
+          index: i+1
+        });
       }
     }
   }

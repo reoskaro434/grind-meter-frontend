@@ -1,11 +1,11 @@
 <div class="mt-2">
-  <form (ngSubmit)="onSubmit()" #updateExerciseForm="ngForm">
+  <form (ngSubmit)="onSubmit()">
     <fieldset>
       <legend>{{exercise.name}}</legend>
       <div>
         <label for="inputSets" class="form-label">Number of sets: {{liftExerciseReport.sets.length}}</label>
         <input type="range" class="form-range" min="0" max="10" id="inputSets" name="inputSets" [(ngModel)]="inputSets"
-               (ngModelChange)="updateExerciseArrays(inputSets)" #series="ngModel">
+               (ngModelChange)="updateExerciseArrays(inputSets)">
       </div>
       <div>
         <div class="d-flex flex-wrap bd-highlight mt-2" *ngIf="liftExerciseReport.sets.length > 0">
