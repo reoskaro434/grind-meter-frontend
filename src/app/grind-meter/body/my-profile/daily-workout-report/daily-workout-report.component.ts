@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Exercise, ExerciseType} from "../../../../models/exercise";
-import {ExercisesApiCallerService} from "../../../../api-caller/exercises-api-caller.service";
+import {ExerciseApiCallerService} from "../../../../api-caller/exercise-api-caller.service";
 import {map} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {LiftExerciseReport} from "../../../../models/lift-exercise-report";
@@ -38,14 +38,14 @@ export class DailyWorkoutReportComponent implements OnInit {
   currentExercise: Exercise | null = null;
 
   dailyExerciseReports = [];
-  constructor(private exerciseApiCaller: ExercisesApiCallerService) {}
+  constructor(private exerciseApiCaller: ExerciseApiCallerService) {}
 
   ngOnInit(): void {
-    this.exerciseApiCaller.getDailyExercises()
-      .pipe(map((response) => {
-        this.exercises = response.payload.exercises;
-        this.currentExercise = this.exercises.length > 0 ? this.exercises[0] : null;
-      }));
+    // this.exerciseApiCaller.getDailyExercises()
+    //   .pipe(map((response) => {
+    //     this.exercises = response.payload.exercises;
+    //     this.currentExercise = this.exercises.length > 0 ? this.exercises[0] : null;
+    //   }));
   }
 
   openExerciseUpdateMenu(id: string): void {
