@@ -16,22 +16,26 @@ export class DailyWorkoutReportComponent implements OnInit {
     {
       id: 'id123bench press',
       name: 'bench press',
-      type: ExerciseType.Lift
+      type: ExerciseType.Lift,
+      isActive: true
     },
     {
       id: 'id123squat',
       name: 'squat',
-      type: ExerciseType.Lift
+      type: ExerciseType.Lift,
+      isActive: true
     },
     {
       id: 'id123biceps curls',
       name: 'biceps curls',
-      type: ExerciseType.Lift
+      type: ExerciseType.Lift,
+      isActive: true
     },
     {
       id: 'id123lat pulldowns',
       name: 'lat pulldowns',
-      type: ExerciseType.Lift
+      type: ExerciseType.Lift,
+      isActive: true
     }
   ];
 

@@ -1,7 +1,7 @@
 <div>
   <ul class="list-group">
     <li class="list-group-item" *ngFor="let exercise of exercises">
-      <span>{{ exercise.name }}</span>
+      <span>{{ exercise.name }}</span> <button class="btn btn-info col-3 m-1 text-center" (click)="updateVisibility(exercise)"></button>
     </li>
   </ul>
 </div>

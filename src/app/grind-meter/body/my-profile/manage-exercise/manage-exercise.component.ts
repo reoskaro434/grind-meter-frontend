@@ -16,9 +16,19 @@ export class ManageExerciseComponent implements OnInit {
               private toast: ToastService)
   {}
   public ngOnInit(): void {
-    this.exerciseApiCaller.getExercisePage(1).pipe(map((exercises) => this.exercises = exercises)).subscribe(); //TODO pagination
+    this.exerciseApiCaller.getExercisePage(1).pipe(map((exercises) => {
+      console.log(exercises);
+      this.exercises = exercises;
+    })).subscribe(); //TODO pagination
   }
   public onSubmit() {
+  }
+  updateVisibility(exercise: Exercise){
+    this.exerciseApiCaller.setExerciseActive(exercise.id).pipe(map((success) => {
+      if (success) {
+        exercise.isActive = true;
+      }
+    })).subscribe();
   }
 
 }

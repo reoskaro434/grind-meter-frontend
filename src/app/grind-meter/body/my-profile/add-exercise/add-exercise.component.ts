@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ExerciseApiCallerService} from "../../../../api-caller/exercise-api-caller.service";
 import {ExerciseType} from "../../../../models/exercise";
-import {NewExercise} from "../../../../models/new-exercise";
+import {Exercise} from "../../../../models/exercise";
 import {map} from "rxjs";
 import {ToastService} from "../../../../services/toast.service";
 import {ToastType} from "../../../../enums/toast-type";
-import {Form, FormBuilder, FormGroup, NgForm} from "@angular/forms";
-
+import {NgForm} from "@angular/forms";
+import { v4 } from 'uuid';
 
 @Component({
   selector: 'app-add-exercise',
@@ -27,9 +27,11 @@ export class AddExerciseComponent implements OnInit {
 
     addExerciseForm.control.reset();
 
-    const exercise: NewExercise = {
+    const exercise: Exercise = {
+      id: v4(),
       name: exerciseName,
-      type: ExerciseType.Lift
+      type: ExerciseType.Lift,
+      isActive: false
     };
 
     this.exerciseApiCaller.addExercise(exercise).pipe(map((response)=>{
