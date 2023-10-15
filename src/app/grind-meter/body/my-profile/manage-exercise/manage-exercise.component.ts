@@ -3,7 +3,7 @@ import {Exercise} from "../../../../models/exercise";
 import {ExerciseApiCallerService} from "../../../../api-caller/exercise-api-caller.service";
 import {ToastService} from "../../../../services/toast.service";
 import {map} from "rxjs";
-
+import {SelectionModel} from "@angular/cdk/collections";
 
 @Component({
   selector: 'app-manage-exercise',
@@ -12,6 +12,8 @@ import {map} from "rxjs";
 })
 export class ManageExerciseComponent implements OnInit {
   exercises: Exercise[] = [];
+  displayedColumns: string[] = ['name', 'type', 'isActive'];
+  selection = new SelectionModel<boolean>(true, []);
   constructor(private exerciseApiCaller: ExerciseApiCallerService,
               private toast: ToastService)
   {}
@@ -24,11 +26,24 @@ export class ManageExerciseComponent implements OnInit {
   public onSubmit() {
   }
   updateVisibility(exercise: Exercise){
+    if (exercise.isActive) {
+      this.exerciseApiCaller.setExerciseInactive(exercise.id).pipe(map((success) => {
+        if (success) {
+          exercise.isActive = false;
+        }
+      })).subscribe();
+    }
     this.exerciseApiCaller.setExerciseActive(exercise.id).pipe(map((success) => {
       if (success) {
         exercise.isActive = true;
       }
     })).subscribe();
+  }
+
+  onCheckboxPressed(exercise: Exercise): string {
+    this.updateVisibility(exercise)
+
+    return `${this.selection.isSelected(exercise.isActive) ? 'deselect' : 'select'}`;
   }
 
 }

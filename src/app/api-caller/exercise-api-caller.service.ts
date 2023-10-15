@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Exercise} from "../models/exercise";
 
@@ -20,7 +20,10 @@ export class ExerciseApiCallerService {
   }
 
   public setExerciseActive(id: string) {
-    return this.http.post<{}>(`${environment.apiURL}/user-exercise/set-active`, id);
+    return this.http.post<{}>(`${environment.apiURL}/user-exercise/set-active`, {id: id});
   }
 
+  public setExerciseInactive(id: string) {
+    return this.http.post<{}>(`${environment.apiURL}/user-exercise/set-inactive`, {id: id});
+  }
 }

@@ -1,7 +1,36 @@
-<div>
-  <ul class="list-group">
-    <li class="list-group-item" *ngFor="let exercise of exercises">
-      <span>{{ exercise.name }}</span> <button class="btn btn-info col-3 m-1 text-center" (click)="updateVisibility(exercise)"></button>
-    </li>
-  </ul>
+<div *ngIf="exercises.length > 0">
+  <table mat-table [dataSource]="exercises" class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Exercise Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+<!--    <ng-container matColumnDef="isActive">-->
+<!--      <th mat-header-cell *matHeaderCellDef> Is Active </th>-->
+<!--      <td mat-cell *matCellDef="let element"> {{element.isActive}} </td>-->
+<!--    </ng-container>-->
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef> Exercise Type </th>
+      <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="isActive">
+<!--      <th mat-header-cell *matHeaderCellDef>-->
+<!--        <mat-checkbox (change)="$event ? toggleAllRows() : null"-->
+<!--                      [checked]="selection.hasValue() && isAllSelected()"-->
+<!--                      [indeterminate]="selection.hasValue() && !isAllSelected()"-->
+<!--                      [aria-label]="checkboxLabel()">-->
+<!--        </mat-checkbox>-->
+<!--      </th>-->
+      <th mat-header-cell *matHeaderCellDef> Is Active </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="onCheckboxPressed(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+      (click)="selection.toggle(row)">
+    </tr>
+  </table>
 </div>

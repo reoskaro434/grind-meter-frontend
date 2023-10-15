@@ -31,7 +31,8 @@ import {NotFoundComponent} from "./grind-meter/body/not-found/not-found.componen
 import {AddExerciseComponent} from "./grind-meter/body/my-profile/add-exercise/add-exercise.component";
 import {ManageExerciseComponent} from "./grind-meter/body/my-profile/manage-exercise/manage-exercise.component";
 import {NgbCollapse, NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { MatTableModule } from '@angular/material/table'
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 
 @NgModule({
@@ -66,7 +67,9 @@ import {NgbCollapse, NgbModule} from '@ng-bootstrap/ng-bootstrap';
     ToastrModule.forRoot({
       toastComponent: ToastComponent,
     }),
-    NgbModule
+    NgbModule,
+    MatTableModule,
+    MatCheckboxModule
   ],
   providers: [
     [CookieService],
