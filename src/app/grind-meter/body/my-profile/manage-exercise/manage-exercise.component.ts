@@ -4,6 +4,7 @@ import {ExerciseApiCallerService} from "../../../../api-caller/exercise-api-call
 import {ToastService} from "../../../../services/toast.service";
 import {map} from "rxjs";
 import {SelectionModel} from "@angular/cdk/collections";
+import {ToastType} from "../../../../enums/toast-type";
 
 @Component({
   selector: 'app-manage-exercise',
@@ -19,7 +20,9 @@ export class ManageExerciseComponent implements OnInit {
   {}
   public ngOnInit(): void {
     this.exerciseApiCaller.getExercisePage(1).pipe(map((exercises) => {
-      console.log(exercises);
+      if (exercises.length === 0) {
+        this.toast.showMessage('No exercises found!', ToastType.INFO);
+      }
       this.exercises = exercises;
     })).subscribe(); //TODO pagination
   }
@@ -32,12 +35,13 @@ export class ManageExerciseComponent implements OnInit {
           exercise.isActive = false;
         }
       })).subscribe();
+    } else {
+      this.exerciseApiCaller.setExerciseActive(exercise.id).pipe(map((success) => {
+        if (success) {
+          exercise.isActive = true;
+        }
+      })).subscribe();
     }
-    this.exerciseApiCaller.setExerciseActive(exercise.id).pipe(map((success) => {
-      if (success) {
-        exercise.isActive = true;
-      }
-    })).subscribe();
   }
 
   onCheckboxPressed(exercise: Exercise): string {
