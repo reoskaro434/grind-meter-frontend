@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {Exercise} from "../../../../models/exercise";
+import {Exercise, ExerciseState} from "../../../../models/exercise";
 import {ExerciseApiCallerService} from "../../../../api-caller/exercise-api-caller.service";
 import {ToastService} from "../../../../services/toast.service";
-import {map} from "rxjs";
+import {map, of} from "rxjs";
 import {SelectionModel} from "@angular/cdk/collections";
 import {ToastType} from "../../../../enums/toast-type";
+import {catchError} from "rxjs/operators";
 
 @Component({
   selector: 'app-manage-exercise',
@@ -20,25 +21,25 @@ export class ManageExerciseComponent implements OnInit {
   {}
   public ngOnInit(): void {
     this.exerciseApiCaller.getExercisePage(1).pipe(map((exercises) => {
-      if (exercises.length === 0) {
-        this.toast.showMessage('No exercises found!', ToastType.INFO);
-      }
       this.exercises = exercises;
+    }), catchError(err => {
+      this.toast.showMessage('No exercise found!', ToastType.INFO);
+      return of(err);
     })).subscribe(); //TODO pagination
   }
   public onSubmit() {
   }
   updateVisibility(exercise: Exercise){
-    if (exercise.isActive) {
+    if (exercise.state == ExerciseState.Active) {
       this.exerciseApiCaller.setExerciseInactive(exercise.id).pipe(map((success) => {
         if (success) {
-          exercise.isActive = false;
+          exercise.state = ExerciseState.Inactive;
         }
       })).subscribe();
     } else {
       this.exerciseApiCaller.setExerciseActive(exercise.id).pipe(map((success) => {
         if (success) {
-          exercise.isActive = true;
+          exercise.state = ExerciseState.Active;
         }
       })).subscribe();
     }
@@ -47,7 +48,7 @@ export class ManageExerciseComponent implements OnInit {
   onCheckboxPressed(exercise: Exercise): string {
     this.updateVisibility(exercise)
 
-    return `${this.selection.isSelected(exercise.isActive) ? 'deselect' : 'select'}`;
+    return `${this.selection.isSelected(exercise.state === ExerciseState.Active) ? 'deselect' : 'select'}`;
   }
 
 }
