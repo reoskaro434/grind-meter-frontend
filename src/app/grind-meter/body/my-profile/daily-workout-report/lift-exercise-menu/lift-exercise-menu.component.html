@@ -1,4 +1,4 @@
-<div class="mt-2">
+<div *ngIf="liftExerciseReport" class="mt-2">
   <form (ngSubmit)="onSubmit()">
     <fieldset>
       <legend>{{exercise.name}}</legend>

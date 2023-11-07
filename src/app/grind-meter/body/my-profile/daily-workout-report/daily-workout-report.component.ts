@@ -13,36 +13,10 @@ import {ToastService} from "../../../../services/toast.service";
 export class DailyWorkoutReportComponent implements OnInit {
 
   exercises: Exercise[] = [];
-  // exercises: Exercise[] = [
-  //   {
-  //     id: 'id123bench press',
-  //     name: 'bench press',
-  //     type: ExerciseType.Lift,
-  //     state: true
-  //   },
-  //   {
-  //     id: 'id123squat',
-  //     name: 'squat',
-  //     type: ExerciseType.Lift,
-  //     state: true
-  //   },
-  //   {
-  //     id: 'id123biceps curls',
-  //     name: 'biceps curls',
-  //     type: ExerciseType.Lift,
-  //     state: true
-  //   },
-  //   {
-  //     id: 'id123lat pulldowns',
-  //     name: 'lat pulldowns',
-  //     type: ExerciseType.Lift,
-  //     state: true
-  //   }
-  // ];
 
   currentExercise: Exercise | null = null;
 
-  dailyExerciseReports = [];
+  dailyExerciseReports = []; // TODO add option to save offline workout
   constructor(private exerciseApiCaller: ExerciseApiCallerService,
               private toast: ToastService) {}
 

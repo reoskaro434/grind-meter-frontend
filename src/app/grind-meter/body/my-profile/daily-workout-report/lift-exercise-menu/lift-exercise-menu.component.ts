@@ -16,11 +16,7 @@ import {ToastType} from "../../../../../enums/toast-type";
 export class LiftExerciseMenuComponent implements OnInit{
   @Input() exercise!: Exercise;
 
-  liftExerciseReport: LiftExerciseReport = {
-    sets: [],
-    exercise: this.exercise,
-    timestamp: 0
-  };
+  liftExerciseReport: LiftExerciseReport | undefined;
   inputSets: number = 0;
   repetitionsRegex: RegExp = /^\d+$/;
   weightRegex: RegExp = /^\d+(\.\d+)?$/;
@@ -29,10 +25,20 @@ export class LiftExerciseMenuComponent implements OnInit{
               private toast: ToastService) {
   }
   ngOnInit() {
+   this.liftExerciseReport= {
+      exercise: this.exercise,
+      sets: [],
+      timestamp: 0
+    };
+   this.liftExerciseReport.exercise = this.exercise;
    this.updateExerciseArrays(this.liftExerciseReport.sets.length);
   }
 
   onSubmit() {
+    if (!this.liftExerciseReport) {
+      this.toast.showMessage("Could not prepare report!", ToastType.ERROR);
+      return;
+    }
     this.toast.showMessage("Sending report...", ToastType.INFO);
     this.exerciseReportApiCaller.saveLiftExerciseReport(this.liftExerciseReport)
       .pipe(map((response) => {
@@ -42,10 +48,13 @@ export class LiftExerciseMenuComponent implements OnInit{
       catchError(err => {
         this.toast.showMessage("Could not save the report!", ToastType.ERROR);
         throw err;
-      }));
+      })).subscribe();
   }
 
   updateExerciseArrays(inputSeries: number) {
+    if (!this.liftExerciseReport) {
+      return;
+    }
     const currentLength = this.liftExerciseReport.sets.length;
 
     if(currentLength > inputSeries) {
@@ -81,6 +90,9 @@ export class LiftExerciseMenuComponent implements OnInit{
   }
 
   isReportValid() {
+    if (!this.liftExerciseReport) {
+      return;
+    }
     const invalidSet = this.liftExerciseReport.sets.find(exerciseSet =>
       !this.isInputRepetitionsValid(exerciseSet.repetitions) || !this.isInputWeightValid(exerciseSet.weight.mass)
     );

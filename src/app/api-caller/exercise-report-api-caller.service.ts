@@ -12,7 +12,7 @@ export class ExerciseReportApiCallerService {
 
   public saveLiftExerciseReport(liftExerciseReport: LiftExerciseReport) {
     return this.http.post(
-      `${environment.apiURL}/exercise-report/add-lift-report`,
-      {"lift_exercise_report": liftExerciseReport});
+      `${environment.apiURL}/user-exercise-report/add-lift-report`,
+      liftExerciseReport);
   }
 }
