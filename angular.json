@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/golden-coin",
+            "outputPath": "dist/grind-meter",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -54,6 +54,20 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
+            },
+            "local": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
               "namedChunks": true
             }
           },
@@ -72,11 +86,11 @@
             "production": {
               "browserTarget": "golden-coin:build:production"
             },
-            "development": {
-              "browserTarget": "golden-coin:build:development"
+            "local": {
+              "browserTarget": "golden-coin:build:local"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "local"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

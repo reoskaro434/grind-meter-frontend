@@ -1,4 +1,6 @@
 export const environment = {
   production: false,
-  apiURL: "https://api-dev-eu-central-1.perfect-projects.link"
+  domain: "gm.perfect-projects.link",
+  apiDomain: "api.gm.perfect-projects.link",
+  apiURL:  `https://api.gm.perfect-projects.link/api/v1`
 };

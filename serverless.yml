@@ -1,0 +1,143 @@
+service: ${self:custom.prefix}-frontend
+
+
+# Important NOTE: after first deployment Cloud Front tents to not have appropriate role for bucket and
+# that's why mostly there is an 403 error.
+
+provider:
+  name: aws
+  runtime: python3.11
+  region: ${opt:region}
+  stage: ${opt:stage}
+  stackName: ${self:custom.prefix}-frontend
+  iam:
+    role:
+      name: ${self:custom.prefix}-frontend-role
+      statements:
+        - Effect: 'Allow'
+          Action: '*'
+          Resource: '*'
+  deploymentBucket:
+    name: ${self:custom.prefix}-deployments
+  environment:
+    REGION: ${opt:region}
+    STAGE: ${opt:stage}
+
+custom:
+  prefix: grind-meter-${self:provider.stage}-${self:provider.region}
+  s3Sync:
+    - bucketName: ${self:custom.prefix}-frontend
+      localDir: dist/grind-meter
+  customCertificate:
+    certificateName: ${opt:stage}-${opt:region}.gm.perfect-projects.link
+    hostedZoneIds: Z0244622OB5I5GBJSX1D
+    region: us-east-1 # This specific region is required due to an error from Serverless Domain Manager
+    subjectAlternativeNames:
+      - www.gm.perfect-projects.link
+      - gm.perfect-projects.link
+  certificateArn:
+    dev-eu-central-1: arn:aws:acm:us-east-1:499329456290:certificate/f7693ed7-1d7b-4474-aa36-0d5bc097b9a5
+plugins:
+  - serverless-deployment-bucket
+  - serverless-certificate-creator
+  - serverless-s3-sync
+
+resources:
+  Resources:
+    frontendS3Bucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.prefix}-frontend
+        AccessControl: Private
+        WebsiteConfiguration:
+          IndexDocument: index.html
+          ErrorDocument: index.html
+    frontendS3BucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket:
+          Ref: frontendS3Bucket
+        PolicyDocument:
+          Statement:
+            -
+              Action:
+                - "s3:GetObject"
+              Effect: Allow
+              Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { Ref : frontendS3Bucket }, "/*" ] ]  }
+              Principal:
+                AWS: {
+                  "Fn::Join" : [" ", [
+                      "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity",
+                      { Ref: cloudFrontOriginAccessIdentity }
+                  ] ]
+                }
+    frontendCloudFrontDistribution:
+      Type: AWS::CloudFront::Distribution
+      Properties:
+        DistributionConfig:
+          Origins:
+            - DomainName:
+                Fn::Join: [
+                    "", [
+                    { "Ref": "frontendS3Bucket" },
+                    ".s3.amazonaws.com"
+                  ]
+                ]
+              Id: frontend
+              S3OriginConfig:
+                OriginAccessIdentity:
+                  { "Fn::Join" : [
+                      "", ["origin-access-identity/cloudfront/", { Ref: cloudFrontOriginAccessIdentity } ]
+                  ]  }
+          Enabled: 'true'
+          Aliases:
+            - www.gm.perfect-projects.link
+            - gm.perfect-projects.link
+          DefaultRootObject: index.html
+          CustomErrorResponses:
+            - ErrorCode: 404
+              ResponseCode: 200
+              ResponsePagePath: /index.html
+            - ErrorCode: 403
+              ResponseCode: 200
+              ResponsePagePath: /index.html
+          DefaultCacheBehavior:
+            AllowedMethods:
+              - DELETE
+              - GET
+              - HEAD
+              - OPTIONS
+              - PATCH
+              - POST
+              - PUT
+            TargetOriginId: frontend
+            ForwardedValues:
+              QueryString: 'false'
+              Cookies:
+                Forward: none
+            ViewerProtocolPolicy: redirect-to-https
+          ViewerCertificate:
+            AcmCertificateArn: ${self:custom.certificateArn.${self:provider.stage}-${self:provider.region}}
+            SslSupportMethod: sni-only
+    frontendDNSNames:
+      Type: AWS::Route53::RecordSetGroup
+      Properties:
+        HostedZoneId: Z0244622OB5I5GBJSX1D
+        RecordSets:
+          - Name: gm.perfect-projects.link
+            Type: A
+            AliasTarget:
+              HostedZoneId: Z2FDTNDATAQYW2
+              DNSName: !GetAtt [ frontendCloudFrontDistribution, DomainName ]
+              EvaluateTargetHealth: false
+          - Name: www.gm.perfect-projects.link
+            Type: A
+            AliasTarget:
+              HostedZoneId: Z2FDTNDATAQYW2
+              DNSName: !GetAtt [ frontendCloudFrontDistribution, DomainName ]
+              EvaluateTargetHealth: false
+    cloudFrontOriginAccessIdentity:
+      Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+      Properties:
+        CloudFrontOriginAccessIdentityConfig:
+          Comment: OAI for ${self:custom.prefix}
