@@ -6,11 +6,11 @@ import {ToastType} from "../../../../enums/toast-type";
 import {ToastService} from "../../../../services/toast.service";
 
 @Component({
-  selector: 'daily-workout-report',
-  templateUrl: './daily-workout-report.component.html',
-  styleUrls: ['./daily-workout-report.component.css']
+  selector: 'exercise-report',
+  templateUrl: './exercise-report.component.html',
+  styleUrls: ['./exercise-report.component.css']
 })
-export class DailyWorkoutReportComponent implements OnInit {
+export class ExerciseReportComponent implements OnInit {
 
   exercises: Exercise[] = [];
 

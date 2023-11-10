@@ -19,8 +19,8 @@ import {provideToastr, ToastrModule} from "ngx-toastr";
 import {ToastComponent} from "./grind-meter/body/toast/toast.component";
 import {SignUpComponent} from "./grind-meter/body/sign-up/sign-up.component";
 import {SignInComponent} from "./grind-meter/body/sign-in/sign-in.component";
-import {DailyWorkoutReportComponent} from "./grind-meter/body/my-profile/daily-workout-report/daily-workout-report.component";
-import { LiftExerciseMenuComponent } from './grind-meter/body/my-profile/daily-workout-report/lift-exercise-menu/lift-exercise-menu.component';
+import {ExerciseReportComponent} from "./grind-meter/body/my-profile/exercise-report/exercise-report.component";
+import { LiftExerciseMenuComponent } from './grind-meter/body/my-profile/exercise-report/lift-exercise-menu/lift-exercise-menu.component';
 import {VerifyAccountComponent} from "./grind-meter/body/verify-account/verify-account.component";
 import {MyProfileComponent} from "./grind-meter/body/my-profile/my-profile.component";
 import {StartPageComponent} from "./grind-meter/body/start-page/start-page.component";
@@ -33,6 +33,7 @@ import {ManageExerciseComponent} from "./grind-meter/body/my-profile/manage-exer
 import {NgbCollapse, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { MatTableModule } from '@angular/material/table'
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { DatePickerComponent } from './grind-meter/body/date-picker/date-picker.component';
 
 
 @NgModule({
@@ -47,7 +48,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     NavbarComponent,
     SignUpComponent,
     SignInComponent,
-    DailyWorkoutReportComponent,
+    ExerciseReportComponent,
     LiftExerciseMenuComponent,
     VerifyAccountComponent,
     MyProfileComponent,
@@ -56,7 +57,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     StatisticsComponent,
     NotFoundComponent,
     AddExerciseComponent,
-    ManageExerciseComponent
+    ManageExerciseComponent,
+    DatePickerComponent
   ],
   imports: [
     BrowserModule,
