@@ -12,6 +12,8 @@ import {Router} from "@angular/router";
 })
 export class NavbarComponent {
   username = this.auth.getUsername();
+  isNavbarVisible: boolean = false;
+
   constructor(private auth: AuthService,
               private accessApiCaller: AccessApiCallerService,
               private toast: ToastService,
@@ -26,6 +28,10 @@ export class NavbarComponent {
           this.router.navigate(["/"]).then();
         }
     });
+  }
+
+  public toggleNavbar(){
+    this.isNavbarVisible = !this.isNavbarVisible;
   }
 
   isSigned(){
