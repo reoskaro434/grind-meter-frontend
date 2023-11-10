@@ -29,7 +29,7 @@ export class ManageExerciseComponent implements OnInit {
   }
   public onSubmit() {
   }
-  updateVisibility(exercise: Exercise){
+  private updateVisibility(exercise: Exercise){
     if (exercise.state == ExerciseState.Active) {
       this.exerciseApiCaller.setExerciseInactive(exercise.id).pipe(map((success) => {
         if (success) {
@@ -45,10 +45,12 @@ export class ManageExerciseComponent implements OnInit {
     }
   }
 
-  onCheckboxPressed(exercise: Exercise): string {
+  public onCheckboxPressed(exercise: Exercise): string {
     this.updateVisibility(exercise)
 
-    return `${this.selection.isSelected(exercise.state === ExerciseState.Active) ? 'deselect' : 'select'}`;
+    return `${this.selection.isSelected(exercise.state === ExerciseState.Active) ? 'select' : 'deselect'}`;
   }
-
+  public isChecked(exercise: Exercise){
+    return exercise.state === ExerciseState.Active;
+  }
 }
