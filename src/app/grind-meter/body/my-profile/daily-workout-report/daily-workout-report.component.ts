@@ -24,7 +24,6 @@ export class DailyWorkoutReportComponent implements OnInit {
     this.exerciseApiCaller.getActiveExercises()
       .pipe(map((response) => {
         this.exercises = response;
-        console.log(this.exercises)
         this.currentExercise = this.exercises.length > 0 ? this.exercises[0] : null;
         if (this.exercises.length == 0){
           this.toast.showMessage('No active exercise!', ToastType.INFO);

@@ -31,6 +31,21 @@ export class LiftExerciseMenuComponent implements OnInit{
       timestamp: 0
     };
    this.liftExerciseReport.exercise = this.exercise;
+
+   this.exerciseReportApiCaller.getLastReport(this.exercise.id).pipe(map((report) => {
+        if (report != null) {
+          this.inputSets = report.sets.length;
+          this.liftExerciseReport = {
+            exercise: this.exercise,
+            sets: report.sets,
+            timestamp: 0
+          };
+        }
+     }),
+     catchError(err => {
+       throw err;
+     })).subscribe();
+
    this.updateExerciseArrays(this.liftExerciseReport.sets.length);
   }
 
@@ -39,10 +54,12 @@ export class LiftExerciseMenuComponent implements OnInit{
       this.toast.showMessage("Could not prepare report!", ToastType.ERROR);
       return;
     }
+
+    this.liftExerciseReport.timestamp = new Date().getTime();
+
     this.toast.showMessage("Sending report...", ToastType.INFO);
     this.exerciseReportApiCaller.saveLiftExerciseReport(this.liftExerciseReport)
       .pipe(map((response) => {
-        console.log(response);
           this.toast.showMessage("Report saved!", ToastType.SUCCESS);
         }),
       catchError(err => {
@@ -67,7 +84,7 @@ export class LiftExerciseMenuComponent implements OnInit{
         this.liftExerciseReport.sets.push({
           repetitions: null as any,
           weight: {unit: WeightUnit.Kilogram, mass: null as any},
-          index: i+1
+          index: this.liftExerciseReport.sets.length + 1
         });
       }
     }

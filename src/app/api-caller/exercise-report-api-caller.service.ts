@@ -8,11 +8,18 @@ import {LiftExerciseReport} from "../models/lift-exercise-report";
 })
 export class ExerciseReportApiCallerService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   public saveLiftExerciseReport(liftExerciseReport: LiftExerciseReport) {
     return this.http.post(
       `${environment.apiURL}/user-exercise-report/add-lift-report`,
       liftExerciseReport);
+  }
+
+  public getLastReport(exercise_id: string) {
+    return this.http.get<LiftExerciseReport>(
+      `${environment.apiURL}/user-exercise-report/get-last-report/${exercise_id}`
+    );
   }
 }

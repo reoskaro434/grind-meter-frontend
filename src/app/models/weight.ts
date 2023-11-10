@@ -1,6 +1,6 @@
 export enum WeightUnit {
-  Kilogram = "KG",
-  Pound = "LB"
+  Kilogram = "kilogram"
+  // Pound = "LB"
 }
 
 export interface Weight {
