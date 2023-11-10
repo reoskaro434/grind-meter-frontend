@@ -28,18 +28,14 @@ export class LiftExerciseMenuComponent implements OnInit{
    this.liftExerciseReport= {
       exercise: this.exercise,
       sets: [],
-      timestamp: 0
+      timestamp: new Date().setHours(0,0,0,0)
     };
    this.liftExerciseReport.exercise = this.exercise;
 
    this.exerciseReportApiCaller.getLastReport(this.exercise.id).pipe(map((report) => {
         if (report != null) {
           this.inputSets = report.sets.length;
-          this.liftExerciseReport = {
-            exercise: this.exercise,
-            sets: report.sets,
-            timestamp: 0
-          };
+          this.liftExerciseReport!.sets = report.sets;
         }
      }),
      catchError(err => {
@@ -54,8 +50,6 @@ export class LiftExerciseMenuComponent implements OnInit{
       this.toast.showMessage("Could not prepare report!", ToastType.ERROR);
       return;
     }
-
-    this.liftExerciseReport.timestamp = new Date().getTime();
 
     this.toast.showMessage("Sending report...", ToastType.INFO);
     this.exerciseReportApiCaller.saveLiftExerciseReport(this.liftExerciseReport)
@@ -119,5 +113,9 @@ export class LiftExerciseMenuComponent implements OnInit{
 
   isButtonDisabled() {
     return !this.isReportValid();
+  }
+
+  updateTimestamp(timestamp: number) {
+    this.liftExerciseReport!.timestamp = timestamp;
   }
 }

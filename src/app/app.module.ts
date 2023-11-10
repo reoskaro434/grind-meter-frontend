@@ -20,7 +20,9 @@ import {ToastComponent} from "./grind-meter/body/toast/toast.component";
 import {SignUpComponent} from "./grind-meter/body/sign-up/sign-up.component";
 import {SignInComponent} from "./grind-meter/body/sign-in/sign-in.component";
 import {ExerciseReportComponent} from "./grind-meter/body/my-profile/exercise-report/exercise-report.component";
-import { LiftExerciseMenuComponent } from './grind-meter/body/my-profile/exercise-report/lift-exercise-menu/lift-exercise-menu.component';
+import {
+  LiftExerciseMenuComponent
+} from './grind-meter/body/my-profile/exercise-report/lift-exercise-menu/lift-exercise-menu.component';
 import {VerifyAccountComponent} from "./grind-meter/body/verify-account/verify-account.component";
 import {MyProfileComponent} from "./grind-meter/body/my-profile/my-profile.component";
 import {StartPageComponent} from "./grind-meter/body/start-page/start-page.component";
@@ -30,11 +32,25 @@ import {
 import {NotFoundComponent} from "./grind-meter/body/not-found/not-found.component";
 import {AddExerciseComponent} from "./grind-meter/body/my-profile/add-exercise/add-exercise.component";
 import {ManageExerciseComponent} from "./grind-meter/body/my-profile/manage-exercise/manage-exercise.component";
-import {NgbCollapse, NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { MatTableModule } from '@angular/material/table'
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {MatTableModule} from '@angular/material/table'
 import {MatCheckboxModule} from "@angular/material/checkbox";
-import { DatePickerComponent } from './grind-meter/body/date-picker/date-picker.component';
+import {DatePickerComponent} from './grind-meter/body/date-picker/date-picker.component';
+import {MatInputModule} from "@angular/material/input";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
 
+export const DateFormats = {
+  parse: {
+    dateInput: ['YYYY-MM-DD']
+  },
+  display: {
+    dateInput: 'YYYY-MM-DD',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @NgModule({
   declarations: [
@@ -71,13 +87,17 @@ import { DatePickerComponent } from './grind-meter/body/date-picker/date-picker.
     }),
     NgbModule,
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     [CookieService],
     {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},
     provideAnimations(),
-    provideToastr()
+    provideToastr(),
+    {provide: MAT_DATE_LOCALE, useValue: undefined}
   ],
   bootstrap: [AppComponent],
 

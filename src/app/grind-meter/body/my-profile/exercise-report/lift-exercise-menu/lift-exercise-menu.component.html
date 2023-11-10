@@ -1,7 +1,16 @@
 <div *ngIf="liftExerciseReport" class="mt-2">
   <form (ngSubmit)="onSubmit()">
+
     <fieldset>
-      <legend>{{exercise.name}}</legend>
+      <div class="d-flex flex-wrap justify-content-center">
+        <div class="d-flex align-items-center m-2">
+          <legend>{{exercise.name}}</legend>
+        </div>
+        <div class="d-flex m-2">
+          <app-date-picker (selectedTimestamp)="updateTimestamp($event)"></app-date-picker>
+        </div>
+      </div>
+
       <div>
         <label for="inputSets" class="form-label">Number of sets: {{liftExerciseReport.sets.length}}</label>
         <input type="range" class="form-range" min="0" max="10" id="inputSets" name="inputSets" [(ngModel)]="inputSets"
