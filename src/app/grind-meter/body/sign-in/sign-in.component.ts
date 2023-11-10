@@ -25,8 +25,8 @@ export class SignInComponent implements OnInit {
 
   onSubmit() {
     this.accessApiCaller.signIn({
-      username: this.inputUsername,
-      password: this.inputPassword
+      username: btoa(this.inputUsername),
+      password: btoa(this.inputPassword)
     }).subscribe(
       (response) => {
         this.auth.setAuthorization(response.payload.accessToken);

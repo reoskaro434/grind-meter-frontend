@@ -21,8 +21,14 @@ export class AuthService {
   }
 
   public getUsername() {
-    if (this.cookie.check("username"))
-      return atob(this.cookie.get("username"));
+    const keyValue = "username";
+
+    if (this.cookie.check(keyValue)) {
+      const cookie = this.cookie.get(keyValue).replace(/["']/g, ""); // Replace quote cause sometimes cookie is set with it (fastapi version bug?)
+
+      return atob(cookie);
+    }
+
     return "";
   }
 
