@@ -1,7 +1,40 @@
-nav {
-  /*background-color: black;*/
-  color: white;
+:root {
+  --primary-color: #3498db;
+  --secondary-color: rgba(66, 13, 13, 0);
+  --background-color: linear-gradient(344deg, rgba(2, 0, 36, 1) 17%, rgba(28, 3, 24, 1) 44%, rgba(20, 22, 23, 1) 96%);
+  --text-color: #f6d0a1;
+  --active-color: #ce7474;
+  --transparent-color: rgba(0, 0, 0, 0);
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+a, .navbar a, li, .nav-link, p, span, body, .navbar, body a:visited, .navbar a:visited, .nav-link:visited {
+  color: var(--text-color);
+}
+
+body a:hover, body a:active, .navbar a:hover, .nav-link:hover, .nav-link:active {
+  color: var(--active-color);
+}
+
+body, .navbar {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+  background: var(--background-color);
+
+}
+
+html, body {
+  height: 100%;
+}
+
+input[type=text], input[type=number], input[type=number]:active:focus, input[type=text]:active:focus {
+  appearance: none;
+  border: none;
+  outline: none;
+  border-bottom: .1em solid var(--text-color);
+  background: var(--transparent-color);
+  border-radius: .2em .2em 0 0;
+  padding: .4em;
+  color: var(--text-color);
+}
