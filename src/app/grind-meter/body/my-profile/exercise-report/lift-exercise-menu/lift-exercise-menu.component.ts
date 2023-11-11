@@ -1,12 +1,13 @@
 import {Component, Input} from '@angular/core';
 import {Exercise} from "../../../../../models/exercise";
 import {LiftExerciseReport} from "../../../../../models/lift-exercise-report";
-import {WeightUnit} from "../../../../../models/weight";
+import {Weight, WeightUnit} from "../../../../../models/weight";
 import {ExerciseReportApiCallerService} from "../../../../../api-caller/exercise-report-api-caller.service";
 import {map} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {ToastService} from "../../../../../services/toast.service";
 import {ToastType} from "../../../../../enums/toast-type";
+import {ExerciseSet} from "../../../../../models/exercise-set";
 
 @Component({
   selector: 'app-lift-exercise-menu',
@@ -14,9 +15,10 @@ import {ToastType} from "../../../../../enums/toast-type";
   styleUrls: ['./lift-exercise-menu.component.css']
 })
 export class LiftExerciseMenuComponent {
-  public _exercise!: Exercise;
+  public currentExercise!: Exercise;
 
-  liftExerciseReport: LiftExerciseReport | undefined;
+  currentReport: LiftExerciseReport | undefined;
+  lastReport: LiftExerciseReport | undefined;
   inputSets: number = 0;
   repetitionsRegex: RegExp = /^\d+$/;
   weightRegex: RegExp = /^\d+(\.\d+)?$/;
@@ -27,25 +29,34 @@ export class LiftExerciseMenuComponent {
 
   @Input()
   set exercise(exercise: Exercise) {
-    this.liftExerciseReport = undefined;
+    this.currentReport = {
+      exercise: exercise,
+      sets: [{
+        repetitions: 1,
+        weight: {
+          mass: 1,
+          unit: WeightUnit.Kilogram
+        },
+        index: 1
+      },
+        {
+          repetitions: 1,
+          weight: {
+            mass: 1,
+            unit: WeightUnit.Kilogram
+          },
+          index: 1
+        }],
+      timestamp: new Date().setHours(0,0,0,0)
+    };
     this.getLastExerciseReport(exercise.id);
-    this._exercise = exercise;
+    this.currentExercise = exercise;
   }
 
   private getLastExerciseReport(exerciseId: string) {
     this.exerciseReportApiCaller.getLastReport(exerciseId).pipe(map((report) => {
-        this.liftExerciseReport = {
-          exercise: this._exercise,
-          sets: [],
-          timestamp: new Date().setHours(0, 0, 0, 0)
-        };
-        if (report != null) {
-          this.liftExerciseReport!.sets = report.sets;
-          this.inputSets = this.liftExerciseReport.sets.length;
-          this.updateExerciseArrays(this.inputSets);
-        }else {
-          this.inputSets = 0;
-          this.updateExerciseArrays(0);
+        if (report) {
+          this.lastReport = report;
         }
       }),
       catchError(err => {
@@ -54,13 +65,13 @@ export class LiftExerciseMenuComponent {
   }
 
   onSubmit() {
-    if (!this.liftExerciseReport) {
+    if (!this.currentReport) {
       this.toast.showMessage("Could not prepare report!", ToastType.ERROR);
       return;
     }
 
     this.toast.showMessage("Sending report...", ToastType.INFO);
-    this.exerciseReportApiCaller.saveLiftExerciseReport(this.liftExerciseReport)
+    this.exerciseReportApiCaller.saveLiftExerciseReport(this.currentReport)
       .pipe(map((response) => {
           this.toast.showMessage("Report saved!", ToastType.SUCCESS);
         }),
@@ -68,28 +79,6 @@ export class LiftExerciseMenuComponent {
           this.toast.showMessage("Could not save the report!", ToastType.ERROR);
           throw err;
         })).subscribe();
-  }
-
-  updateExerciseArrays(inputSeries: number) {
-    if (!this.liftExerciseReport) {
-      return;
-    }
-    const currentLength = this.liftExerciseReport.sets.length;
-
-    if (currentLength > inputSeries) {
-      this.liftExerciseReport.sets.splice(-(currentLength - inputSeries));
-    }
-
-    if (currentLength < inputSeries) {
-      const missingFields = inputSeries - currentLength;
-      for (let i = 0; i < missingFields; i++) {
-        this.liftExerciseReport.sets.push({
-          repetitions: null as any,
-          weight: {unit: WeightUnit.Kilogram, mass: null as any},
-          index: this.liftExerciseReport.sets.length + 1
-        });
-      }
-    }
   }
 
   isInputRepetitionsValid(value: number) {
@@ -109,21 +98,20 @@ export class LiftExerciseMenuComponent {
   }
 
   isReportValid() {
-    if (!this.liftExerciseReport) {
+    if (!this.currentReport) {
       return;
     }
-    const invalidSet = this.liftExerciseReport.sets.find(exerciseSet =>
+    const invalidSet = this.currentReport.sets.find(exerciseSet =>
       !this.isInputRepetitionsValid(exerciseSet.repetitions) || !this.isInputWeightValid(exerciseSet.weight.mass)
     );
 
-    return (invalidSet === undefined && this.liftExerciseReport.sets.length > 0);
+    return (invalidSet === undefined && this.currentReport.sets.length > 0);
   }
 
-  isButtonDisabled() {
-    return !this.isReportValid();
+  isNextButtonDisabled () {
+    return false;
   }
-
   updateTimestamp(timestamp: number) {
-    this.liftExerciseReport!.timestamp = timestamp;
+    this.currentReport!.timestamp = timestamp;
   }
 }
