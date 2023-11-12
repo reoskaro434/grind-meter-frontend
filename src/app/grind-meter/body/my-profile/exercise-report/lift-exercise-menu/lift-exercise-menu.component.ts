@@ -35,9 +35,13 @@ export class LiftExerciseMenuComponent {
   private getLastExerciseReport(exerciseId: string) {
     const currentReport = this.currentReport;
     this.currentReport = undefined;
-    this.exerciseReportApiCaller.getLastReport(exerciseId).pipe(map((report) => {
-        if (report) {
-          this.currentReport = report;
+    this.exerciseReportApiCaller.getLastReport(exerciseId).pipe(map((lastReport) => {
+        if (lastReport) {
+          this.currentReport = {
+            sets: lastReport.sets,
+            exercise: lastReport.exercise,
+            timestamp: new Date().setHours(0,0,0,0)
+          }
         }
         else {
           this.currentReport = currentReport;
