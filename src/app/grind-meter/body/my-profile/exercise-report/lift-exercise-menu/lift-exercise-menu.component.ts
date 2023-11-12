@@ -1,13 +1,12 @@
 import {Component, Input} from '@angular/core';
 import {Exercise} from "../../../../../models/exercise";
 import {LiftExerciseReport} from "../../../../../models/lift-exercise-report";
-import {Weight, WeightUnit} from "../../../../../models/weight";
+import {WeightUnit} from "../../../../../models/weight";
 import {ExerciseReportApiCallerService} from "../../../../../api-caller/exercise-report-api-caller.service";
 import {map} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {ToastService} from "../../../../../services/toast.service";
 import {ToastType} from "../../../../../enums/toast-type";
-import {ExerciseSet} from "../../../../../models/exercise-set";
 
 @Component({
   selector: 'app-lift-exercise-menu',
@@ -18,8 +17,7 @@ export class LiftExerciseMenuComponent {
   public currentExercise!: Exercise;
 
   currentReport: LiftExerciseReport | undefined;
-  lastReport: LiftExerciseReport | undefined;
-  inputSets: number = 0;
+
   repetitionsRegex: RegExp = /^\d+$/;
   weightRegex: RegExp = /^\d+(\.\d+)?$/;
 
@@ -29,59 +27,27 @@ export class LiftExerciseMenuComponent {
 
   @Input()
   set exercise(exercise: Exercise) {
-    this.currentReport = {
-      exercise: exercise,
-      sets: [{
-        repetitions: 1,
-        weight: {
-          mass: 1,
-          unit: WeightUnit.Kilogram
-        },
-        index: 1
-      },
-        {
-          repetitions: 1,
-          weight: {
-            mass: 1,
-            unit: WeightUnit.Kilogram
-          },
-          index: 1
-        }],
-      timestamp: new Date().setHours(0,0,0,0)
-    };
-    this.getLastExerciseReport(exercise.id);
     this.currentExercise = exercise;
+    this.currentReport = undefined;
+    this.addSeries();
   }
 
   private getLastExerciseReport(exerciseId: string) {
+    const currentReport = this.currentReport;
+    this.currentReport = undefined;
     this.exerciseReportApiCaller.getLastReport(exerciseId).pipe(map((report) => {
         if (report) {
-          this.lastReport = report;
+          this.currentReport = report;
+        }
+        else {
+          this.currentReport = currentReport;
         }
       }),
       catchError(err => {
         throw err;
       })).subscribe();
   }
-
-  onSubmit() {
-    if (!this.currentReport) {
-      this.toast.showMessage("Could not prepare report!", ToastType.ERROR);
-      return;
-    }
-
-    this.toast.showMessage("Sending report...", ToastType.INFO);
-    this.exerciseReportApiCaller.saveLiftExerciseReport(this.currentReport)
-      .pipe(map((response) => {
-          this.toast.showMessage("Report saved!", ToastType.SUCCESS);
-        }),
-        catchError(err => {
-          this.toast.showMessage("Could not save the report!", ToastType.ERROR);
-          throw err;
-        })).subscribe();
-  }
-
-  isInputRepetitionsValid(value: number) {
+  isInputRepetitionsValid(value: number | undefined) {
     if (value) {
       return this.repetitionsRegex.test(String(value));
     }
@@ -89,7 +55,7 @@ export class LiftExerciseMenuComponent {
     return false;
   }
 
-  isInputWeightValid(value: number) {
+  isInputWeightValid(value: number | undefined) {
     if (value) {
       return this.weightRegex.test(String(value));
     }
@@ -97,21 +63,57 @@ export class LiftExerciseMenuComponent {
     return false;
   }
 
-  isReportValid() {
+  public getLastSavedReport() {
+    this.getLastExerciseReport(this.currentExercise.id);
+  }
+
+  public saveReport() {
     if (!this.currentReport) {
+      this.toast.showMessage("Could not prepare report!", ToastType.ERROR);
       return;
     }
-    const invalidSet = this.currentReport.sets.find(exerciseSet =>
-      !this.isInputRepetitionsValid(exerciseSet.repetitions) || !this.isInputWeightValid(exerciseSet.weight.mass)
-    );
 
-    return (invalidSet === undefined && this.currentReport.sets.length > 0);
+
+    for (let i = 0; i < this.currentReport.sets.length; i++) {
+      this.currentReport.sets[i].index = i + 1;
+
+      if (!this.isInputRepetitionsValid(this.currentReport.sets[i].repetitions)) {
+        this.toast.showMessage(`${this.currentReport.sets[i].index} row invalid!`, ToastType.ERROR);
+        return;
+      }
+      if (!this.isInputWeightValid(this.currentReport.sets[i].weight.mass)) {
+        this.toast.showMessage(`${this.currentReport.sets[i].index} row invalid!`, ToastType.ERROR);
+        return;
+      }
+    }
+
+    const currentReport = this.currentReport;
+
+    this.currentReport = undefined;
+
+    this.exerciseReportApiCaller.saveLiftExerciseReport(currentReport)
+      .pipe(map((response) => {
+          this.toast.showMessage("saved", ToastType.SUCCESS);
+          this.currentReport = currentReport;
+        }),
+        catchError(err => {
+          this.toast.showMessage("Could not save the report!", ToastType.ERROR);
+          this.currentReport = currentReport;
+          throw err;
+        })).subscribe();
+  }
+  deleteSeries(index: number) {
+    this.currentReport?.sets.splice(index, 1);
   }
 
-  isNextButtonDisabled () {
-    return false;
-  }
-  updateTimestamp(timestamp: number) {
-    this.currentReport!.timestamp = timestamp;
+  addSeries() {
+    if (this.currentReport === undefined)
+      this.currentReport = {
+      exercise: this.currentExercise,
+        sets: [],
+        timestamp: new Date().setHours(0,0,0,0)
+      }
+    // @ts-ignore
+    this.currentReport?.sets.push({weight: {mass:undefined, unit:WeightUnit.Kilogram}, repetitions: undefined, index: undefined})
   }
 }

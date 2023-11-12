@@ -3,5 +3,13 @@
 }
 
 button {
-  border-radius: 10em;
+  border-radius: 20%;
+  border: none;
+}
+.add-icon {
+  font-size: 1.3em;
+}
+
+.del-icon {
+  font-size: 0.8em;
 }
