@@ -13,3 +13,7 @@ button {
 .del-icon {
   font-size: 0.8em;
 }
+
+.save-button-warning {
+  color: #09b209;
+}

@@ -17,9 +17,9 @@ export class ExerciseReportApiCallerService {
       liftExerciseReport);
   }
 
-  public getLastReport(exercise_id: string) {
-    return this.http.get<LiftExerciseReport>(
-      `${environment.apiURL}/exercise-report/get-last-report/${exercise_id}`
+  public getLastReport(exercise_id: string, count: number) {
+    return this.http.get<LiftExerciseReport[]>(
+      `${environment.apiURL}/exercise-report/get-last-report/${exercise_id}/${count}`
     );
   }
 }

@@ -1,12 +1,13 @@
 :root {
-  --primary-color: linear-gradient(344deg, rgb(59, 3, 50) 44%, rgb(51, 1, 80) 96%);
+  --primary-color: radial-gradient(circle, rgb(22, 22, 37) 52%, rgb(11, 20, 23) 100%);
   --secondary-color: rgba(66, 13, 13, 100);
   --disabled-color: rgba(52, 51, 51, 100);
   --disabled-text-color: rgba(210, 184, 184, 100);
-  --background-color: linear-gradient(344deg, rgba(2, 0, 36, 1) 17%, rgba(28, 3, 24, 1) 44%, rgba(20, 22, 23, 1) 96%);
+  --background-color: radial-gradient(circle, rgba(27, 27, 41, 1) 52%, rgba(21, 28, 51, 1) 100%);
   --text-color: #f6d0a1;
-  --active-color: #ce7474;
+  --active-color: radial-gradient(circle, rgb(39, 39, 59) 52%, rgb(27, 36, 66) 100%);
   --transparent-color: rgba(0, 0, 0, 0);
+  --navbar-color: radial-gradient(circle, rgb(16, 16, 35) 52%, rgb(17, 22, 40) 100%);
 }
 
 
@@ -18,7 +19,15 @@ body a:hover, body a:active, .navbar a:hover, .nav-link:hover, .nav-link:active 
   color: var(--active-color);
 }
 
-body, .navbar {
+.navbar {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+  background: var(--navbar-color);
+
+}
+
+body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 

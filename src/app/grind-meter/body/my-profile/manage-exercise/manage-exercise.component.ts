@@ -14,7 +14,7 @@ import {catchError} from "rxjs/operators";
 })
 export class ManageExerciseComponent implements OnInit {
   exercises: Exercise[] = [];
-  displayedColumns: string[] = ['name', 'type', 'isActive'];
+  displayedColumns: string[] = ['name', 'type', 'isActive', 'Actions'];
   selection = new SelectionModel<boolean>(true, []);
   constructor(private exerciseApiCaller: ExerciseApiCallerService,
               private toast: ToastService)
@@ -27,8 +27,7 @@ export class ManageExerciseComponent implements OnInit {
       return of(err);
     })).subscribe(); //TODO pagination
   }
-  public onSubmit() {
-  }
+
   private updateVisibility(exercise: Exercise){
     if (exercise.state == ExerciseState.Active) {
       this.exerciseApiCaller.setExerciseInactive(exercise.id).pipe(map((success) => {
@@ -52,5 +51,9 @@ export class ManageExerciseComponent implements OnInit {
   }
   public isChecked(exercise: Exercise){
     return exercise.state === ExerciseState.Active;
+  }
+
+  public onExerciseClicked(row: Exercise) {
+    console.log(row);
   }
 }

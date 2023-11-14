@@ -1,5 +1,6 @@
 <div *ngIf="exercises.length > 0; else loading" >
-  <table mat-table [dataSource]="exercises" class="mat-elevation-z1">
+  <table mat-table [dataSource]="exercises" class="mat-elevation-z1 exercises-table">
+
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Exercise Name </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
@@ -10,15 +11,22 @@
     </ng-container>
 
     <ng-container matColumnDef="isActive">
-      <th mat-header-cell *matHeaderCellDef> Is Active </th>
+      <th mat-header-cell *matHeaderCellDef> Daily </th>
       <td mat-cell *matCellDef="let row">
         <mat-checkbox (click)="onCheckboxPressed(row)" [checked]="isChecked(row)">
         </mat-checkbox>
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="Actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let row">
+        <button><i class="bi bi-arrow-right"></i></button>
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+    <tr class="gm-row" mat-row *matRowDef="let row; columns: displayedColumns;"
       (click)="selection.toggle(row)">
     </tr>
   </table>

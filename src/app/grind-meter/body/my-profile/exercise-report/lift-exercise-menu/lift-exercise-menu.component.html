@@ -1,5 +1,5 @@
 <div class="mt-2" *ngIf="currentReport; else loading">
-<!--  <form (ngSubmit)="onSubmit()">-->
+  <!--  <form (ngSubmit)="onSubmit()">-->
   <form>
 
     <fieldset>
@@ -7,47 +7,54 @@
         <div class="align-items-center m-2">
           <legend>{{currentExercise.name}}</legend>
         </div>
+        <div *ngIf="!isReportSaved">
+          <em style="color:darkred">unsaved</em>
+        </div>
         <!--        <div class="d-flex m-2">-->
         <!--          <app-date-picker (selectedTimestamp)="updateTimestamp($event)"></app-date-picker>-->
         <!--        </div>-->
       </div>
       <div *ngFor="let singleSet of currentReport?.sets; let i = index">
-      <div class="d-flex bd-highlight mt-2 justify-content-between">
+        <div class="d-flex bd-highlight mt-2 justify-content-between">
 
-        <div>
-          <div class="mt-2 d-flex">
-            <div class="m-2 align-self-center">
-              <span>#{{i+1}}</span>
-            </div>
-            <div class="form-group m-1">
-              <label>reps</label>
-              <input class="form-control"
-                     type="number"
-                     id="inputRepetitions{{i}}"
-                     name="inputRepetitions{{i}}"
-                     [(ngModel)]=singleSet.repetitions
-                     required
-                     #repetitions="ngModel"
-                     min="1" step="1"
-                     autocomplete="off">
-            </div>
-            <div class="form-group m-1">
-              <label class="">weight</label>
-              <input class="form-control"
-                     type="number"
-                     id="inputWeight{{i}}"
-                     name="inputWeight{{i}}"
-                     [(ngModel)]="singleSet.weight.mass"
-                     required
-                     #weight="ngModel"
-                     autocomplete="off">
+          <div>
+            <div class="mt-2 d-flex">
+              <div class="m-2 align-self-center">
+                <span>#{{i + 1}}</span>
+              </div>
+              <div class="form-group m-1">
+                <label>reps</label>
+                <input class="form-control"
+                       type="number"
+                       id="inputRepetitions{{i}}"
+                       name="inputRepetitions{{i}}"
+                       [(ngModel)]=singleSet.repetitions
+                       required
+                       #repetitions="ngModel"
+                       min="1" step="1"
+                       autocomplete="off"
+                      (change)="onRepsChange(singleSet.repetitions)"
+                >
+              </div>
+              <div class="form-group m-1">
+                <label class="">weight</label>
+                <input class="form-control"
+                       type="number"
+                       id="inputWeight{{i}}"
+                       name="inputWeight{{i}}"
+                       [(ngModel)]="singleSet.weight.mass"
+                       required
+                       #weight="ngModel"
+                       autocomplete="off"
+                       (change)="onWeightChange(singleSet.weight.mass)"
+                >
+              </div>
             </div>
           </div>
+          <div class="mt-2 align-self-center">
+            <button (click)="deleteSeries(i)"><i class="bi bi-x-lg del-icon"></i></button>
+          </div>
         </div>
-        <div class="mt-2 align-self-center">
-          <button (click)="deleteSeries(i)"><i class="bi bi-x-lg del-icon"></i></button>
-        </div>
-      </div>
       </div>
     </fieldset>
   </form>
@@ -56,21 +63,29 @@
       <button (click)="addSeries()"><i class="bi bi-plus-lg bottom-icon"></i></button>
     </div>
     <div class="m-3">
-      <button (click)="getLastSavedReport()">
-        <i class="bi bi-cloud-download"></i>
-      </button>
-    </div>
-    <div class="m-3">
-      <button (click)="saveReport()"><i class="bi bi-save bottom-icon"></i></button>
+      <button (click)="saveReport()"><i [ngClass]="{'save-button-warning': !isReportSaved}" class="bi bi-save bottom-icon"></i></button>
     </div>
   </div>
+
+  <div *ngIf="lastReport">
+    <em> last session: {{ lastReport.timestamp | date:'dd.MM.yyyy' }}</em>
+    <br>
+    <br>
+
+    <div *ngFor="let singleSet of lastReport?.sets; let i = index">
+      <span>
+            <em> {{i+1}}: {{singleSet.repetitions}} x {{ singleSet.weight.mass }}kg</em>
+      </span>
+    </div>
+  </div>
+
 </div>
 
 <ng-template #loading>
   <div class="d-flex justify-content-center">
-  <div class="m-4 spinner-border" role="status">
-    <span class="sr-only"></span>
-  </div>
+    <div class="m-4 spinner-border" role="status">
+      <span class="sr-only"></span>
+    </div>
   </div>
 </ng-template>
 

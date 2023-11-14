@@ -1,4 +1,4 @@
-/*a, a:hover, a:focus, a:active {*/
-/*  text-decoration: none;*/
-/*  color: inherit;*/
-/*}*/
+i {
+  color: var(--text-color);
+  font-size: 1.3em;
+}
