@@ -13,7 +13,11 @@ button {
 .del-icon {
   font-size: 0.8em;
 }
-
+@keyframes blink {
+  0% { color: var(--text-color); }
+  20% { color: white; }
+  100% { color: var(--text-color); }
+}
 .save-button-warning {
-  color: #09b209;
+  animation: blink 1s infinite;
 }
