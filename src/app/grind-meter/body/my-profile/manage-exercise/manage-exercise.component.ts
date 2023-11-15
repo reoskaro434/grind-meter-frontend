@@ -6,6 +6,7 @@ import {map, of} from "rxjs";
 import {SelectionModel} from "@angular/cdk/collections";
 import {ToastType} from "../../../../enums/toast-type";
 import {catchError} from "rxjs/operators";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-manage-exercise',
@@ -17,7 +18,9 @@ export class ManageExerciseComponent implements OnInit {
   displayedColumns: string[] = ['name', 'type', 'isActive', 'Actions'];
   selection = new SelectionModel<boolean>(true, []);
   constructor(private exerciseApiCaller: ExerciseApiCallerService,
-              private toast: ToastService)
+              private toast: ToastService,
+              private router: Router,
+              private route: ActivatedRoute)
   {}
   public ngOnInit(): void {
     this.exerciseApiCaller.getExercisePage(1).pipe(map((exercises) => {
@@ -55,5 +58,10 @@ export class ManageExerciseComponent implements OnInit {
 
   public onExerciseClicked(row: Exercise) {
     console.log(row);
+  }
+
+  public navigateToStatistics(exerciseId: any) {
+    console.log(exerciseId);
+    this.router.navigate([`../statistics/${exerciseId}`], { relativeTo: this.route }).then();
   }
 }

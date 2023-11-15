@@ -1,3 +1,13 @@
 <div>
-  <span>Welcome to Grind Meter!</span>
+  <div class="d-flex justify-content-center">
+    <div>
+      <span>  Welcome to Grind Meter </span>
+    </div>
+  </div>
+  <br>
+  <div *ngIf="username !== ''" class="d-flex justify-content-center">
+    <div class="m-1">
+      <button>Daily Report</button>
+    </div>
+  </div>
 </div>

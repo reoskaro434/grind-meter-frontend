@@ -39,6 +39,7 @@ import {DatePickerComponent} from './grind-meter/body/date-picker/date-picker.co
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
+import { ExerciseStatisticTableComponent } from './grind-meter/body/my-profile/statistics/exercise-statistic-table/exercise-statistic-table.component';
 
 export const DateFormats = {
   parse: {
@@ -74,7 +75,8 @@ export const DateFormats = {
     NotFoundComponent,
     AddExerciseComponent,
     ManageExerciseComponent,
-    DatePickerComponent
+    DatePickerComponent,
+    ExerciseStatisticTableComponent
   ],
   imports: [
     BrowserModule,

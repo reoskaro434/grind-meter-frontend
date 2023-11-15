@@ -15,6 +15,9 @@ import {
 } from "./grind-meter/body/my-profile/statistics/statistics.component";
 import {ManageExerciseComponent} from "./grind-meter/body/my-profile/manage-exercise/manage-exercise.component";
 import {AddExerciseComponent} from "./grind-meter/body/my-profile/add-exercise/add-exercise.component";
+import {
+  ExerciseStatisticTableComponent
+} from "./grind-meter/body/my-profile/statistics/exercise-statistic-table/exercise-statistic-table.component";
 
 const routes: Routes = [
   {
@@ -27,7 +30,9 @@ const routes: Routes = [
         children: [
           {path: '', component: ExerciseReportComponent},
           {path: 'daily-report', component: ExerciseReportComponent},
-          {path: 'statistics', component: StatisticsComponent},
+          {path: 'statistics', component: StatisticsComponent, children: [
+                {path: ':exerciseId', component: ExerciseStatisticTableComponent},
+            ]},
           {path: 'manage-exercise', component: ManageExerciseComponent},
           {path: 'add-exercise', component: AddExerciseComponent},
         ]

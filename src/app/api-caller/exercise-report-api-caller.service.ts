@@ -22,4 +22,10 @@ export class ExerciseReportApiCallerService {
       `${environment.apiURL}/exercise-report/get-last-report/${exercise_id}/${count}`
     );
   }
+
+  public getReports(exercise_id: string, page: number) {
+    return this.http.get<LiftExerciseReport[]>(
+      `${environment.apiURL}/exercise-report/get-reports/${exercise_id}/${page}`
+    );
+  }
 }
