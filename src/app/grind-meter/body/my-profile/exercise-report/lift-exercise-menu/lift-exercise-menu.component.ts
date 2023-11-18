@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Exercise} from "../../../../../models/exercise";
 import {LiftExerciseReport} from "../../../../../models/lift-exercise-report";
 import {WeightUnit} from "../../../../../models/weight";
@@ -128,7 +128,6 @@ export class LiftExerciseMenuComponent{
     this.isReportSaved = true;
     this.exerciseReportApiCaller.saveLiftExerciseReport(currentReport)
       .pipe(map((response) => {
-          this.toast.showMessage("saved", ToastType.SUCCESS);
           this.currentReport = currentReport;
           this.localStorage.saveForToday(`${this.currentExercise.id}_isReportSaved`, this.isReportSaved);
 
@@ -141,7 +140,7 @@ export class LiftExerciseMenuComponent{
         })).subscribe();
   }
   deleteSeries(index: number) {
-    const deletedSet = this.currentReport?.sets.splice(index, 1);
+    // const deletedSet = this.currentReport?.sets.splice(index, 1);
     this.localStorage.saveForToday(`${this.currentExercise.id}_currentReport`,this.currentReport);
     this.isReportSaved = false;
     this.localStorage.saveForToday(`${this.currentExercise.id}_isReportSaved`, this.isReportSaved);
