@@ -1,9 +1,17 @@
 
 <div *ngIf="exerciseReportList; else loading">
+
+  <div>
+    <h3>{{exercise?.name}}</h3>
+  </div>
+  <br>
+
   <div *ngFor="let exerciseReport of exerciseReportList; let j = index">
+    <div class="d-flex justify-content-center">
+      <em> {{ exerciseReport.timestamp | date:'dd.MM.yyyy' }}</em>
+    </div>
     <div class="d-flex gm-report">
       <div>
-        <em> {{ exerciseReport.timestamp | date:'dd.MM.yyyy' }}</em>
         <br>
         <div *ngFor="let singleSet of exerciseReport?.sets; let i = index">
       <span>

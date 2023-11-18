@@ -3,16 +3,23 @@
 }
 
 button {
-  border-radius: 20%;
+  border-radius: 10%;
+
   border: none;
-}
-.add-icon {
-  font-size: 1.3em;
+  background: var(--transparent-color) !important;
 }
 
+.add-icon {
+  font-size: 1.5em;
+}
+.save-icon {
+  font-size: 1.5em;
+}
 .del-icon {
   font-size: 0.8em;
 }
+
+
 @keyframes blink {
   0% { color: var(--text-color); }
   20% { color: white; }

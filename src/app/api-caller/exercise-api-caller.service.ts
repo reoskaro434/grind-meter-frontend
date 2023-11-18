@@ -30,4 +30,8 @@ export class ExerciseApiCallerService {
   public getActiveExercises() {
     return this.http.get<Exercise[]>(`${environment.apiURL}/exercise/get-active-exercises`);
   }
+
+  public getExerciseById(exercise_id: string) {
+    return this.http.get<Exercise>(`${environment.apiURL}/exercise/get-exercise/${exercise_id}`);
+  }
 }

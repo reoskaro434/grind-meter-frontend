@@ -13,6 +13,7 @@ import {Router} from "@angular/router";
 export class NavbarComponent {
   username = this.auth.getUsername();
   isNavbarVisible: boolean = false;
+  isUserOptionVisible: boolean = false;
 
   constructor(private auth: AuthService,
               private accessApiCaller: AccessApiCallerService,
@@ -21,10 +22,14 @@ export class NavbarComponent {
   }
 
   public onSignOut(){
+    this.isNavbarVisible = false;
+    this.isUserOptionVisible = false;
+
     this.accessApiCaller.signOut().subscribe((response)=>{
         if (response){
           this.toast.showMessage("You were signed out", ToastType.INFO);
           this.auth.cleanAuthorization();
+
           this.router.navigate(["/"]).then();
         }
     });
@@ -32,6 +37,13 @@ export class NavbarComponent {
 
   public toggleNavbar(){
     this.isNavbarVisible = !this.isNavbarVisible;
+    if (this.isNavbarVisible === false) {
+      this.isUserOptionVisible = false;
+    }
+  }
+
+  public toggleUserOption(){
+    this.isUserOptionVisible = !this.isUserOptionVisible;
   }
 
   isSigned(){
