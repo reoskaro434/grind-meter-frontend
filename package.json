@@ -8,7 +8,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy:dev": "ng build --configuration development && serverless s3sync --stage dev --region eu-central-1"
+    "deploy:dev": "ng build --configuration development && serverless s3sync --stage dev --region eu-central-1 && aws cloudfront create-invalidation --distribution-id EUVIN1GYY2YHY --paths /*"
   },
   "private": true,
   "dependencies": {

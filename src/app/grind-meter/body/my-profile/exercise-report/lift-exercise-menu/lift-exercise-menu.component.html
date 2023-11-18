@@ -60,11 +60,14 @@
   </form>
   <div class="m-3 d-flex justify-content-center">
     <div class="m-3">
-      <button (click)="addSeries()"><i class="bi bi-plus-lg bottom-icon"></i></button>
+      <button (click)="addSeries()"><i class="bi bi-plus-lg add-icon"></i></button>
     </div>
     <div class="m-3">
 
-      <button (click)="saveReport()"><i [ngClass]="{'save-button-warning': !isReportSaved}" class="bi bi-save bottom-icon"></i></button>
+      <button [disabled]="isReportSaved" (click)="saveReport()">
+        <i [hidden]="isReportSaved" [ngClass]="{'save-button-warning': !isReportSaved}" class="save-icon bi bi-check-lg"></i>
+
+      </button>
 
     </div>
   </div>

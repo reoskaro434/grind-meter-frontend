@@ -124,17 +124,17 @@ export class LiftExerciseMenuComponent{
 
     const currentReport = this.currentReport;
 
-    this.currentReport = undefined;
-
+    // this.currentReport = undefined;
+    this.isReportSaved = true;
     this.exerciseReportApiCaller.saveLiftExerciseReport(currentReport)
       .pipe(map((response) => {
           this.toast.showMessage("saved", ToastType.SUCCESS);
           this.currentReport = currentReport;
-          this.isReportSaved = true;
           this.localStorage.saveForToday(`${this.currentExercise.id}_isReportSaved`, this.isReportSaved);
 
         }),
         catchError(err => {
+          this.isReportSaved = false;
           this.toast.showMessage("Could not save the report!", ToastType.ERROR);
           this.currentReport = currentReport;
           throw err;
