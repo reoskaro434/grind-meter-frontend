@@ -20,9 +20,9 @@ button {
 
 @keyframes blink {
   0% { color: var(--text-color); }
-  20% { color: white; }
+  50% { color: white; }
   100% { color: var(--text-color); }
 }
 .save-button-warning {
-  animation: blink 1s infinite;
+  animation: blink .5s infinite;
 }

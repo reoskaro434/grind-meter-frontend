@@ -93,3 +93,20 @@ button:disabled {
   color: var(--disabled-text-color);
   cursor: not-allowed;
 }
+
+
+.gm-dropdown {
+  background:  var(--primary-color);
+  border: none;
+  color: var(--text-color);
+}
+
+/*.gm-dropdown a {*/
+/*  color: var(--background-color);*/
+/*}*/
+
+.gm-dropdown a:hover {
+  background-color: var(--transparent-color);
+  color: var(--text-color);
+  cursor: pointer;
+}

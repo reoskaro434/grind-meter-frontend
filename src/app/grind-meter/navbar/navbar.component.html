@@ -29,22 +29,30 @@
     <a class="navbar-brand" [ngClass]="{'gm-name': blink}" href="">GM</a>
     <div class="d-flex">
       <div *ngIf="isSigned()">
-        <ul class="nav justify-content-end">
-          <li class="nav-item">
-            <a class="nav-link" (click)="toggleUserOption()">
-              {{username}} <i class="bi bi-gear"></i>
-            </a>
-            <div class="collapse navbar-collapse" id="navbarUserOption" [ngClass]="{'show': isUserOptionVisible}">
-                <ul class="nav nav-pills">
-                  <li class="nav-item">
-                    <a class="nav-link" (click)="onSignOut()">
-                      Sign Out
-                    </a>
-                  </li>
-                </ul>
-            </div>
-          </li>
-        </ul>
+        <div class="dropdown">
+          <span (click)="toggleUserOption()" class="dropdown-toggle" type="button" id="userOptions" data-toggle="dropdown" >
+            {{username}} <i class="bi bi-gear"></i>
+          </span>
+          <div class="dropdown-menu gm-dropdown" aria-labelledby="userOptions" [ngClass]="{'show': isUserOptionVisible}">
+              <a class="dropdown-item" (click)="onSignOut()">sign out</a>
+          </div>
+        </div>
+<!--        <ul class="nav justify-content-end">-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" (click)="toggleUserOption()">-->
+<!--              {{username}} <i class="bi bi-gear"></i>-->
+<!--            </a>-->
+<!--            <div class="collapse navbar-collapse" id="navbarUserOption" [ngClass]="{'show': isUserOptionVisible}">-->
+<!--                <ul class="nav nav-pills">-->
+<!--                  <li class="nav-item">-->
+<!--                    <a class="nav-link" (click)="onSignOut()">-->
+<!--                      Sign Out-->
+<!--                    </a>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--          </li>-->
+<!--        </ul>-->
       </div>
       <div *ngIf="!isSigned()">
         <ul class="nav justify-content-end">
