@@ -1,27 +1,35 @@
-<div *ngIf="exercises.length > 0; else loading" >
-  <table mat-table [dataSource]="exercises" class="mat-elevation-z1 exercises-table">
+<div *ngIf="plans.length < 10; else limit">
+  <app-add-plan></app-add-plan>
+</div>
+<ng-template #limit>
+  <div class="d-flex justify-content-center">
+    <div class="m-4">
+      <span>You've reached the limits</span>
+    </div>
+  </div>
+</ng-template>
+<div *ngIf="plans.length > 0; else loading">
+
+
+  <br>
+  <table mat-table [dataSource]="plans" class="mat-elevation-z1 exercises-table">
 
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Exercise Name </th>
+      <th mat-header-cell *matHeaderCellDef> Plan Name </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
-    <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef> Exercise Type </th>
-      <td mat-cell *matCellDef="let element"> {{element.type}} </td>
-    </ng-container>
-
     <ng-container matColumnDef="isActive">
       <th mat-header-cell *matHeaderCellDef> Daily </th>
       <td mat-cell *matCellDef="let row">
-        <mat-checkbox (click)="onCheckboxPressed(row)" [checked]="isChecked(row)">
+        <mat-checkbox>
         </mat-checkbox>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="Actions">
-      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let row">
-        <button (click)="navigateToStatistics(row.id)"><i class="bi bi-arrow-right"></i></button>
+        <button>Manage</button>
       </td>
     </ng-container>
 

@@ -30,8 +30,8 @@ import {
   StatisticsComponent
 } from "./grind-meter/body/my-profile/statistics/statistics.component";
 import {NotFoundComponent} from "./grind-meter/body/not-found/not-found.component";
-import {AddExerciseComponent} from "./grind-meter/body/my-profile/add-exercise/add-exercise.component";
-import {ManageExerciseComponent} from "./grind-meter/body/my-profile/manage-exercise/manage-exercise.component";
+import {AddExerciseComponent} from "./grind-meter/body/my-profile/exercises/add-exercise/add-exercise.component";
+import {ExercisesComponent} from "./grind-meter/body/my-profile/exercises/exercises.component";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatTableModule} from '@angular/material/table'
 import {MatCheckboxModule} from "@angular/material/checkbox";
@@ -40,7 +40,8 @@ import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
 import { ExerciseStatisticTableComponent } from './grind-meter/body/my-profile/statistics/exercise-statistic-table/exercise-statistic-table.component';
-import {AddPlanComponent} from "./grind-meter/body/my-profile/add-plan/add-plan.component";
+import {AddPlanComponent} from "./grind-meter/body/my-profile/plans/add-plan/add-plan.component";
+import {PlansComponent} from "./grind-meter/body/my-profile/plans/plans.component";
 
 export const DateFormats = {
   parse: {
@@ -76,9 +77,10 @@ export const DateFormats = {
     NotFoundComponent,
     AddExerciseComponent,
     AddPlanComponent,
-    ManageExerciseComponent,
+    ExercisesComponent,
     DatePickerComponent,
-    ExerciseStatisticTableComponent
+    ExerciseStatisticTableComponent,
+    PlansComponent
   ],
   imports: [
     BrowserModule,

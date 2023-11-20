@@ -14,10 +14,10 @@ export class PlanApiCallerService {
   public addPlan(plan: Plan) {
     return this.http.post<{}>(`${environment.apiURL}/plan/add-plan`, plan);
   }
-  //
-  // public getExercisePage(page: number) {
-  //   return this.http.get<Exercise[]>(`${environment.apiURL}/exercise/get-exercises/${page}`);
-  // }
+
+  public getPlansPage(page: number) {
+    return this.http.get<Plan[]>(`${environment.apiURL}/plan/get-plans/${page}`);
+  }
   //
   // public setExerciseActive(id: string) {
   //   return this.http.post<{}>(`${environment.apiURL}/exercise/set-active`, {id: id});

@@ -13,12 +13,12 @@ import {StartPageComponent} from "./grind-meter/body/start-page/start-page.compo
 import {
   StatisticsComponent
 } from "./grind-meter/body/my-profile/statistics/statistics.component";
-import {ManageExerciseComponent} from "./grind-meter/body/my-profile/manage-exercise/manage-exercise.component";
-import {AddExerciseComponent} from "./grind-meter/body/my-profile/add-exercise/add-exercise.component";
+import {ExercisesComponent} from "./grind-meter/body/my-profile/exercises/exercises.component";
+import {AddExerciseComponent} from "./grind-meter/body/my-profile/exercises/add-exercise/add-exercise.component";
 import {
   ExerciseStatisticTableComponent
 } from "./grind-meter/body/my-profile/statistics/exercise-statistic-table/exercise-statistic-table.component";
-import {AddPlanComponent} from "./grind-meter/body/my-profile/add-plan/add-plan.component";
+import {PlansComponent} from "./grind-meter/body/my-profile/plans/plans.component";
 
 const routes: Routes = [
   {
@@ -34,9 +34,8 @@ const routes: Routes = [
           {path: 'statistics', component: StatisticsComponent, children: [
                 {path: ':exerciseId', component: ExerciseStatisticTableComponent},
             ]},
-          {path: 'manage-exercise', component: ManageExerciseComponent},
-          {path: 'add-exercise', component: AddExerciseComponent},
-          {path: 'add-plan', component: AddPlanComponent},
+          {path: 'exercises', component: ExercisesComponent},
+          {path: 'plans', component: PlansComponent},
         ]
       },
       {path: 'project/:projectId', component: ProjectPageComponent},

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ExerciseApiCallerService} from "../../../../api-caller/exercise-api-caller.service";
-import {Exercise, ExerciseState, ExerciseType} from "../../../../models/exercise";
+import {ExerciseApiCallerService} from "../../../../../api-caller/exercise-api-caller.service";
+import {Exercise, ExerciseState, ExerciseType} from "../../../../../models/exercise";
 import {map} from "rxjs";
-import {ToastService} from "../../../../services/toast.service";
-import {ToastType} from "../../../../enums/toast-type";
+import {ToastService} from "../../../../../services/toast.service";
+import {ToastType} from "../../../../../enums/toast-type";
 import {NgForm} from "@angular/forms";
 import {v4} from 'uuid';
 

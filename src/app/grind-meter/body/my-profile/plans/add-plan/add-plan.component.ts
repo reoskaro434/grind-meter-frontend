@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {map} from "rxjs";
-import {ToastService} from "../../../../services/toast.service";
-import {ToastType} from "../../../../enums/toast-type";
+import {ToastService} from "../../../../../services/toast.service";
+import {ToastType} from "../../../../../enums/toast-type";
 import {NgForm} from "@angular/forms";
 import {v4} from 'uuid';
-import {PlanApiCallerService} from "../../../../api-caller/plan-api-caller.service";
-import {Plan, PlanState} from "../../../../models/plan";
+import {PlanApiCallerService} from "../../../../../api-caller/plan-api-caller.service";
+import {Plan, PlanState} from "../../../../../models/plan";
 
 @Component({
-  selector: 'app-add-exercise',
+  selector: 'app-add-plan',
   templateUrl: './add-plan.component.html',
   styleUrls: ['./add-plan.component.css']
 })

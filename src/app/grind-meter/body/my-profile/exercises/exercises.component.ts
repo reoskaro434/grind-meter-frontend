@@ -9,11 +9,11 @@ import {catchError} from "rxjs/operators";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
-  selector: 'app-manage-exercise',
-  templateUrl: './manage-exercise.component.html',
-  styleUrls: ['./manage-exercise.component.css']
+  selector: 'app-exercises',
+  templateUrl: './exercises.component.html',
+  styleUrls: ['./exercises.component.css']
 })
-export class ManageExerciseComponent implements OnInit {
+export class ExercisesComponent implements OnInit {
   exercises: Exercise[] = [];
   displayedColumns: string[] = ['name', 'type', 'isActive', 'Actions'];
   selection = new SelectionModel<boolean>(true, []);
