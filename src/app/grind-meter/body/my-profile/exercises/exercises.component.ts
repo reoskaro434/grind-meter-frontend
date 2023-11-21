@@ -17,6 +17,7 @@ export class ExercisesComponent implements OnInit {
   exercises: Exercise[] = [];
   displayedColumns: string[] = ['name', 'type', 'isActive', 'Actions'];
   selection = new SelectionModel<boolean>(true, []);
+  readonly MAX_EXERCISES_LIST = 30;
   constructor(private exerciseApiCaller: ExerciseApiCallerService,
               private toast: ToastService,
               private router: Router,
@@ -61,7 +62,6 @@ export class ExercisesComponent implements OnInit {
   }
 
   public navigateToStatistics(exerciseId: any) {
-    console.log(exerciseId);
     this.router.navigate([`../statistics/${exerciseId}`], { relativeTo: this.route }).then();
   }
 }

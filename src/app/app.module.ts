@@ -40,8 +40,10 @@ import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
 import { ExerciseStatisticTableComponent } from './grind-meter/body/my-profile/statistics/exercise-statistic-table/exercise-statistic-table.component';
-import {AddPlanComponent} from "./grind-meter/body/my-profile/plans/add-plan/add-plan.component";
-import {PlansComponent} from "./grind-meter/body/my-profile/plans/plans.component";
+import {AddPlanComponent} from "./grind-meter/body/my-profile/plans/show-plans/add-plan/add-plan.component";
+import {ShowPlansComponent} from "./grind-meter/body/my-profile/plans/show-plans/show-plans.component";
+import { AddToPlanComponent } from './grind-meter/body/my-profile/plans/add-to-plan/add-to-plan.component';
+import { PlansComponent } from './grind-meter/body/my-profile/plans/plans.component';
 
 export const DateFormats = {
   parse: {
@@ -80,6 +82,8 @@ export const DateFormats = {
     ExercisesComponent,
     DatePickerComponent,
     ExerciseStatisticTableComponent,
+    ShowPlansComponent,
+    AddToPlanComponent,
     PlansComponent
   ],
   imports: [

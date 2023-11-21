@@ -42,5 +42,4 @@ export class ExerciseStatisticTableComponent implements OnInit {
 
   }
 
-  protected readonly undefined = undefined;
 }

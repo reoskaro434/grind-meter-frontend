@@ -18,6 +18,8 @@ import {AddExerciseComponent} from "./grind-meter/body/my-profile/exercises/add-
 import {
   ExerciseStatisticTableComponent
 } from "./grind-meter/body/my-profile/statistics/exercise-statistic-table/exercise-statistic-table.component";
+import {ShowPlansComponent} from "./grind-meter/body/my-profile/plans/show-plans/show-plans.component";
+import {AddToPlanComponent} from "./grind-meter/body/my-profile/plans/add-to-plan/add-to-plan.component";
 import {PlansComponent} from "./grind-meter/body/my-profile/plans/plans.component";
 
 const routes: Routes = [
@@ -35,7 +37,11 @@ const routes: Routes = [
                 {path: ':exerciseId', component: ExerciseStatisticTableComponent},
             ]},
           {path: 'exercises', component: ExercisesComponent},
-          {path: 'plans', component: PlansComponent},
+          {path: 'plans', component: PlansComponent, children: [
+              {path: 'show-plans', component: ShowPlansComponent},
+              {path: ':planId', component: AddToPlanComponent}
+            ]},
+
         ]
       },
       {path: 'project/:projectId', component: ProjectPageComponent},
