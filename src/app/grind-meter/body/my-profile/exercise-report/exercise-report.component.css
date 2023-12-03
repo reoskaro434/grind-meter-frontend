@@ -1,10 +1,10 @@
-/*li {*/
-/*  cursor: pointer;*/
-/*  background-color: rgba(0, 0, 0, 0);*/
-/*  border-color: var(--text-color);*/
-/*}*/
+li {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: var(--text-color);
+}
 
-/*.list-group-item.active {*/
-/*  background-color: rgba(0, 0, 0, 0);*/
-/*  border-color: var(--active-color);*/
-/*}*/
+.list-group-item.active {
+  background-color: rgba(0, 0, 0, 0);
+  border-color: var(--active-color);
+}
