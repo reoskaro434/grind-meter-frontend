@@ -1,29 +1,29 @@
-.exercises-table, td, th {
-  background: var(--transparent-color);
-  color: var(--text-color);
+/*.exercises-table, td, th {*/
+/*  background: var(--transparent-color);*/
+/*  color: var(--text-color);*/
 
-  text-decoration: none;
-}
+/*  text-decoration: none;*/
+/*}*/
 
-.exercises-table {
-  border-radius: 20px;
-  border: 1px solid;
-}
+/*.exercises-table {*/
+/*  border-radius: 20px;*/
+/*  border: 1px solid;*/
+/*}*/
 
-td, th {
-  border-bottom: 1px solid;
-}
+/*td, th {*/
+/*  border-bottom: 1px solid;*/
+/*}*/
 
-.gm-row:hover {
-  background: var(--active-color);
-  cursor: pointer;
-}
+/*.gm-row:hover {*/
+/*  background: var(--active-color);*/
+/*  cursor: pointer;*/
+/*}*/
 
-button {
-  border-radius: 20%;
-  border: none;
-}
+/*button {*/
+/*  border-radius: 20%;*/
+/*  border: none;*/
+/*}*/
 
-.gm-report {
-  border-bottom: 1px solid;
-}
+/*.gm-report {*/
+/*  border-bottom: 1px solid;*/
+/*}*/
