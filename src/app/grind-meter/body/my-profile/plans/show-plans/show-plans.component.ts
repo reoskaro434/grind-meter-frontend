@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ToastService} from "../../../../../services/toast.service";
 import {map, of} from "rxjs";
-import {SelectionModel} from "@angular/cdk/collections";
 import {ToastType} from "../../../../../enums/toast-type";
 import {catchError} from "rxjs/operators";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PlanApiCallerService} from "../../../../../api-caller/plan-api-caller.service";
-import {Plan} from "../../../../../models/plan";
+import {Plan, PlanState} from "../../../../../models/plan";
 
 @Component({
   selector: 'app-plans',
@@ -15,8 +14,8 @@ import {Plan} from "../../../../../models/plan";
 })
 export class ShowPlansComponent implements OnInit {
   plans: Plan[] = [];
-  displayedColumns: string[] = ['name', 'isActive', 'Actions'];
-  selection = new SelectionModel<boolean>(true, []);
+  selectedPlan!: Plan;
+
   constructor(private plansApiCaller: PlanApiCallerService,
               private toast: ToastService,
               private router: Router,
@@ -24,6 +23,10 @@ export class ShowPlansComponent implements OnInit {
   {}
   public ngOnInit(): void {
     this.plansApiCaller.getPlansPage(1).pipe(map((plans) => {
+      for (const p of plans) {
+        if (p.state == PlanState.Active)
+          this.selectedPlan = p;
+      }
       this.plans = plans;
     }), catchError(err => {
       this.toast.showMessage('No plans found!', ToastType.INFO);
@@ -31,41 +34,28 @@ export class ShowPlansComponent implements OnInit {
     })).subscribe(); //TODO pagination
   }
 
-  public navigateToPlanEditPage(planId: string) {
-    this.router.navigate([`../${planId}`], { relativeTo: this.route }).then();
+  onSelectionChange(plan: Plan) {
+    for (const p of this.plans) {
+      if (p.state == PlanState.Active && p.id !== plan.id)
+        this.plansApiCaller.setPlanInActive(p).subscribe();
+    }
+
+    this.plansApiCaller.setPlanActive(plan).subscribe(success => this.toast.showMessage('Saved!', ToastType.INFO));
   }
 
-  // private updateVisibility(exercise: Exercise){
-  //   if (exercise.state == ExerciseState.Active) {
-  //     this.exerciseApiCaller.setExerciseInactive(exercise.id).pipe(map((success) => {
-  //       if (success) {
-  //         exercise.state = ExerciseState.Inactive;
-  //       }
-  //     })).subscribe();
-  //   } else {
-  //     this.exerciseApiCaller.setExerciseActive(exercise.id).pipe(map((success) => {
-  //       if (success) {
-  //         exercise.state = ExerciseState.Active;
-  //       }
-  //     })).subscribe();
-  //   }
-  // }
+  onEditPressed(plan: Plan) {
+    this.router.navigate([`../edit/${plan.id}`], { relativeTo: this.route }).then();
+  }
 
-  // public onCheckboxPressed(exercise: Exercise): string {
-  //   this.updateVisibility(exercise)
-  //
-  //   return `${this.selection.isSelected(exercise.state === ExerciseState.Active) ? 'select' : 'deselect'}`;
-  // }
-  // public isChecked(exercise: Exercise){
-  //   return exercise.state === ExerciseState.Active;
-  // }
-  //
-  // public onExerciseClicked(row: Exercise) {
-  //   console.log(row);
-  // }
-  //
-  // public navigateToStatistics(exerciseId: any) {
-  //   console.log(exerciseId);
-  //   this.router.navigate([`../statistics/${exerciseId}`], { relativeTo: this.route }).then();
-  // }
+  onRenamePressed(plan: Plan) {
+
+  }
+
+  onDeletePressed(plan: Plan) {
+
+  }
+
+  onReportPressed(plan: Plan) {
+    this.router.navigate([`../fill/${plan.id}`], { relativeTo: this.route }).then();
+  }
 }

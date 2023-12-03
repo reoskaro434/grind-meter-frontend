@@ -9,35 +9,44 @@
   </div>
 </ng-template>
 <div *ngIf="plans.length > 0; else loading">
-
-
-  <br>
-  <table mat-table [dataSource]="plans" class="mat-elevation-z1 exercises-table">
-
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Plan Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
-    <ng-container matColumnDef="isActive">
-      <th mat-header-cell *matHeaderCellDef> Daily </th>
-      <td mat-cell *matCellDef="let row">
-        <mat-checkbox>
-        </mat-checkbox>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Actions">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let row">
-        <button (click)="navigateToPlanEditPage(row.id)">Edit</button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr class="gm-row" mat-row *matRowDef="let row; columns: displayedColumns;"
-      (click)="selection.toggle(row)">
-    </tr>
-  </table>
+  <div>
+    <p-table [value]="plans" dataKey="id" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '10rem'}">
+      <ng-template pTemplate="header">
+<!--        <tr>-->
+<!--          <th style="width: 4rem"></th>-->
+<!--          <th>Code</th>-->
+<!--          <th>Name</th>-->
+<!--          <th>Actions</th>-->
+<!--          <th>Quantity</th>-->
+<!--        </tr>-->
+      </ng-template>
+      <ng-template pTemplate="body" let-plan>
+        <tr>
+          <td>
+            <div>
+              <i class="bi bi-pencil-square" (click)="onReportPressed(plan)" ></i>
+            </div>
+          </td>
+<!--          <td>{{product.code}}</td>-->
+          <td><span>{{plan.name}}</span></td>
+          <td>
+            <div class="d-flex flex-row justify-content-around">
+            <div class="m-1">
+              <i class="bi bi-gear-wide-connected" (click)="onEditPressed(plan)"></i>
+            </div>
+            <div class="m-1">
+              <i class="bi bi-type" (click)="onRenamePressed(plan)"></i>
+            </div>
+            <div class="m-1">
+              <i class="bi bi-archive" (click)="onDeletePressed(plan)"></i>
+            </div>
+            </div>
+          </td>
+<!--          <td>{{product.quantity}}</td>-->
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 </div>
 <div>
   <ng-template #loading>

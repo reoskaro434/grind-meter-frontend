@@ -25,6 +25,14 @@ export class PlanApiCallerService {
     return this.http.post<{}>(`${environment.apiURL}/plan/save-exercises`, saveExercises);
   }
 
+  public setPlanActive(plan: Plan) {
+    return this.http.post<{}>(`${environment.apiURL}/plan/set-plan-active`, plan);
+  }
+
+  public setPlanInActive(plan: Plan) {
+    return this.http.post<{}>(`${environment.apiURL}/plan/set-plan-inactive`, plan);
+  }
+
   public getExercises(planId: string) {
     return this.http.get<Exercise[]>(`${environment.apiURL}/plan/get-exercises/${planId}`);
   }

@@ -42,8 +42,12 @@ import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
 import { ExerciseStatisticTableComponent } from './grind-meter/body/my-profile/statistics/exercise-statistic-table/exercise-statistic-table.component';
 import {AddPlanComponent} from "./grind-meter/body/my-profile/plans/show-plans/add-plan/add-plan.component";
 import {ShowPlansComponent} from "./grind-meter/body/my-profile/plans/show-plans/show-plans.component";
-import { AddToPlanComponent } from './grind-meter/body/my-profile/plans/add-to-plan/add-to-plan.component';
+import { EditPlanComponent } from './grind-meter/body/my-profile/plans/edit-plan/edit-plan.component';
 import { PlansComponent } from './grind-meter/body/my-profile/plans/plans.component';
+import {PickListModule} from "primeng/picklist";
+import {ButtonModule} from "primeng/button";
+import {TableModule} from "primeng/table";
+import {TagModule} from "primeng/tag";
 
 export const DateFormats = {
   parse: {
@@ -83,7 +87,7 @@ export const DateFormats = {
     DatePickerComponent,
     ExerciseStatisticTableComponent,
     ShowPlansComponent,
-    AddToPlanComponent,
+    EditPlanComponent,
     PlansComponent
   ],
   imports: [
@@ -100,7 +104,11 @@ export const DateFormats = {
     MatCheckboxModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    PickListModule,
+    ButtonModule,
+    TableModule,
+    TagModule
   ],
   providers: [
     [CookieService],

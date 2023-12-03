@@ -140,7 +140,7 @@ export class LiftExerciseMenuComponent{
         })).subscribe();
   }
   deleteSeries(index: number) {
-    // const deletedSet = this.currentReport?.sets.splice(index, 1);
+    const deletedSet = this.currentReport?.sets.splice(index, 1);
     this.localStorage.saveForToday(`${this.currentExercise.id}_currentReport`,this.currentReport);
     this.isReportSaved = false;
     this.localStorage.saveForToday(`${this.currentExercise.id}_isReportSaved`, this.isReportSaved);
