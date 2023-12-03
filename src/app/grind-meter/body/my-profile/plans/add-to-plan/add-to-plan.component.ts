@@ -1,15 +1,11 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Exercise, ExerciseState} from "../../../../../models/exercise";
-import {LiftExerciseReport} from "../../../../../models/lift-exercise-report";
 import {ActivatedRoute} from "@angular/router";
-import {ExerciseReportApiCallerService} from "../../../../../api-caller/exercise-report-api-caller.service";
 import {ExerciseApiCallerService} from "../../../../../api-caller/exercise-api-caller.service";
 import {ToastService} from "../../../../../services/toast.service";
 import {PlanApiCallerService} from "../../../../../api-caller/plan-api-caller.service";
 import {SaveExercisesModel} from "../../../../../models/save-exercises";
 import {SelectionModel} from "@angular/cdk/collections";
-import {map, of} from "rxjs";
-import {catchError} from "rxjs/operators";
 import {ToastType} from "../../../../../enums/toast-type";
 
 @Component({
@@ -33,23 +29,30 @@ export class AddToPlanComponent {
 
   ngOnInit() {
     this.planId = this.route.snapshot.params['planId'];
-    this.exerciseApiCaller.getExercisePage(1).pipe(map((exercises) => {
-      this.exercises = exercises;
-    }), catchError(err => {
-      this.toast.showMessage('No exercise found!', ToastType.INFO);
-      return of(err);
-    })).subscribe(); //TODO pagination
-    // const saveExercisesModel : SaveExercisesModel = {
-    //   planId: this.planId,
-    //   exerciseIdList: ['a', 'b', 'c']
-    // }
-    // this.planApiCaller.saveExercises(saveExercisesModel).subscribe((resp) => {
-    //   console.log(resp);
-    // });
+
+    this.planApiCaller.getExercisesId(this.planId).subscribe((exercisesId) => {
+      this.exerciseApiCaller.getExercisePage(1).subscribe((exercises) => {
+
+        for (let i = 0; i < exercises.length; i++) {
+          if (exercisesId.includes(exercises[i].id))
+            exercises[i].state = ExerciseState.Active;
+        }
+
+        this.exercises = exercises;
+      });
+    });
+
+
+
   }
 
   public onCheckboxPressed(exercise: Exercise): string {
-    // this.updateVisibility(exercise)
+    if (exercise.state === ExerciseState.Active) {
+      exercise.state = ExerciseState.Inactive;
+    } else {
+      exercise.state = ExerciseState.Active;
+    }
+
 
     return `${this.selection.isSelected(exercise.state === ExerciseState.Active) ? 'select' : 'deselect'}`;
   }
@@ -57,7 +60,24 @@ export class AddToPlanComponent {
     return exercise.state === ExerciseState.Active;
   }
 
-  onSubmit() {
+  onSavePressed() {
+    const saveExercisesModel : SaveExercisesModel = {
+      planId: this.planId,
+      exerciseIdList: []
+    }
 
+    for (let i = 0; i < this.exercises.length; i++) {
+
+      if (this.exercises[i].state === ExerciseState.Active) {
+        console.log(this.exercises[i]);
+        saveExercisesModel.exerciseIdList.push(this.exercises[i].id);
+      }
+
+    }
+
+
+    this.planApiCaller.saveExercises(saveExercisesModel).subscribe((resp) => {
+      this.toast.showMessage('Saved!', ToastType.INFO);
+    });
   }
 }

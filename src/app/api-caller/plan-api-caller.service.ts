@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Plan} from "../models/plan";
 import {SaveExercisesModel} from "../models/save-exercises";
+import {Exercise} from "../models/exercise";
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,14 @@ export class PlanApiCallerService {
 
   public saveExercises(saveExercises: SaveExercisesModel) {
     return this.http.post<{}>(`${environment.apiURL}/plan/save-exercises`, saveExercises);
+  }
+
+  public getExercises(planId: string) {
+    return this.http.get<Exercise[]>(`${environment.apiURL}/plan/get-exercises/${planId}`);
+  }
+
+  public getExercisesId(planId: string) {
+    return this.http.get<string[]>(`${environment.apiURL}/plan/get-exercises-id/${planId}`);
   }
 
   // public setExerciseInactive(id: string) {
