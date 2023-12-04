@@ -28,7 +28,7 @@ const routes: Routes = [
       {path: 'sign-up', component: SignUpComponent},
       {path: 'sign-in', component: SignInComponent},
       {
-        path: 'my-profile', canActivate: [AuthGuardService], component: MyProfileComponent,
+        path: ':username', canActivate: [AuthGuardService], component: MyProfileComponent,
         children: [
           {path: '', component: ExerciseReportComponent},
           {path: 'daily-report', component: ExerciseReportComponent},

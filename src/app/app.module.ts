@@ -44,6 +44,8 @@ import {PickListModule} from "primeng/picklist";
 import {ButtonModule} from "primeng/button";
 import {TableModule} from "primeng/table";
 import {TagModule} from "primeng/tag";
+import {MenubarModule} from "primeng/menubar";
+import {InputTextModule} from "primeng/inputtext";
 
 export const DateFormats = {
   parse: {
@@ -84,10 +86,10 @@ export const DateFormats = {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
     ToastrModule.forRoot({
       toastComponent: ToastComponent,
     }),
@@ -100,7 +102,9 @@ export const DateFormats = {
     PickListModule,
     ButtonModule,
     TableModule,
-    TagModule
+    TagModule,
+    MenubarModule,
+    InputTextModule
   ],
   providers: [
     [CookieService],

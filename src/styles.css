@@ -1,6 +1,7 @@
-/*!*@import "primeng/resources/themes/lara-dark-teal/theme.css";*!*/
-/*@import "primeng/resources/primeng.css";*/
-
+@import "primeng/resources/themes/bootstrap4-dark-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+/*@import "node_modules/bootstrap/dist/css/bootstrap.css";*/
 
 /*:root {*/
 /*  --primary-color: radial-gradient(circle, rgb(22, 22, 37) 52%, rgb(11, 20, 23) 100%);*/
