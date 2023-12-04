@@ -21,10 +21,12 @@ export class NavbarComponent implements OnInit {
   private getItemsForUser(): MenuItem[] {
     return [
       {
-        label: 'Exercises'
+        label: 'Exercises',
+        routerLink: `${this.username}/exercises`
       },
       {
-        label: 'Plans'
+        label: 'Plans',
+        routerLink: `${this.username}/plans/show-plans`
       },
       {
         label: this.username,

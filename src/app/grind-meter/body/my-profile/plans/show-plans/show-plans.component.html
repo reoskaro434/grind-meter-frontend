@@ -1,59 +1,19 @@
-<div *ngIf="plans.length < 10; else limit">
-  <app-add-plan></app-add-plan>
-</div>
-<ng-template #limit>
-  <div class="d-flex justify-content-center">
-    <div class="m-4">
-      <span>You've reached the limits</span>
-    </div>
-  </div>
-</ng-template>
-<div *ngIf="plans.length > 0; else loading">
-  <div>
-    <p-table [value]="plans" dataKey="id" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '10rem'}">
-      <ng-template pTemplate="header">
-<!--        <tr>-->
-<!--          <th style="width: 4rem"></th>-->
-<!--          <th>Code</th>-->
-<!--          <th>Name</th>-->
-<!--          <th>Actions</th>-->
-<!--          <th>Quantity</th>-->
-<!--        </tr>-->
-      </ng-template>
-      <ng-template pTemplate="body" let-plan>
-        <tr>
-          <td>
-            <div>
-              <i class="bi bi-pencil-square" (click)="onReportPressed(plan)" ></i>
-            </div>
-          </td>
-<!--          <td>{{product.code}}</td>-->
-          <td><span>{{plan.name}}</span></td>
-          <td>
-            <div class="d-flex flex-row justify-content-around">
-            <div class="m-1">
-              <i class="bi bi-gear-wide-connected" (click)="onEditPressed(plan)"></i>
-            </div>
-            <div class="m-1">
-              <i class="bi bi-type" (click)="onRenamePressed(plan)"></i>
-            </div>
-            <div class="m-1">
-              <i class="bi bi-archive" (click)="onDeletePressed(plan)"></i>
-            </div>
-            </div>
-          </td>
-<!--          <td>{{product.quantity}}</td>-->
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
-</div>
 <div>
-  <ng-template #loading>
-    <div class="d-flex justify-content-center">
-      <div class="m-4 spinner-border" role="status">
-        <span class="sr-only"></span>
-      </div>
-    </div>
+  <p-accordion>
+    <p-accordionTab header="Add new plan" [disabled]="plans.length >= 10">
+      <app-add-plan></app-add-plan>
+    </p-accordionTab>
+  </p-accordion>
+</div>
+<div class="card flex justify-content-center">
+<p-tree class="w-full md:w-30rem" [value]="plansTree">
+  <ng-template let-node pTemplate="onReportPressed">
+    <b (click)="onReportPressed(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
   </ng-template>
+  <ng-template let-node pTemplate="onEditPressed">
+    <b (click)="onEditPressed(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
+  </ng-template>
+
+
+</p-tree>
 </div>

@@ -50,7 +50,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import {PasswordModule} from "primeng/password";
-
+import {AccordionModule} from "primeng/accordion";
+import { TreeModule } from 'primeng/tree';
 
 export const DateFormats = {
   parse: {
@@ -113,7 +114,9 @@ export const DateFormats = {
     InputTextareaModule,
     CheckboxModule,
     RadioButtonModule,
-    PasswordModule
+    PasswordModule,
+    AccordionModule,
+    TreeModule
   ],
   providers: [
     [CookieService],

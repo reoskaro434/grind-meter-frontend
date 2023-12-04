@@ -38,7 +38,7 @@ const routes: Routes = [
           {path: 'plans', component: PlansComponent, children: [
               {path: 'show-plans', component: ShowPlansComponent},
               {path: 'edit/:planId', component: EditPlanComponent},
-              {path: 'submit/:planId', component: ExerciseReportComponent}
+              {path: 'report/:planId', component: ExerciseReportComponent}
             ]},
 
         ]
