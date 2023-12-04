@@ -3,10 +3,6 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {ProjectComponent} from '../../old-project/project/project.component';
-import {ProjectThumbnailComponent} from '../../old-project/project/project-thumbnail/project-thumbnail.component';
-import {ProjectDescriptionComponent} from '../../old-project/project/project-description/project-description.component';
-import {ProjectStatsComponent} from '../../old-project/project/project-stats/project-stats.component';
 import {FormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule, provideAnimations} from "@angular/platform-browser/animations";
@@ -64,10 +60,6 @@ export const DateFormats = {
 @NgModule({
   declarations: [
     AppComponent,
-    ProjectComponent,
-    ProjectThumbnailComponent,
-    ProjectDescriptionComponent,
-    ProjectStatsComponent,
     BodyComponent,
     GrindMeterComponent,
     NavbarComponent,

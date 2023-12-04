@@ -7,7 +7,6 @@ import {SignUpComponent} from "./grind-meter/body/sign-up/sign-up.component";
 import {SignInComponent} from "./grind-meter/body/sign-in/sign-in.component";
 import {NotFoundComponent} from "./grind-meter/body/not-found/not-found.component";
 import {VerifyAccountComponent} from "./grind-meter/body/verify-account/verify-account.component";
-import {ProjectPageComponent} from "../../old-project/project-page/project-page.component";
 import {MyProfileComponent} from "./grind-meter/body/my-profile/my-profile.component";
 import {StartPageComponent} from "./grind-meter/body/start-page/start-page.component";
 import {
@@ -45,7 +44,6 @@ const routes: Routes = [
 
         ]
       },
-      {path: 'project/:projectId', component: ProjectPageComponent},
       {path: 'verify-account/:username', component: VerifyAccountComponent},
       {path: 'not-found', component: NotFoundComponent},
       {path: '**', redirectTo: 'not-found'}
