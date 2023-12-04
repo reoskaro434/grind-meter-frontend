@@ -46,6 +46,11 @@ import {TableModule} from "primeng/table";
 import {TagModule} from "primeng/tag";
 import {MenubarModule} from "primeng/menubar";
 import {InputTextModule} from "primeng/inputtext";
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CheckboxModule } from 'primeng/checkbox';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import {PasswordModule} from "primeng/password";
+
 
 export const DateFormats = {
   parse: {
@@ -104,7 +109,11 @@ export const DateFormats = {
     TableModule,
     TagModule,
     MenubarModule,
-    InputTextModule
+    InputTextModule,
+    InputTextareaModule,
+    CheckboxModule,
+    RadioButtonModule,
+    PasswordModule
   ],
   providers: [
     [CookieService],

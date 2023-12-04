@@ -1,31 +1,17 @@
-<form (ngSubmit)="onSubmit()" #signInForm="ngForm">
-  <div class="form-group mt-2">
-    <label for="inputNickname">Nickname taxapes170</label>
-    <input type="text"
-           class="form-control "
-           id="inputNickname"
-           name="inputNickname"
-           placeholder="Enter nickname"
-           required
-           [(ngModel)]="inputUsername"
-           #nickname="ngModel">
-    <small *ngIf="!nickname.valid && nickname.touched" class="form-text text-danger m-1">
-      Enter a nickname.
-    </small>
+<form (ngSubmit)="onSubmit()">
+  <div class="card flex flex-column md:flex-row gap-3">
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon">
+        <i class="pi pi-user"></i>
+      </span>
+      <input name="inputUsername" [(ngModel)]="inputUsername" pInputText placeholder="Username"/>
+    </div>
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon">
+        <i class="pi pi-key"></i>
+      </span>
+      <input type="password" name="inputPassword" [(ngModel)]="inputPassword" pInputText placeholder="Password"/>
+    </div>
   </div>
-  <div class="form-group mt-2">
-    <label for="inputPassword">Password</label>
-    <input type="password"
-           class="form-control"
-           id="inputPassword"
-           name="inputPassword"
-           placeholder="Password"
-           required
-           [(ngModel)]="inputPassword"
-            #password="ngModel">
-    <small *ngIf="!password.valid && password.touched" class="form-text text-danger">
-      Enter a password.
-    </small>
-  </div>
-  <button type="submit" class="btn btn-primary mt-2" [disabled]="!signInForm.valid">Sign in</button>
+  <p-button type="submit" label="Submit"></p-button>
 </form>

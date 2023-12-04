@@ -13,7 +13,6 @@ import {
   StatisticsComponent
 } from "./grind-meter/body/my-profile/statistics/statistics.component";
 import {ExercisesComponent} from "./grind-meter/body/my-profile/exercises/exercises.component";
-import {AddExerciseComponent} from "./grind-meter/body/my-profile/exercises/add-exercise/add-exercise.component";
 import {
   ExerciseStatisticTableComponent
 } from "./grind-meter/body/my-profile/statistics/exercise-statistic-table/exercise-statistic-table.component";
@@ -39,7 +38,7 @@ const routes: Routes = [
           {path: 'plans', component: PlansComponent, children: [
               {path: 'show-plans', component: ShowPlansComponent},
               {path: 'edit/:planId', component: EditPlanComponent},
-              {path: 'fill/:planId', component: ExerciseReportComponent}
+              {path: 'submit/:planId', component: ExerciseReportComponent}
             ]},
 
         ]

@@ -1,40 +1,33 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
 import {AccessApiCallerService} from "../../../api-caller/access-api-caller.service";
-import {ToastService} from "../../../services/toast.service";
-import {ToastType} from "../../../enums/toast-type";
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent {
   inputUsername: any;
   inputPassword: any;
 
   constructor(private accessApiCaller: AccessApiCallerService,
               private auth: AuthService,
-              private router: Router,
-              private toast: ToastService) {
+              private router: Router) {
   }
-
-  ngOnInit(): void {
-  }
-
   onSubmit() {
+    console.log(this.inputUsername, this.inputPassword)
+
     this.accessApiCaller.signIn({
       username: btoa(this.inputUsername),
       password: btoa(this.inputPassword)
     }).subscribe(
       (response) => {
         this.auth.setAuthorization(response.payload.accessToken);
-        this.router.navigate(["/my-profile/daily-report"]).then(() => {
+        this.router.navigate([`/${this.inputUsername}/plans/show-plans`]).then(() => {
           window.location.reload();
         });
-      }, () => {
-        this.toast.showMessage("Could not sign in, check credentials..", ToastType.ERROR);
       });
   }
 }
