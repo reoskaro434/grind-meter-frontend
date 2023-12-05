@@ -52,6 +52,11 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import {PasswordModule} from "primeng/password";
 import {AccordionModule} from "primeng/accordion";
 import { TreeModule } from 'primeng/tree';
+import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {DialogModule} from "primeng/dialog";
+import {ToolbarModule} from "primeng/toolbar";
+import {ToastModule} from "primeng/toast";
+import { InputNumberModule } from 'primeng/inputnumber';
 
 export const DateFormats = {
   parse: {
@@ -116,7 +121,12 @@ export const DateFormats = {
     RadioButtonModule,
     PasswordModule,
     AccordionModule,
-    TreeModule
+    TreeModule,
+    ConfirmDialogModule,
+    DialogModule,
+    ToolbarModule,
+    ToastModule,
+    InputNumberModule
   ],
   providers: [
     [CookieService],

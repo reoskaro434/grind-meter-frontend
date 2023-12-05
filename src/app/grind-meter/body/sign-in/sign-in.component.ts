@@ -17,8 +17,6 @@ export class SignInComponent {
               private router: Router) {
   }
   onSubmit() {
-    console.log(this.inputUsername, this.inputPassword)
-
     this.accessApiCaller.signIn({
       username: btoa(this.inputUsername),
       password: btoa(this.inputPassword)

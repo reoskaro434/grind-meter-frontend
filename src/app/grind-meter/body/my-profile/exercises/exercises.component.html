@@ -1,11 +1,11 @@
-<div>
+<div class="mt-1">
   <p-accordion>
     <p-accordionTab header="Add new exercise">
       <app-add-exercise></app-add-exercise>
     </p-accordionTab>
   </p-accordion>
 </div>
-<div class="card flex justify-content-center">
+<div class="mt-1">
   <p-tree class="w-full md:w-30rem" [value]="exercisesTree">
     <ng-template let-node pTemplate="navigateToStatistics">
       <b (click)="navigateToStatistics(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>

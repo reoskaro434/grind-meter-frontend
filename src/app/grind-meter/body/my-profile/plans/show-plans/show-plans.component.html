@@ -1,19 +1,22 @@
-<div>
-  <p-accordion>
-    <p-accordionTab header="Add new plan">
-      <app-add-plan></app-add-plan>
-    </p-accordionTab>
-  </p-accordion>
+<div class="mt-1">
+  <div>
+    <p-accordion>
+      <p-accordionTab header="Add new plan">
+        <app-add-plan></app-add-plan>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
 </div>
-<div class="card flex justify-content-center">
-<p-tree class="w-full md:w-30rem" [value]="plansTree">
-  <ng-template let-node pTemplate="onReportPressed">
-    <b (click)="onReportPressed(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
-  </ng-template>
-  <ng-template let-node pTemplate="onEditPressed">
-    <b (click)="onEditPressed(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
-  </ng-template>
-
-
-</p-tree>
+<div class="mt-1">
+  <div>
+    <p-tree class="w-full md:w-30rem" [value]="plansTree">
+      <ng-template let-node pTemplate="onReportPressed">
+        <b (click)="onReportPressed(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
+      </ng-template>
+      <ng-template let-node pTemplate="onEditPressed">
+        <b (click)="onEditPressed(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
+      </ng-template>
+    </p-tree>
+  </div>
 </div>
+

@@ -25,6 +25,7 @@ export class ExerciseReportComponent implements OnInit {
   ngOnInit(): void {
     this.planId = this.route.snapshot.params['planId'];
     this.planApiCaller.getExercises(this.planId).subscribe(exercises => {
+      console.log(exercises);
       this.exercises = exercises;
     });
   }
