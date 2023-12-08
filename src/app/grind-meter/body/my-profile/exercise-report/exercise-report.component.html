@@ -1,5 +1,14 @@
-<p-accordion>
-  <p-accordionTab *ngFor="let singleExercise of exercises" [header]="singleExercise.name">
-    <app-lift-exercise-menu [exercise]=singleExercise></app-lift-exercise-menu>
-  </p-accordionTab>
-</p-accordion>
+<div *ngIf="loaded; else loading" class="mt-1">
+  <p-accordion>
+    <p-accordionTab *ngFor="let singleExercise of exercises" [header]="singleExercise.name">
+      <app-lift-exercise-menu [exercise]=singleExercise></app-lift-exercise-menu>
+    </p-accordionTab>
+  </p-accordion>
+</div>
+<div>
+  <ng-template #loading>
+    <div class="mt-2">
+      <app-spinner></app-spinner>
+    </div>
+  </ng-template>
+</div>

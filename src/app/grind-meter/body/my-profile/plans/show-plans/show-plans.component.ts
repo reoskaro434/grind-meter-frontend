@@ -21,16 +21,20 @@ export class ShowPlansComponent implements OnInit {
   private getNode(plan: Plan):TreeNode {
     return {
       label: plan.name,
+      type: 'mainNode',
+      icon: 'pi pi-book',
       children: [
         {
           label: 'Report',
-          data: plan.id,
-          type: 'onReportPressed'
+          type: 'reportNode',
+          icon: 'pi pi-flag',
+          data: plan.id
         },
         {
           label: 'Edit',
-          data: plan.id,
-          type: 'onEditPressed'
+          type: 'editNode',
+          icon: 'pi pi-pencil',
+          data: plan.id
         }
       ]
     }

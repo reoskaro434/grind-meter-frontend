@@ -20,6 +20,7 @@ export class ExercisesComponent implements OnInit {
   {}
 
   private getNode(exercise: Exercise):TreeNode {
+    console.log(exercise.name);
     return {
       label: exercise.name,
       children: [
@@ -32,6 +33,22 @@ export class ExercisesComponent implements OnInit {
     }
   }
 
+  private sortTreeFirstElements() {
+    this.exercisesTree.sort((node1, node2) => {
+      if (!node1.label || !node2.label) {
+        return 0;
+      }
+      if (node1.label < node2.label) {
+        return -1;
+      }
+      if (node1.label > node2.label) {
+        return 1;
+      }
+
+      return 0;
+    });
+  }
+
   public ngOnInit(): void {
     this.exerciseApiCaller.getExercisePage(1).subscribe((exercises) => {
       this.exercises = exercises;
@@ -39,6 +56,8 @@ export class ExercisesComponent implements OnInit {
       for (const e of this.exercises) {
         this.exercisesTree.push(this.getNode(e));
       }
+
+      this.sortTreeFirstElements();
 
       this.loaded = true;
     });
