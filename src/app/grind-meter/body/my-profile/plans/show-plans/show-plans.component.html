@@ -2,11 +2,15 @@
   <div class="mt-1">
     <div>
       <p-tree class="w-full md:w-30rem" [value]="plansTree">
-        <ng-template let-node pTemplate="onReportPressed">
+        <ng-template let-node pTemplate="reportNode">
           <b (click)="onReportPressed(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
         </ng-template>
-        <ng-template let-node pTemplate="onEditPressed">
+
+        <ng-template let-node pTemplate="editNode">
           <b (click)="onEditPressed(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
+        </ng-template>
+        <ng-template let-node pTemplate="default">
+          <b class="text-700 hover:text-primary">{{ node.label }}</b>
         </ng-template>
       </p-tree>
     </div>

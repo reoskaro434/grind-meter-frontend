@@ -1,7 +1,11 @@
 <div *ngIf="loaded; else loading">
   <div class="mt-1">
-    <p-tree class="w-full md:w-30rem" [value]="exercisesTree">
-      <ng-template let-node pTemplate="navigateToStatistics">
+    <p-tree class="w-full md:w-30rem" [value]="exercisesTree" [filter]="true" filterPlaceholder="Find Exercise">
+      <ng-template let-node pTemplate="default">
+        <b class="text-700 hover:text-primary">{{ node.label }}</b>
+      </ng-template>
+
+      <ng-template let-node pTemplate="statisticsNode">
         <b (click)="navigateToStatistics(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
       </ng-template>
     </p-tree>

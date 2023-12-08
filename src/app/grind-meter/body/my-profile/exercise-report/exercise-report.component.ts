@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Exercise} from "../../../../models/exercise";
 import {ExerciseApiCallerService} from "../../../../api-caller/exercise-api-caller.service";
-import {map} from "rxjs";
-import {ToastType} from "../../../../enums/toast-type";
-import {ToastService} from "../../../../services/toast.service";
 import {ActivatedRoute} from "@angular/router";
 import {PlanApiCallerService} from "../../../../api-caller/plan-api-caller.service";
 
@@ -18,15 +15,18 @@ export class ExerciseReportComponent implements OnInit {
 
   currentExercise: Exercise | null = null;
   planId = '';
+  loaded: boolean = false;
+
   constructor(private exerciseApiCaller: ExerciseApiCallerService,
               private planApiCaller: PlanApiCallerService,
-              private route: ActivatedRoute) {}
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     this.planId = this.route.snapshot.params['planId'];
     this.planApiCaller.getExercises(this.planId).subscribe(exercises => {
-      console.log(exercises);
       this.exercises = exercises;
+      this.loaded = true;
     });
   }
 

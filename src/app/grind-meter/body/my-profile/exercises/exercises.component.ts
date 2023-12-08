@@ -26,10 +26,27 @@ export class ExercisesComponent implements OnInit {
         {
           label: 'Statistics',
           data: exercise.id,
-          type: 'navigateToStatistics'
+          type: 'statisticsNode',
+          icon: 'pi pi-chart-bar'
         }
       ]
     }
+  }
+
+  private sortTreeFirstElements() {
+    this.exercisesTree.sort((node1, node2) => {
+      if (!node1.label || !node2.label) {
+        return 0;
+      }
+      if (node1.label < node2.label) {
+        return -1;
+      }
+      if (node1.label > node2.label) {
+        return 1;
+      }
+
+      return 0;
+    });
   }
 
   public ngOnInit(): void {
@@ -39,6 +56,8 @@ export class ExercisesComponent implements OnInit {
       for (const e of this.exercises) {
         this.exercisesTree.push(this.getNode(e));
       }
+
+      this.sortTreeFirstElements();
 
       this.loaded = true;
     });
