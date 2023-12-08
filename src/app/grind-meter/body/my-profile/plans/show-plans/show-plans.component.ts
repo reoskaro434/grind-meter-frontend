@@ -12,6 +12,8 @@ import {TreeNode} from "primeng/api";
 export class ShowPlansComponent implements OnInit {
   plans: Plan[] = [];
   plansTree: TreeNode[] = [];
+  plansLoaded: boolean = false;
+
   constructor(private plansApiCaller: PlanApiCallerService,
               private router: Router,
               private route: ActivatedRoute)
@@ -37,6 +39,7 @@ export class ShowPlansComponent implements OnInit {
   public ngOnInit(): void {
     this.plansApiCaller.getPlansPage(1).subscribe((plans) => {
       this.plans = plans;
+      this.plansLoaded = true;
 
       for (const p of this.plans) {
         this.plansTree.push(this.getNode(p));

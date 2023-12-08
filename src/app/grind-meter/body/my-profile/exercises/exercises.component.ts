@@ -1,13 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Exercise, ExerciseState} from "../../../../models/exercise";
+import {Exercise} from "../../../../models/exercise";
 import {ExerciseApiCallerService} from "../../../../api-caller/exercise-api-caller.service";
-import {ToastService} from "../../../../services/toast.service";
-import {map, of} from "rxjs";
-import {SelectionModel} from "@angular/cdk/collections";
-import {ToastType} from "../../../../enums/toast-type";
-import {catchError} from "rxjs/operators";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Plan} from "../../../../models/plan";
 import {TreeNode} from "primeng/api";
 
 @Component({
@@ -18,6 +12,8 @@ import {TreeNode} from "primeng/api";
 export class ExercisesComponent implements OnInit {
   exercisesTree: TreeNode[] = [];
   exercises: Exercise[] = [];
+  loaded: boolean = false;
+
   constructor(private exerciseApiCaller: ExerciseApiCallerService,
               private router: Router,
               private route: ActivatedRoute)
@@ -43,6 +39,8 @@ export class ExercisesComponent implements OnInit {
       for (const e of this.exercises) {
         this.exercisesTree.push(this.getNode(e));
       }
+
+      this.loaded = true;
     });
   }
 

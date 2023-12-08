@@ -57,6 +57,8 @@ import {DialogModule} from "primeng/dialog";
 import {ToolbarModule} from "primeng/toolbar";
 import {ToastModule} from "primeng/toast";
 import { InputNumberModule } from 'primeng/inputnumber';
+import {ProgressSpinnerModule} from "primeng/progressspinner";
+import { SpinnerComponent } from './grind-meter/shared-components/spinner/spinner.component';
 
 export const DateFormats = {
   parse: {
@@ -93,41 +95,43 @@ export const DateFormats = {
     ExerciseStatisticTableComponent,
     ShowPlansComponent,
     EditPlanComponent,
-    PlansComponent
+    PlansComponent,
+    SpinnerComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    ToastrModule.forRoot({
-      toastComponent: ToastComponent,
-    }),
-    NgbModule,
-    MatTableModule,
-    MatCheckboxModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    PickListModule,
-    ButtonModule,
-    TableModule,
-    TagModule,
-    MenubarModule,
-    InputTextModule,
-    InputTextareaModule,
-    CheckboxModule,
-    RadioButtonModule,
-    PasswordModule,
-    AccordionModule,
-    TreeModule,
-    ConfirmDialogModule,
-    DialogModule,
-    ToolbarModule,
-    ToastModule,
-    InputNumberModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        ToastrModule.forRoot({
+            toastComponent: ToastComponent,
+        }),
+        NgbModule,
+        MatTableModule,
+        MatCheckboxModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        PickListModule,
+        ButtonModule,
+        TableModule,
+        TagModule,
+        MenubarModule,
+        InputTextModule,
+        InputTextareaModule,
+        CheckboxModule,
+        RadioButtonModule,
+        PasswordModule,
+        AccordionModule,
+        TreeModule,
+        ConfirmDialogModule,
+        DialogModule,
+        ToolbarModule,
+        ToastModule,
+        InputNumberModule,
+        ProgressSpinnerModule
+    ],
   providers: [
     [CookieService],
     {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},

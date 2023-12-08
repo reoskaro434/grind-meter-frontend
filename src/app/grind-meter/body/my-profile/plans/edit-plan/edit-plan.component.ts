@@ -1,11 +1,9 @@
 import {Component} from '@angular/core';
-import {Exercise, ExerciseState} from "../../../../../models/exercise";
+import {Exercise} from "../../../../../models/exercise";
 import {ActivatedRoute} from "@angular/router";
 import {ExerciseApiCallerService} from "../../../../../api-caller/exercise-api-caller.service";
-import {ToastService} from "../../../../../services/toast.service";
 import {PlanApiCallerService} from "../../../../../api-caller/plan-api-caller.service";
 import {SaveExercisesModel} from "../../../../../models/save-exercises";
-import {ToastType} from "../../../../../enums/toast-type";
 
 @Component({
   selector: 'app-edit-plan',
@@ -15,13 +13,12 @@ import {ToastType} from "../../../../../enums/toast-type";
 export class EditPlanComponent {
   sourceExercise: Exercise[] = [];
   targetExercise: Exercise[] = [];
-
+  loaded: boolean = false;
   planId: string = '';
 
   constructor(private route: ActivatedRoute,
               private planApiCaller: PlanApiCallerService,
-              private exerciseApiCaller: ExerciseApiCallerService,
-              private toast: ToastService) {
+              private exerciseApiCaller: ExerciseApiCallerService) {
   }
 
   ngOnInit() {
@@ -34,6 +31,8 @@ export class EditPlanComponent {
           else
             this.sourceExercise.push(exercises[i]);
         }
+
+        this.loaded = true;
       });
     });
   }
@@ -48,8 +47,6 @@ export class EditPlanComponent {
         saveExercisesModel.exerciseIdList.push(this.targetExercise[i].id);
     }
 
-    this.planApiCaller.saveExercises(saveExercisesModel).subscribe((resp) => {
-      this.toast.showMessage('Saved!', ToastType.INFO);
-    });
+    this.planApiCaller.saveExercises(saveExercisesModel).subscribe();
   }
 }

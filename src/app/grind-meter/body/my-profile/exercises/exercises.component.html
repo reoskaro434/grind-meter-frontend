@@ -1,14 +1,23 @@
-<div class="mt-1">
-  <p-accordion>
-    <p-accordionTab header="Add new exercise">
-      <app-add-exercise></app-add-exercise>
-    </p-accordionTab>
-  </p-accordion>
+<div *ngIf="loaded; else loading">
+  <div class="mt-1">
+    <p-tree class="w-full md:w-30rem" [value]="exercisesTree">
+      <ng-template let-node pTemplate="navigateToStatistics">
+        <b (click)="navigateToStatistics(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
+      </ng-template>
+    </p-tree>
+  </div>
+  <div class="mt-1">
+    <p-accordion>
+      <p-accordionTab header="Add new exercise">
+        <app-add-exercise></app-add-exercise>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
 </div>
-<div class="mt-1">
-  <p-tree class="w-full md:w-30rem" [value]="exercisesTree">
-    <ng-template let-node pTemplate="navigateToStatistics">
-      <b (click)="navigateToStatistics(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
-    </ng-template>
-  </p-tree>
+<div>
+  <ng-template #loading>
+    <div class="mt-2">
+      <app-spinner></app-spinner>
+    </div>
+  </ng-template>
 </div>

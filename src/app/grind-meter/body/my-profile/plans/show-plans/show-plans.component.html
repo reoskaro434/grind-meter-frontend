@@ -1,22 +1,30 @@
-<div class="mt-1">
-  <div>
-    <p-accordion>
-      <p-accordionTab header="Add new plan">
-        <app-add-plan></app-add-plan>
-      </p-accordionTab>
-    </p-accordion>
+<div *ngIf="plansLoaded else loading">
+  <div class="mt-1">
+    <div>
+      <p-tree class="w-full md:w-30rem" [value]="plansTree">
+        <ng-template let-node pTemplate="onReportPressed">
+          <b (click)="onReportPressed(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
+        </ng-template>
+        <ng-template let-node pTemplate="onEditPressed">
+          <b (click)="onEditPressed(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
+        </ng-template>
+      </p-tree>
+    </div>
+  </div>
+  <div class="mt-1">
+    <div>
+      <p-accordion>
+        <p-accordionTab header="Add new plan">
+          <app-add-plan></app-add-plan>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
   </div>
 </div>
-<div class="mt-1">
-  <div>
-    <p-tree class="w-full md:w-30rem" [value]="plansTree">
-      <ng-template let-node pTemplate="onReportPressed">
-        <b (click)="onReportPressed(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
-      </ng-template>
-      <ng-template let-node pTemplate="onEditPressed">
-        <b (click)="onEditPressed(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
-      </ng-template>
-    </p-tree>
-  </div>
+<div>
+  <ng-template #loading>
+    <div class="mt-2">
+      <app-spinner></app-spinner>
+    </div>
+  </ng-template>
 </div>
-

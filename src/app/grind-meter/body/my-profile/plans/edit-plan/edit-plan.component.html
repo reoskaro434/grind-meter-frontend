@@ -1,8 +1,9 @@
-<div *ngIf="sourceExercise.length > 0; else loading" >
-
-<div class="card">
+<div *ngIf="loaded; else loading" >
+<div class="mt-1">
   <p-pickList [source]="sourceExercise" [target]="targetExercise" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }"
-              [targetStyle]="{ height: '30rem' }" filterBy="name" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px">
+              [targetStyle]="{ height: '30rem' }" filterBy="name" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px"
+              [showTargetControls]="false" [showSourceControls]="false">
+             >
     <ng-template let-exercise pTemplate="item">
       <div class="flex flex-wrap p-2 align-items-center gap-3">
         <div class="flex-1 flex flex-column gap-2">
@@ -12,16 +13,14 @@
     </ng-template>
   </p-pickList>
 </div>
-  <div class="p-2">
-    <p-button label="Save" (click)="onSavePressed()"></p-button>
+  <div class="ml-5 mr-5 mt-3">
+    <p-button styleClass="w-12" label="Save" (click)="onSavePressed()"></p-button>
   </div>
 </div>
 <div>
   <ng-template #loading>
-    <div class="d-flex justify-content-center">
-      <div class="m-4 spinner-border" role="status">
-        <span class="sr-only"></span>
-      </div>
+    <div class="mt-2">
+      <app-spinner></app-spinner>
     </div>
   </ng-template>
 </div>
