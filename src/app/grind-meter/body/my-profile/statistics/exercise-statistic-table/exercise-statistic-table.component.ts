@@ -49,7 +49,7 @@ export class ExerciseStatisticTableComponent implements OnInit {
     return {
       data: {
         date: new Date(report.timestamp).toLocaleDateString(),
-        volume: volume,
+        volume: volume  + 'kg',
         repetitions: repetitions,
         max: max
       },

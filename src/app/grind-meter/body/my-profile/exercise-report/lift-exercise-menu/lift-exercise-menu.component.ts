@@ -32,6 +32,8 @@ export class LiftExerciseMenuComponent  {
 
     if (this.currentReport === undefined) {
       this.getLastExerciseReport(exercise.id);
+    } else {
+      this.loaded = true;
     }
   }
 
@@ -52,7 +54,6 @@ export class LiftExerciseMenuComponent  {
         if (this.lastReport)
           this.localStorage.saveForToday(`${this.currentExercise.id}_lastReport`, this.lastReport);
         this.localStorage.saveForToday(`${this.currentExercise.id}_currentReport`, this.currentReport);
-
         this.loaded = true;
       });
   }

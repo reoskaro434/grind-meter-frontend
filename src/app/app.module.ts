@@ -60,6 +60,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import {ProgressSpinnerModule} from "primeng/progressspinner";
 import { SpinnerComponent } from './grind-meter/shared-components/spinner/spinner.component';
 import {TreeTableModule} from "primeng/treetable";
+import { GmIconComponent } from './grind-meter/navbar/gm-icon/gm-icon.component';
 
 export const DateFormats = {
   parse: {
@@ -97,7 +98,8 @@ export const DateFormats = {
     ShowPlansComponent,
     EditPlanComponent,
     PlansComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    GmIconComponent
   ],
   imports: [
     BrowserModule,

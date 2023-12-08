@@ -12,13 +12,13 @@ import {MenuItem} from "primeng/api";
 export class NavbarComponent implements OnInit {
   items: MenuItem[] | undefined;
   username = this.auth.getUsername();
-
   constructor(private auth: AuthService,
               private accessApiCaller: AccessApiCallerService,
               private router: Router) {
   }
 
   private getItemsForUser(): MenuItem[] {
+
     return [
       {
         label: 'Exercises',

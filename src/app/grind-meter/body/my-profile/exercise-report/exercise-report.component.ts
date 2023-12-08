@@ -29,10 +29,4 @@ export class ExerciseReportComponent implements OnInit {
       this.loaded = true;
     });
   }
-
-  openExerciseUpdateMenu(id: string): void {
-    const exercise = this.exercises.find((exercise) => exercise.id === id);
-    if (exercise)
-      this.currentExercise = exercise;
-  }
 }
