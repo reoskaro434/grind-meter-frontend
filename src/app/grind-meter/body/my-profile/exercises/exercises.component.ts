@@ -20,6 +20,7 @@ export class ExercisesComponent implements OnInit {
   {}
 
   private getNode(exercise: Exercise):TreeNode {
+    console.log(exercise.name);
     return {
       label: exercise.name,
       children: [
