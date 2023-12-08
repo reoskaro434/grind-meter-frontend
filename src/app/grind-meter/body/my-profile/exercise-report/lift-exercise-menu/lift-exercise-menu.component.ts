@@ -17,7 +17,7 @@ export class LiftExerciseMenuComponent  {
   currentExercise!: Exercise;
   currentReport!: LiftExerciseReport;
   lastReport!: LiftExerciseReport;
-
+  loaded = false;
   debouncedReportSave = debounce(this.saveReport, 1000);
 
   constructor(private exerciseReportApiCaller: ExerciseReportApiCallerService,
@@ -36,7 +36,7 @@ export class LiftExerciseMenuComponent  {
   }
 
   private getLastExerciseReport(exerciseId: string) {
-    this.exerciseReportApiCaller.getLastReport(exerciseId, 2).pipe(map((lastReportList) => {
+    this.exerciseReportApiCaller.getLastReport(exerciseId, 2).subscribe((lastReportList) => {
         for (let i = 0; i < lastReportList.length; i++) {
           if (lastReportList[i].timestamp === this.getCurrentTimestamp()) {
             this.currentReport = lastReportList[i];
@@ -52,14 +52,17 @@ export class LiftExerciseMenuComponent  {
         if (this.lastReport)
           this.localStorage.saveForToday(`${this.currentExercise.id}_lastReport`, this.lastReport);
         this.localStorage.saveForToday(`${this.currentExercise.id}_currentReport`, this.currentReport);
-      }),
-      catchError(err => {
-        throw err;
-      })).subscribe();
+
+        this.loaded = true;
+      });
   }
 
 
   public saveReport() {
+    if (this.currentReport.sets.length === 0) {
+      return;
+    }
+
     for (let i = 0; i < this.currentReport.sets.length; i++) {
       this.currentReport.sets[i].index = i + 1;
 

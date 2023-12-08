@@ -59,6 +59,7 @@ import {ToastModule} from "primeng/toast";
 import { InputNumberModule } from 'primeng/inputnumber';
 import {ProgressSpinnerModule} from "primeng/progressspinner";
 import { SpinnerComponent } from './grind-meter/shared-components/spinner/spinner.component';
+import {TreeTableModule} from "primeng/treetable";
 
 export const DateFormats = {
   parse: {
@@ -98,40 +99,41 @@ export const DateFormats = {
     PlansComponent,
     SpinnerComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        FormsModule,
-        HttpClientModule,
-        ToastrModule.forRoot({
-            toastComponent: ToastComponent,
-        }),
-        NgbModule,
-        MatTableModule,
-        MatCheckboxModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        PickListModule,
-        ButtonModule,
-        TableModule,
-        TagModule,
-        MenubarModule,
-        InputTextModule,
-        InputTextareaModule,
-        CheckboxModule,
-        RadioButtonModule,
-        PasswordModule,
-        AccordionModule,
-        TreeModule,
-        ConfirmDialogModule,
-        DialogModule,
-        ToolbarModule,
-        ToastModule,
-        InputNumberModule,
-        ProgressSpinnerModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    ToastrModule.forRoot({
+      toastComponent: ToastComponent,
+    }),
+    NgbModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    PickListModule,
+    ButtonModule,
+    TableModule,
+    TagModule,
+    MenubarModule,
+    InputTextModule,
+    InputTextareaModule,
+    CheckboxModule,
+    RadioButtonModule,
+    PasswordModule,
+    AccordionModule,
+    TreeModule,
+    ConfirmDialogModule,
+    DialogModule,
+    ToolbarModule,
+    ToastModule,
+    InputNumberModule,
+    ProgressSpinnerModule,
+    TreeTableModule
+  ],
   providers: [
     [CookieService],
     {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},

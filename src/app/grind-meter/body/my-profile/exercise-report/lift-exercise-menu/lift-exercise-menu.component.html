@@ -1,3 +1,4 @@
+<div *ngIf="loaded; else loading" class="mt-1">
 <div class="card mt-2">
   <div *ngIf="lastReport">
     <p-accordion>
@@ -78,4 +79,12 @@
               (click)="addSeries()"></button>
     </div>
   </div>
+</div>
+</div>
+<div>
+  <ng-template #loading>
+    <div class="mt-2">
+      <app-spinner></app-spinner>
+    </div>
+  </ng-template>
 </div>
