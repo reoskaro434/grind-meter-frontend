@@ -31,10 +31,6 @@ export class InterceptorService implements HttpInterceptor {
       return next.handle(request);
     }
 
-    if (this.auth.getAccessToken() === "") {
-      return this.handle401Error(request, next);
-    }
-
     request = this.injectAccessToken(request);
 
     return next.handle(request).pipe(catchError(error => {
@@ -49,8 +45,6 @@ export class InterceptorService implements HttpInterceptor {
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
     return this.accessApiCaller.refreshToken(this.auth.getUsername()).pipe(
       switchMap((response: any) => {
-        this.auth.setAuthorization(response.payload.accessToken);
-        request = this.injectAccessToken(request);
         return next.handle(request);
       }),
       catchError(error => {
@@ -66,7 +60,7 @@ export class InterceptorService implements HttpInterceptor {
 
   private injectAccessToken(request: HttpRequest<any>) {
     return request.clone({
-      headers: request.headers.set('authorization', this.auth.getAccessToken()),
+      withCredentials: true
     });
   }
 }

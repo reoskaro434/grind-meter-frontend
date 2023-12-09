@@ -64,7 +64,7 @@ export class ExerciseStatisticTableComponent implements OnInit {
   ngOnInit(){
     this.cols = [
       { field: 'date', header: 'Date' },
-      { field: 'repetitions', header: 'Repetitions' },
+      { field: 'repetitions', header: 'Reps' },
       { field: 'weight', header: 'Weight' },
       { field: 'volume', header: 'Volume' },
       { field: 'max', header: 'Max' },

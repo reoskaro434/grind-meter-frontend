@@ -13,7 +13,6 @@ export class SignInComponent {
   inputPassword: any;
 
   constructor(private accessApiCaller: AccessApiCallerService,
-              private auth: AuthService,
               private router: Router) {
   }
   onSubmit() {
@@ -22,7 +21,6 @@ export class SignInComponent {
       password: btoa(this.inputPassword)
     }).subscribe(
       (response) => {
-        this.auth.setAuthorization(response.payload.accessToken);
         this.router.navigate([`/${this.inputUsername}/plans/show-plans`]).then(() => {
           window.location.reload();
         });
