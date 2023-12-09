@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Exercise} from "../../../../models/exercise";
-import {ExerciseApiCallerService} from "../../../../api-caller/exercise-api-caller.service";
 import {ActivatedRoute} from "@angular/router";
 import {PlanApiCallerService} from "../../../../api-caller/plan-api-caller.service";
 
@@ -10,15 +9,11 @@ import {PlanApiCallerService} from "../../../../api-caller/plan-api-caller.servi
   styleUrls: ['./exercise-report.component.css']
 })
 export class ExerciseReportComponent implements OnInit {
-
   exercises: Exercise[] = [];
-
-  currentExercise: Exercise | null = null;
   planId = '';
   loaded: boolean = false;
 
-  constructor(private exerciseApiCaller: ExerciseApiCallerService,
-              private planApiCaller: PlanApiCallerService,
+  constructor(private planApiCaller: PlanApiCallerService,
               private route: ActivatedRoute) {
   }
 

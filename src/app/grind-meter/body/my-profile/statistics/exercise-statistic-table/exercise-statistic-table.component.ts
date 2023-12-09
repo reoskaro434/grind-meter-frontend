@@ -6,7 +6,6 @@ import {map} from "rxjs";
 import {ToastType} from "../../../../../enums/toast-type";
 import {ToastService} from "../../../../../services/toast.service";
 import {LiftExerciseReport} from "../../../../../models/lift-exercise-report";
-import {SelectionModel} from "@angular/cdk/collections";
 import {Exercise} from "../../../../../models/exercise";
 import {TreeNode} from "primeng/api";
 
@@ -36,22 +35,27 @@ export class ExerciseStatisticTableComponent implements OnInit {
     for (const set of report.sets) {
       childNodes.push({
         data: {
-          volume: set.weight.mass + 'kg', // todo fix mass unit to dynamic
-          repetitions: set.repetitions
+          isMainRow: false,
+          date: set.index + '.',
+          volume: (set.weight.mass * set.repetitions) + 'kg', // todo fix mass unit to dynamic
+          repetitions: set.repetitions,
+          weight: set.weight.mass + 'kg'
         },
         type: 'body',
       });
-      volume += set.weight.mass;
+      volume += set.weight.mass * set.repetitions;
       repetitions += set.repetitions;
       max = Math.max(max, set.weight.mass);
     }
 
     return {
       data: {
+        isMainRow: true,
         date: new Date(report.timestamp).toLocaleDateString(),
         volume: volume  + 'kg',
         repetitions: repetitions,
-        max: max
+        max: max,
+        weight: '[kg]'
       },
       type: 'default',
       children: childNodes
@@ -60,8 +64,9 @@ export class ExerciseStatisticTableComponent implements OnInit {
   ngOnInit(){
     this.cols = [
       { field: 'date', header: 'Date' },
-      { field: 'volume', header: 'Volume' },
       { field: 'repetitions', header: 'Repetitions' },
+      { field: 'weight', header: 'Weight' },
+      { field: 'volume', header: 'Volume' },
       { field: 'max', header: 'Max' },
     ];
 

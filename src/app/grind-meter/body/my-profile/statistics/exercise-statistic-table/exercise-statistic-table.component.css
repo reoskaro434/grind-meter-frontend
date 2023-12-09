@@ -1,3 +1,7 @@
+.main-row {
+  background-color: var(--surface-b) !important;
+}
+
 /*.exercises-table, td, th {*/
 /*  background: var(--transparent-color);*/
 /*  color: var(--text-color);*/
