@@ -13,6 +13,8 @@ export class ShowPlansComponent implements OnInit {
   plans: Plan[] = [];
   plansTree: TreeNode[] = [];
   plansLoaded: boolean = false;
+  totalPlans: number = 0;
+  PLANS_PER_ACCOUNT = 10;
 
   constructor(private plansApiCaller: PlanApiCallerService,
               private router: Router,
@@ -43,6 +45,7 @@ export class ShowPlansComponent implements OnInit {
   public ngOnInit(): void {
     this.plansApiCaller.getPlansPage(1).subscribe((plans) => {
       this.plans = plans;
+      this.totalPlans = this.plans.length;
       this.plansLoaded = true;
 
       for (const p of this.plans) {

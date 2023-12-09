@@ -11,8 +11,11 @@
     </p-tree>
   </div>
   <div class="mt-1">
+    <p-paginator (onPageChange)="onPageChange($event)" [first]="0" [rows]="maxItemPerPage" [totalRecords]="totalExercises" [rowsPerPageOptions]="[10, 25, 50]"></p-paginator>
+  </div>
+  <div class="mt-1">
     <p-accordion>
-      <p-accordionTab header="Add new exercise">
+      <p-accordionTab [header]="'Add new exercise ' + totalExercises + '/' + EXERCISES_PER_ACCOUNT">
         <app-add-exercise></app-add-exercise>
       </p-accordionTab>
     </p-accordion>

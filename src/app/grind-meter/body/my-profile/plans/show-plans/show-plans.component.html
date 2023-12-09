@@ -18,7 +18,7 @@
   <div class="mt-1">
     <div>
       <p-accordion>
-        <p-accordionTab header="Add new plan">
+        <p-accordionTab [header]="'Add new plan ' + totalPlans + '/' + PLANS_PER_ACCOUNT">
           <app-add-plan></app-add-plan>
         </p-accordionTab>
       </p-accordion>
