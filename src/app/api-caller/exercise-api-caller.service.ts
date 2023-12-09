@@ -19,6 +19,9 @@ export class ExerciseApiCallerService {
     return this.http.get<Exercise[]>(`${environment.apiURL}/exercise/get-exercises/${page}`);
   }
 
+  public updateExercise(exercise: Exercise) {
+    return this.http.post<{}>(`${environment.apiURL}/exercise/update`, exercise);
+  }
   public setExerciseActive(id: string) {
     return this.http.post<{}>(`${environment.apiURL}/exercise/set-active`, {id: id});
   }

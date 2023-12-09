@@ -16,6 +16,9 @@ export class PlanApiCallerService {
   public addPlan(plan: Plan) {
     return this.http.post<{}>(`${environment.apiURL}/plan/add-plan`, plan);
   }
+  updatePlan(plan: Plan) {
+    return this.http.post<{}>(`${environment.apiURL}/plan/update`, plan);
+  }
 
   public getPlansPage(page: number) {
     return this.http.get<Plan[]>(`${environment.apiURL}/plan/get-plans/${page}`);
@@ -52,4 +55,5 @@ export class PlanApiCallerService {
   // public getExerciseById(exercise_id: string) {
   //   return this.http.get<Exercise>(`${environment.apiURL}/exercise/get-exercise/${exercise_id}`);
   // }
+
 }

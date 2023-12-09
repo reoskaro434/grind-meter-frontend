@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Exercise} from "../../../../models/exercise";
+import {Exercise, ExerciseState, ExerciseType} from "../../../../models/exercise";
 import {ExerciseApiCallerService} from "../../../../api-caller/exercise-api-caller.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TreeNode} from "primeng/api";
@@ -17,6 +17,13 @@ export class ExercisesComponent implements OnInit {
   maxItemPerPage = 10;
   totalExercises = 0;
   EXERCISES_PER_ACCOUNT = 50;
+  renameModalVisible = false;
+  renameModalExercise: Exercise = {
+    state: ExerciseState.Inactive,
+    type: ExerciseType.Lift,
+    name: '',
+    id: ''
+  };
 
   constructor(private exerciseApiCaller: ExerciseApiCallerService,
               private router: Router,
@@ -26,12 +33,19 @@ export class ExercisesComponent implements OnInit {
   private getNode(exercise: Exercise):TreeNode {
     return {
       label: exercise.name,
+      data: exercise.id,
       children: [
         {
           label: 'Statistics',
           data: exercise.id,
           type: 'statisticsNode',
           icon: 'pi pi-chart-bar'
+        },
+        {
+          label: 'Rename',
+          data: exercise.id,
+          type: 'renameNode',
+          icon: 'pi pi-pencil'
         }
       ]
     }
@@ -82,5 +96,24 @@ export class ExercisesComponent implements OnInit {
   onPageChange(state: PaginatorState) {
     if (state.page !== undefined && state.rows !== undefined)
     this.loadPage(state.page, state.rows);
+  }
+
+  rename(exerciseId: any) {
+    const exercise = this.exercises.find((e)=> e.id === exerciseId);
+
+    if (exercise) {
+      this.renameModalExercise = exercise;
+      this.renameModalVisible = true;
+    }
+  }
+
+  updateExercise() {
+    if (this.renameModalExercise)
+      this.exerciseApiCaller.updateExercise(this.renameModalExercise).subscribe();
+      const node = this.exercisesTree
+        .find(node => node.data === this.renameModalExercise.id);
+      node!.label = this.renameModalExercise.name;
+      this.renameModalVisible = false;
+
   }
 }

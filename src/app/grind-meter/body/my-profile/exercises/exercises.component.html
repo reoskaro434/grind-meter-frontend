@@ -8,6 +8,9 @@
       <ng-template let-node pTemplate="statisticsNode">
         <b (click)="navigateToStatistics(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
       </ng-template>
+      <ng-template let-node pTemplate="renameNode">
+        <b (click)="rename(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
+      </ng-template>
     </p-tree>
   </div>
   <div class="mt-1">
@@ -20,6 +23,22 @@
       </p-accordionTab>
     </p-accordion>
   </div>
+</div>
+<div>
+  <p-dialog header="New name" [(visible)]="renameModalVisible">
+    <div class="flex py-2 justify-content-center">
+      <div class="p-inputgroup">
+      <span class="p-inputgroup-addon">
+        <i class="pi pi-pencil"></i>
+      </span>
+        <input name="renameField" [(ngModel)]="renameModalExercise.name" pInputText placeholder="New name"/>
+      </div>
+
+    </div>
+    <div class="mt-1">
+      <p-button (click)="updateExercise()" label="Rename"></p-button>
+    </div>
+  </p-dialog>
 </div>
 <div>
   <ng-template #loading>

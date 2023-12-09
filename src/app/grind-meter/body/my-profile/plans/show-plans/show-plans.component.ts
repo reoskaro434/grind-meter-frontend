@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {PlanApiCallerService} from "../../../../../api-caller/plan-api-caller.service";
-import {Plan} from "../../../../../models/plan";
+import {Plan, PlanState} from "../../../../../models/plan";
 import {TreeNode} from "primeng/api";
 
 @Component({
@@ -15,6 +15,8 @@ export class ShowPlansComponent implements OnInit {
   plansLoaded: boolean = false;
   totalPlans: number = 0;
   PLANS_PER_ACCOUNT = 10;
+  renameModalPlan: Plan = {id: "", name: "", state: PlanState.Inactive};
+  renameModalVisible: boolean = false;
 
   constructor(private plansApiCaller: PlanApiCallerService,
               private router: Router,
@@ -23,6 +25,7 @@ export class ShowPlansComponent implements OnInit {
   private getNode(plan: Plan):TreeNode {
     return {
       label: plan.name,
+      data: plan.id,
       type: 'default',
       icon: 'pi pi-book',
       children: [
@@ -37,14 +40,39 @@ export class ShowPlansComponent implements OnInit {
           type: 'editNode',
           icon: 'pi pi-pencil',
           data: plan.id
+        },
+        {
+          label: 'Rename',
+          data: plan.id,
+          type: 'renameNode',
+          icon: 'pi pi-pencil'
         }
       ]
     }
   }
 
+  private sortPlans() {
+    this.plans.sort((a, b) => {
+      if (!a.name || !b.name) {
+        return 0;
+      }
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+
+      return 0;
+    });
+  }
+
   public ngOnInit(): void {
     this.plansApiCaller.getPlansPage(1).subscribe((plans) => {
       this.plans = plans;
+
+      this.sortPlans();
+
       this.totalPlans = this.plans.length;
       this.plansLoaded = true;
 
@@ -59,5 +87,24 @@ export class ShowPlansComponent implements OnInit {
 
   onReportPressed(id: string) {
     this.router.navigate([`../report/${id}`], { relativeTo: this.route }).then();
+  }
+
+  rename(exerciseId: any) {
+    const plan = this.plans.find((e)=> e.id === exerciseId);
+
+    if (plan) {
+      this.renameModalPlan = plan;
+      this.renameModalVisible = true;
+    }
+  }
+
+  updateExercise() {
+    if (this.renameModalPlan)
+      this.plansApiCaller.updatePlan(this.renameModalPlan).subscribe();
+    const node = this.plansTree
+      .find(node => node.data === this.renameModalPlan.id);
+    node!.label = this.renameModalPlan.name;
+    this.renameModalVisible = false;
+
   }
 }
