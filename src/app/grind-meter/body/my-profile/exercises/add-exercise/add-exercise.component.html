@@ -1,20 +1,15 @@
-<form (ngSubmit)="onSubmit(addExerciseForm)" #addExerciseForm="ngForm">
-  <fieldset>
-    <legend>Add your exercise</legend>
-  <div class="form-group">
-    <label for="inputExerciseName">Exercise</label>
-    <input type="text"
-           class="form-control"
-           id="inputExerciseName"
-           name="inputExerciseName"
-           placeholder="Enter exercise name"
-           required
-           [(ngModel)]="exerciseName"
-           #exercise="ngModel">
-    <small *ngIf="!exercise.valid && exercise.touched" class="form-text text-danger">
-      This field is not valid
-    </small>
-  </div>
-  <button type="submit" class="btn btn-primary mt-2" [disabled]="!addExerciseForm.valid">Add</button>
-    </fieldset>
-</form>
+<div class="mt-1">
+  <form (ngSubmit)="onSubmit(addExerciseForm)" #addExerciseForm="ngForm">
+    <div class="card flex flex-column md:flex-row gap-3">
+      <div class="p-inputgroup">
+      <span class="p-inputgroup-addon">
+        <i class="pi pi-circle"></i>
+      </span>
+        <input name="inputUsername" [(ngModel)]="exerciseName" pInputText placeholder="Exercise name"/>
+      </div>
+    </div>
+    <div class="mt-1">
+      <p-button type="submit" label="Add"></p-button>
+    </div>
+  </form>
+</div>
