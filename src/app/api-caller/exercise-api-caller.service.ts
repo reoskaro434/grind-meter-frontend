@@ -15,23 +15,16 @@ export class ExerciseApiCallerService {
     return this.http.post<{}>(`${environment.apiURL}/exercise/add-exercise`, exercise);
   }
 
+  deleteExercise(exercise_id: string) {
+    return this.http.delete<{}>(`${environment.apiURL}/exercise/delete/${exercise_id}`);
+  }
+
   public getExercisesForAccount() {
     return this.http.get<Exercise[]>(`${environment.apiURL}/exercise/get-exercises`);
   }
 
   public updateExercise(exercise: Exercise) {
     return this.http.post<{}>(`${environment.apiURL}/exercise/update`, exercise);
-  }
-  public setExerciseActive(id: string) {
-    return this.http.post<{}>(`${environment.apiURL}/exercise/set-active`, {id: id});
-  }
-
-  public setExerciseInactive(id: string) {
-    return this.http.post<{}>(`${environment.apiURL}/exercise/set-inactive`, {id: id});
-  }
-
-  public getActiveExercises() {
-    return this.http.get<Exercise[]>(`${environment.apiURL}/exercise/get-active-exercises`);
   }
 
   public getExerciseById(exercise_id: string) {

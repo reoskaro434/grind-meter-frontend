@@ -2,8 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {Exercise, ExerciseType} from "../../../../models/exercise";
 import {ExerciseApiCallerService} from "../../../../api-caller/exercise-api-caller.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {TreeNode} from "primeng/api";
+import {ConfirmationService, TreeNode} from "primeng/api";
 import {PaginatorState} from "primeng/paginator";
+import {NgForm} from "@angular/forms";
+import {Plan} from "../../../../models/plan";
+import {v4} from "uuid";
 
 @Component({
   selector: 'app-exercises',
@@ -26,7 +29,8 @@ export class ExercisesComponent implements OnInit {
 
   constructor(private exerciseApiCaller: ExerciseApiCallerService,
               private router: Router,
-              private route: ActivatedRoute)
+              private route: ActivatedRoute,
+              private confirmation: ConfirmationService)
   {}
 
   private getNode(exercise: Exercise):TreeNode {
@@ -45,6 +49,12 @@ export class ExercisesComponent implements OnInit {
           data: exercise.id,
           type: 'renameNode',
           icon: 'pi pi-pencil'
+        },
+        {
+          label: 'Delete',
+          data: {exerciseId: exercise.id, exerciseName: exercise.name},
+          type: 'deleteNode',
+          icon: 'pi pi-trash'
         }
       ]
     }
@@ -114,5 +124,17 @@ export class ExercisesComponent implements OnInit {
       node!.label = this.renameModalExercise.name;
       this.renameModalVisible = false;
 
+  }
+
+
+  onDeletePressed(data: {exerciseId: string, exerciseName: string}) {
+    this.confirmation.confirm({
+      message: `Are you sure you want to delete?`,
+      header: data.exerciseName,
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.exerciseApiCaller.deleteExercise(data.exerciseId).subscribe((resp) => window.location.reload());
+      },
+      reject: () => {}});
   }
 }

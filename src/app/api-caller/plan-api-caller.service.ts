@@ -20,6 +20,10 @@ export class PlanApiCallerService {
     return this.http.post<{}>(`${environment.apiURL}/plan/update`, plan);
   }
 
+  deletePlan(planId: string) {
+    return this.http.delete<{}>(`${environment.apiURL}/plan/delete/${planId}`);
+  }
+
   public getPlansForAccount() {
     return this.http.get<Plan[]>(`${environment.apiURL}/plan/get-plans`);
   }

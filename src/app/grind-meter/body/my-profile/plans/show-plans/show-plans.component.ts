@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {PlanApiCallerService} from "../../../../../api-caller/plan-api-caller.service";
 import {Plan} from "../../../../../models/plan";
-import {TreeNode} from "primeng/api";
+import {ConfirmationService, TreeNode} from "primeng/api";
 
 @Component({
   selector: 'app-plans',
@@ -14,13 +14,14 @@ export class ShowPlansComponent implements OnInit {
   plansTree: TreeNode[] = [];
   plansLoaded: boolean = false;
   totalPlans: number = 0;
-  PLANS_PER_ACCOUNT = 10;
+  PLANS_PER_ACCOUNT = 5;
   renameModalPlan: Plan = {id: "", name: "", exerciseIdList: [], userId: ""};
   renameModalVisible: boolean = false;
 
   constructor(private plansApiCaller: PlanApiCallerService,
               private router: Router,
-              private route: ActivatedRoute)
+              private route: ActivatedRoute,
+              private confirmation: ConfirmationService)
   {}
   private getNode(plan: Plan):TreeNode {
     return {
@@ -38,7 +39,7 @@ export class ShowPlansComponent implements OnInit {
         {
           label: 'Edit',
           type: 'editNode',
-          icon: 'pi pi-pencil',
+          icon: 'pi pi-cog',
           data: plan.id
         },
         {
@@ -46,6 +47,12 @@ export class ShowPlansComponent implements OnInit {
           data: plan.id,
           type: 'renameNode',
           icon: 'pi pi-pencil'
+        },
+        {
+          label: 'Delete',
+          data: {planId: plan.id, planName: plan.name},
+          type: 'deleteNode',
+          icon: 'pi pi-trash'
         }
       ]
     }
@@ -106,5 +113,16 @@ export class ShowPlansComponent implements OnInit {
     node!.label = this.renameModalPlan.name;
     this.renameModalVisible = false;
 
+  }
+
+  onDeletePressed(data: {planId: string, planName: string}) {
+    this.confirmation.confirm({
+      message: `Are you sure you want to delete?`,
+      header: data.planName,
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.plansApiCaller.deletePlan(data.planId).subscribe((resp) => window.location.reload());
+      },
+      reject: () => {}});
   }
 }

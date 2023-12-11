@@ -6,6 +6,7 @@ import {ToastService} from "../../../../../services/toast.service";
 import {ToastType} from "../../../../../enums/toast-type";
 import {NgForm} from "@angular/forms";
 import {v4} from 'uuid';
+import {Plan} from "../../../../../models/plan";
 
 @Component({
   selector: 'app-add-exercise',
@@ -32,11 +33,9 @@ export class AddExerciseComponent implements OnInit {
       type: ExerciseType.Lift
     };
 
-    this.exerciseApiCaller.addExercise(exercise).pipe(map((response)=>{
-      if (response) {
-        this.toast.showMessage(`Added: ${exerciseName}`, ToastType.SUCCESS);
-      }
-    })).subscribe();
+    this.exerciseApiCaller.addExercise(exercise).subscribe();
   }
+
+
 
 }

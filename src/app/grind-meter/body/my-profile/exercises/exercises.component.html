@@ -11,6 +11,9 @@
       <ng-template let-node pTemplate="renameNode">
         <b (click)="rename(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
       </ng-template>
+      <ng-template let-node pTemplate="deleteNode">
+        <b (click)="onDeletePressed(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
+      </ng-template>
     </p-tree>
   </div>
   <div class="mt-1">
@@ -39,6 +42,9 @@
       <p-button (click)="updateExercise()" label="Rename"></p-button>
     </div>
   </p-dialog>
+</div>
+<div>
+  <p-confirmDialog [style]="{width: '70vw'}"></p-confirmDialog>
 </div>
 <div>
   <ng-template #loading>

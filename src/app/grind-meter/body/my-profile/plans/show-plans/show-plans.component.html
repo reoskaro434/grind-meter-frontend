@@ -9,6 +9,11 @@
         <ng-template let-node pTemplate="editNode">
           <b (click)="onEditPressed(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
         </ng-template>
+
+        <ng-template let-node pTemplate="deleteNode">
+          <b (click)="onDeletePressed(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
+        </ng-template>
+
         <ng-template let-node pTemplate="default">
           <b class="text-700 hover:text-primary">{{ node.label }}</b>
         </ng-template>
@@ -44,6 +49,9 @@
       <p-button (click)="updateExercise()" label="Rename"></p-button>
     </div>
   </p-dialog>
+</div>
+<div>
+  <p-confirmDialog [style]="{width: '70vw'}"></p-confirmDialog>
 </div>
 <div>
   <ng-template #loading>

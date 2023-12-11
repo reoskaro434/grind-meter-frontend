@@ -29,7 +29,9 @@ export class AddPlanComponent implements OnInit {
       exerciseIdList: []
     };
 
-    this.planApiCaller.addPlan(exercise).subscribe();
+    this.planApiCaller.addPlan(exercise).subscribe((resp) => {
+      window.location.reload();
+    });
   }
 
 }

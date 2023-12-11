@@ -64,6 +64,7 @@ import { GmIconComponent } from './grind-meter/navbar/gm-icon/gm-icon.component'
 import {PaginatorModule} from "primeng/paginator";
 import {MessageModule} from "primeng/message";
 import {KeyFilterModule} from "primeng/keyfilter";
+import {ConfirmationService} from "primeng/api";
 
 export const DateFormats = {
   parse: {
@@ -147,7 +148,8 @@ export const DateFormats = {
     {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},
     provideAnimations(),
     provideToastr(),
-    {provide: MAT_DATE_LOCALE, useValue: undefined}
+    {provide: MAT_DATE_LOCALE, useValue: undefined},
+    ConfirmationService
   ],
   bootstrap: [AppComponent],
 
