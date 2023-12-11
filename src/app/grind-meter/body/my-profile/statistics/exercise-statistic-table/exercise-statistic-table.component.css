@@ -1,6 +1,9 @@
 .main-row {
   background-color: var(--surface-b) !important;
 }
+.child-row td {
+  padding: 0 0.2rem;
+}
 
 /*.exercises-table, td, th {*/
 /*  background: var(--transparent-color);*/

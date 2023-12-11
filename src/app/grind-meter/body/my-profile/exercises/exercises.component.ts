@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Exercise, ExerciseState, ExerciseType} from "../../../../models/exercise";
+import {Exercise, ExerciseType} from "../../../../models/exercise";
 import {ExerciseApiCallerService} from "../../../../api-caller/exercise-api-caller.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TreeNode} from "primeng/api";
@@ -19,7 +19,6 @@ export class ExercisesComponent implements OnInit {
   EXERCISES_PER_ACCOUNT = 50;
   renameModalVisible = false;
   renameModalExercise: Exercise = {
-    state: ExerciseState.Inactive,
     type: ExerciseType.Lift,
     name: '',
     id: ''
@@ -78,7 +77,7 @@ export class ExercisesComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.exerciseApiCaller.getExercisePage(1).subscribe((exercises) => {
+    this.exerciseApiCaller.getExercisesForAccount().subscribe((exercises) => {
       this.exercises = exercises;
       this.totalExercises = this.exercises.length;
       this.sortExercises();

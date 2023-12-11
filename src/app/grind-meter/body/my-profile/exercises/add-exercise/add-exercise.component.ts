@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ExerciseApiCallerService} from "../../../../../api-caller/exercise-api-caller.service";
-import {Exercise, ExerciseState, ExerciseType} from "../../../../../models/exercise";
+import {Exercise, ExerciseType} from "../../../../../models/exercise";
 import {map} from "rxjs";
 import {ToastService} from "../../../../../services/toast.service";
 import {ToastType} from "../../../../../enums/toast-type";
@@ -29,8 +29,7 @@ export class AddExerciseComponent implements OnInit {
     const exercise: Exercise = {
       id: v4(),
       name: exerciseName,
-      type: ExerciseType.Lift,
-      state: ExerciseState.Inactive
+      type: ExerciseType.Lift
     };
 
     this.exerciseApiCaller.addExercise(exercise).pipe(map((response)=>{

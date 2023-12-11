@@ -1,11 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {map} from "rxjs";
-import {ToastService} from "../../../../../../services/toast.service";
-import {ToastType} from "../../../../../../enums/toast-type";
 import {NgForm} from "@angular/forms";
 import {v4} from 'uuid';
 import {PlanApiCallerService} from "../../../../../../api-caller/plan-api-caller.service";
-import {Plan, PlanState} from "../../../../../../models/plan";
+import {Plan} from "../../../../../../models/plan";
 
 @Component({
   selector: 'app-add-plan',
@@ -16,8 +13,7 @@ export class AddPlanComponent implements OnInit {
 
   planName: string = ""
 
-  constructor(private planApiCaller: PlanApiCallerService,
-              private toast: ToastService)
+  constructor(private planApiCaller: PlanApiCallerService)
   {}
   public ngOnInit(): void {
   }
@@ -29,14 +25,11 @@ export class AddPlanComponent implements OnInit {
     const exercise: Plan = {
       id: v4(),
       name: planName,
-      state: PlanState.Inactive
+      userId: "", // will be obtained in the backend
+      exerciseIdList: []
     };
 
-    this.planApiCaller.addPlan(exercise).pipe(map((response)=>{
-      if (response) {
-        this.toast.showMessage(`Added: ${planName}`, ToastType.SUCCESS);
-      }
-    })).subscribe();
+    this.planApiCaller.addPlan(exercise).subscribe();
   }
 
 }

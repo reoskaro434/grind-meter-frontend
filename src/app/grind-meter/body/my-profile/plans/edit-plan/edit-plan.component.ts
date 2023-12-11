@@ -4,6 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {ExerciseApiCallerService} from "../../../../../api-caller/exercise-api-caller.service";
 import {PlanApiCallerService} from "../../../../../api-caller/plan-api-caller.service";
 import {SaveExercisesModel} from "../../../../../models/save-exercises";
+import {Plan} from "../../../../../models/plan";
 
 @Component({
   selector: 'app-edit-plan',
@@ -15,6 +16,7 @@ export class EditPlanComponent {
   targetExercise: Exercise[] = [];
   loaded: boolean = false;
   planId: string = '';
+  plan: Plan = {id: "", name: "", exerciseIdList: [], userId: ""};
 
   constructor(private route: ActivatedRoute,
               private planApiCaller: PlanApiCallerService,
@@ -23,16 +25,20 @@ export class EditPlanComponent {
 
   ngOnInit() {
     this.planId = this.route.snapshot.params['planId'];
+
+
     this.planApiCaller.getExercisesId(this.planId).subscribe((exercisesId) => {
-      this.exerciseApiCaller.getExercisePage(1).subscribe((exercises) => {
+      this.exerciseApiCaller.getExercisesForAccount().subscribe((exercises) => {
         for (let i = 0; i < exercises.length; i++) {
           if (exercisesId.includes(exercises[i].id))
             this.targetExercise.push(exercises[i]);
           else
             this.sourceExercise.push(exercises[i]);
         }
-
-        this.loaded = true;
+        this.planApiCaller.getPlan(this.planId).subscribe(plan => {
+          this.plan = plan;
+          this.loaded = true;
+        });
       });
     });
   }

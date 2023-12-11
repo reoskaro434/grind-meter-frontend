@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {PlanApiCallerService} from "../../../../../api-caller/plan-api-caller.service";
-import {Plan, PlanState} from "../../../../../models/plan";
+import {Plan} from "../../../../../models/plan";
 import {TreeNode} from "primeng/api";
 
 @Component({
@@ -15,7 +15,7 @@ export class ShowPlansComponent implements OnInit {
   plansLoaded: boolean = false;
   totalPlans: number = 0;
   PLANS_PER_ACCOUNT = 10;
-  renameModalPlan: Plan = {id: "", name: "", state: PlanState.Inactive};
+  renameModalPlan: Plan = {id: "", name: "", exerciseIdList: [], userId: ""};
   renameModalVisible: boolean = false;
 
   constructor(private plansApiCaller: PlanApiCallerService,
@@ -68,7 +68,7 @@ export class ShowPlansComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.plansApiCaller.getPlansPage(1).subscribe((plans) => {
+    this.plansApiCaller.getPlansForAccount().subscribe((plans) => {
       this.plans = plans;
 
       this.sortPlans();

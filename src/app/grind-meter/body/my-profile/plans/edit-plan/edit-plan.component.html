@@ -1,4 +1,8 @@
 <div *ngIf="loaded; else loading" >
+  <div>
+    <h3>{{plan.name}}</h3>
+  </div>
+
 <div class="mt-1">
   <p-pickList [source]="sourceExercise" [target]="targetExercise" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }"
               [targetStyle]="{ height: '30rem' }" filterBy="name" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px"
