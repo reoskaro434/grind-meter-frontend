@@ -14,10 +14,8 @@ export class StartPageComponent implements OnInit {
               private router: Router) {}
 
   ngOnInit(): void {
-    this.username = this.auth.getUsername()
+    const dayName = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toUpperCase();
 
-    if (this.username !== "") {
-      this.router.navigate([`${this.username}/plans/show-plans`]).then();
-    }
+    this.username = this.auth.getUsername()
   }
 }

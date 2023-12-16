@@ -75,7 +75,7 @@ export class ShowPlansComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.plansApiCaller.getPlansForAccount().subscribe((plans) => {
+    this.plansApiCaller.getPlans().subscribe((plans) => {
       this.plans = plans;
 
       this.sortPlans();
@@ -98,7 +98,7 @@ export class ShowPlansComponent implements OnInit {
 
   rename(exerciseId: any) {
     const plan = this.plans.find((e)=> e.id === exerciseId);
-
+    console.log(plan);
     if (plan) {
       this.renameModalPlan = plan;
       this.renameModalVisible = true;
@@ -121,7 +121,7 @@ export class ShowPlansComponent implements OnInit {
       header: data.planName,
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.plansApiCaller.deletePlan(data.planId).subscribe((resp) => window.location.reload());
+        this.plansApiCaller.deletePlan(data.planId).subscribe(() => window.location.reload());
       },
       reject: () => {}});
   }

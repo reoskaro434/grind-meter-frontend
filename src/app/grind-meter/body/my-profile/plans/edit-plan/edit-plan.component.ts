@@ -3,9 +3,13 @@ import {Exercise} from "../../../../../models/exercise";
 import {ActivatedRoute} from "@angular/router";
 import {ExerciseApiCallerService} from "../../../../../api-caller/exercise-api-caller.service";
 import {PlanApiCallerService} from "../../../../../api-caller/plan-api-caller.service";
-import {SaveExercisesModel} from "../../../../../models/save-exercises";
 import {Plan} from "../../../../../models/plan";
+import {Day} from "../../../../../enums/day";
 
+interface IDay {
+  name: string;
+  type: Day;
+}
 @Component({
   selector: 'app-edit-plan',
   templateUrl: './edit-plan.component.html',
@@ -17,6 +21,8 @@ export class EditPlanComponent {
   loaded: boolean = false;
   planId: string = '';
   plan: Plan = {id: "", name: "", exerciseIdList: [], userId: ""};
+  days: IDay[] | undefined;
+  selectedDays: { name: string, type: Day }[] = [];
 
   constructor(private route: ActivatedRoute,
               private planApiCaller: PlanApiCallerService,
@@ -24,16 +30,29 @@ export class EditPlanComponent {
   }
 
   ngOnInit() {
+    this.days = [
+      { name: "Monday", type: Day.MONDAY },
+      { name: "Tuesday", type: Day.TUESDAY },
+      { name: "Wednesday", type: Day.WEDNESDAY },
+      { name: "Thursday", type: Day.THURSDAY },
+      { name: "Friday", type: Day.FRIDAY },
+      { name: "Saturday", type: Day.SATURDAY },
+      { name: "Sunday", type: Day.SUNDAY }
+    ];
+
+
     this.planId = this.route.snapshot.params['planId'];
 
 
-    this.planApiCaller.getExercisesId(this.planId).subscribe((exercisesId) => {
-      this.exerciseApiCaller.getExercisesForAccount().subscribe((exercises) => {
-        for (let i = 0; i < exercises.length; i++) {
-          if (exercisesId.includes(exercises[i].id))
-            this.targetExercise.push(exercises[i]);
+    this.planApiCaller.getExercises(this.planId).subscribe((planExercises) => {
+      this.exerciseApiCaller.getExercisesForAccount().subscribe((accountExercises) => {
+        const exercisesId = planExercises.map(exercise => exercise.id);
+
+        for (let i = 0; i < accountExercises.length; i++) {
+          if (exercisesId.includes(accountExercises[i].id))
+            this.targetExercise.push(accountExercises[i]);
           else
-            this.sourceExercise.push(exercises[i]);
+            this.sourceExercise.push(accountExercises[i]);
         }
         this.planApiCaller.getPlan(this.planId).subscribe(plan => {
           this.plan = plan;
@@ -44,15 +63,8 @@ export class EditPlanComponent {
   }
 
   onSavePressed() {
-    const saveExercisesModel : SaveExercisesModel = {
-      planId: this.planId,
-      exerciseIdList: []
-    }
+    this.plan.exerciseIdList = this.targetExercise.map(exercise => exercise.id);
 
-    for (let i = 0; i < this.targetExercise.length; i++) {
-        saveExercisesModel.exerciseIdList.push(this.targetExercise[i].id);
-    }
-
-    this.planApiCaller.saveExercises(saveExercisesModel).subscribe();
+    this.planApiCaller.updatePlan(this.plan).subscribe();
   }
 }
