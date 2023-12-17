@@ -1,7 +1,7 @@
 <div class="card">
   <p-menubar [model]="items">
     <ng-template pTemplate="end">
-      <app-gm-icon></app-gm-icon>
+      <app-gm-icon (click)="onIconClicked()"></app-gm-icon>
     </ng-template>
   </p-menubar>
 </div>

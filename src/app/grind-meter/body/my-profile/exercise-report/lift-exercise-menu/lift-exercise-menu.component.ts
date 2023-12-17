@@ -3,8 +3,6 @@ import {Exercise} from "../../../../../models/exercise";
 import {LiftExerciseReport} from "../../../../../models/lift-exercise-report";
 import {WeightUnit} from "../../../../../models/weight";
 import {ExerciseReportApiCallerService} from "../../../../../api-caller/exercise-report-api-caller.service";
-import {map} from "rxjs";
-import {catchError} from "rxjs/operators";
 import {LocalStorageService} from "../../../../../services/local-storage.service";
 import {debounce} from "lodash";
 

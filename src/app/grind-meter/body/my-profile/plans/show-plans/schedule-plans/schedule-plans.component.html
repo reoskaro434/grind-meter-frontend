@@ -1,0 +1,110 @@
+<div *ngIf="loaded  else loading">
+  <div class="p-grid p-dir-col">
+    <div class="p-col">
+        <span class="p-float-label w-full p-1 mt-2">
+            <p-dropdown
+              [styleClass]='"w-full"'
+              [options]="_plans"
+              (onChange)="onMondayScheduleChange(mondayPlan)"
+              [(ngModel)]="mondayPlan"
+              optionLabel="name"
+              [showClear]="true"
+              inputId="monday-label">
+            </p-dropdown>
+            <label for="monday-label">Monday</label>
+        </span>
+    </div>
+    <div class="p-col">
+        <span class="p-float-label w-full p-1 mt-4">
+            <p-dropdown
+              [styleClass]='"w-full"'
+              [options]="_plans"
+              (onChange)="onTuesdayScheduleChange(tuesdayPlan)"
+              [(ngModel)]="tuesdayPlan"
+              optionLabel="name"
+              [showClear]="true"
+              inputId="tuesday-label">
+            </p-dropdown>
+            <label for="tuesday-label">Tuesday</label>
+        </span>
+    </div>
+    <div class="p-col">
+        <span class="p-float-label w-full p-1 mt-4">
+            <p-dropdown
+              [styleClass]='"w-full"'
+              [options]="_plans"
+              (onChange)="onWednesdayScheduleChange(wednesdayPlan)"
+              [(ngModel)]="wednesdayPlan"
+              optionLabel="name"
+              [showClear]="true"
+              inputId="wednesday-label">
+            </p-dropdown>
+            <label for="wednesday-label">Wednesday</label>
+        </span>
+    </div>
+    <div class="p-col">
+        <span class="p-float-label w-full p-1 mt-4">
+            <p-dropdown
+              [styleClass]='"w-full"'
+              [options]="_plans"
+              (onChange)="onThursdayScheduleChange(thursdayPlan)"
+              [(ngModel)]="thursdayPlan"
+              optionLabel="name"
+              [showClear]="true"
+              inputId="thursday-label">
+            </p-dropdown>
+            <label for="thursday-label">Thursday</label>
+        </span>
+    </div>
+    <div class="p-col">
+        <span class="p-float-label w-full p-1 mt-4">
+            <p-dropdown
+              [styleClass]='"w-full"'
+              [options]="_plans"
+              (onChange)="onFridayScheduleChange(fridayPlan)"
+              [(ngModel)]="fridayPlan"
+              optionLabel="name"
+              [showClear]="true"
+              inputId="friday-label">
+            </p-dropdown>
+            <label for="friday-label">Friday</label>
+        </span>
+    </div>
+    <div class="p-col">
+        <span class="p-float-label w-full p-1 mt-4">
+            <p-dropdown
+              [styleClass]='"w-full"'
+              [options]="_plans"
+              (onChange)="onSaturdayScheduleChange(saturdayPlan)"
+              [(ngModel)]="saturdayPlan"
+              optionLabel="name"
+              [showClear]="true"
+              inputId="saturday-label">
+            </p-dropdown>
+            <label for="saturday-label">Saturday</label>
+        </span>
+    </div>
+    <div class="p-col mt-2">
+        <span class="p-float-label w-full p-1 mt-4">
+            <p-dropdown
+              [styleClass]='"w-full"'
+              [options]="_plans"
+              (onChange)="onSundayScheduleChange(sundayPlan)"
+              [(ngModel)]="sundayPlan"
+              optionLabel="name"
+              [showClear]="true"
+              inputId="sunday-label">
+            </p-dropdown>
+            <label for="sunday-label">Sunday</label>
+        </span>
+    </div>
+  </div>
+
+</div>
+<div>
+  <ng-template #loading>
+    <div class="mt-2">
+      <app-spinner></app-spinner>
+    </div>
+  </ng-template>
+</div>

@@ -65,6 +65,7 @@ import {PaginatorModule} from "primeng/paginator";
 import {MessageModule} from "primeng/message";
 import {KeyFilterModule} from "primeng/keyfilter";
 import {ConfirmationService} from "primeng/api";
+import { SchedulePlansComponent } from './grind-meter/body/my-profile/plans/show-plans/schedule-plans/schedule-plans.component';
 
 export const DateFormats = {
   parse: {
@@ -103,7 +104,8 @@ export const DateFormats = {
     EditPlanComponent,
     PlansComponent,
     SpinnerComponent,
-    GmIconComponent
+    GmIconComponent,
+    SchedulePlansComponent
   ],
   imports: [
     BrowserModule,

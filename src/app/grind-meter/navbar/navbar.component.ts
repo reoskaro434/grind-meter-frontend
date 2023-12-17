@@ -68,4 +68,8 @@ export class NavbarComponent implements OnInit {
       this.items = this.getItemsForGuest()
     });
   }
+
+  onIconClicked() {
+    this.router.navigate(["/"]).then();
+  }
 }

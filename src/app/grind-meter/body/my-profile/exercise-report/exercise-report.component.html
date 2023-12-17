@@ -1,4 +1,7 @@
 <div *ngIf="loaded; else loading" class="mt-1">
+  <div>
+    <h3>{{plan?.name}}</h3>
+  </div>
   <p-accordion>
     <p-accordionTab *ngFor="let singleExercise of exercises" [header]="singleExercise.name">
       <app-lift-exercise-menu [exercise]=singleExercise></app-lift-exercise-menu>

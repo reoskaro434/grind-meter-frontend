@@ -1,9 +1,29 @@
-<div>
-  <div class="d-flex justify-content-center">
+<div *ngIf="loaded else loading">
+  <div>
+    <div class="flex justify-content-center">
+      <h3>{{day}}</h3>
+    </div>
+    <div *ngIf="plan else restDay" >
+      <div class="flex justify-content-center">
+        <h4> {{plan.name}}</h4>
+      </div>
+      <div class="flex justify-content-center mt-1">
+        <p-button label="Report" (onClick)="toToReportPage()"></p-button>
+      </div>
+    </div>
     <div>
-      <span> Welcome to Grind Meter </span>
-      <br>
-      <span>Test Nickname taxapes170</span>
+      <ng-template #restDay>
+        <div class="flex justify-content-center">
+          <h4> No scheduled workout for today</h4>
+        </div>
+      </ng-template>
     </div>
   </div>
+</div>
+<div>
+  <ng-template #loading>
+    <div class="mt-2">
+      <app-spinner></app-spinner>
+    </div>
+  </ng-template>
 </div>

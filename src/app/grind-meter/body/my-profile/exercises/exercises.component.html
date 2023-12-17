@@ -21,7 +21,7 @@
   </div>
   <div class="mt-1">
     <p-accordion>
-      <p-accordionTab [header]="'Add new exercise ' + totalExercises + '/' + EXERCISES_PER_ACCOUNT">
+      <p-accordionTab [disabled]="totalExercises>= EXERCISES_PER_ACCOUNT" [header]="'Add new exercise ' + totalExercises + '/' + EXERCISES_PER_ACCOUNT">
         <app-add-exercise></app-add-exercise>
       </p-accordionTab>
     </p-accordion>

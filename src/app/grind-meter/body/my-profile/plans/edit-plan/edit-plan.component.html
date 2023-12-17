@@ -17,15 +17,6 @@
     </ng-template>
   </p-pickList>
 </div>
-  <div class="mt-1 card flex justify-content-start">
-    <div class="flex flex-column gap-2">
-      <h4> This will override other plans if you assign it to the same day!</h4>
-    <div *ngFor="let day of days" class="field-checkbox">
-      <p-checkbox name="group" [value]="day" [(ngModel)]="selectedDays" [inputId]="day.type"></p-checkbox>
-      <label [for]="day.type">{{ day.name }}</label>
-    </div>
-  </div>
-  </div>
   <div class="ml-5 mr-5 mt-3">
     <p-button styleClass="w-12" label="Save" (click)="onSavePressed()"></p-button>
   </div>

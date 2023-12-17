@@ -27,8 +27,20 @@
   <div class="mt-1">
     <div>
       <p-accordion>
-        <p-accordionTab [header]="'Add new plan ' + totalPlans + '/' + PLANS_PER_ACCOUNT">
+        <p-accordionTab [disabled]="totalPlans>= PLANS_PER_ACCOUNT" [header]="'Add new plan ' + totalPlans + '/' + PLANS_PER_ACCOUNT">
           <app-add-plan></app-add-plan>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+  <div class="mt-1">
+    <div>
+      <p-accordion>
+        <p-accordionTab header="Schedule">
+          <app-schedule-plans
+          [plans]="plans"
+          >
+          </app-schedule-plans>
         </p-accordionTab>
       </p-accordion>
     </div>
