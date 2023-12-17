@@ -4,12 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {ExerciseApiCallerService} from "../../../../../api-caller/exercise-api-caller.service";
 import {PlanApiCallerService} from "../../../../../api-caller/plan-api-caller.service";
 import {Plan} from "../../../../../models/plan";
-import {Day} from "../../../../../enums/day";
 
-interface IDay {
-  name: string;
-  type: Day;
-}
 @Component({
   selector: 'app-edit-plan',
   templateUrl: './edit-plan.component.html',
@@ -21,8 +16,7 @@ export class EditPlanComponent {
   loaded: boolean = false;
   planId: string = '';
   plan: Plan = {id: "", name: "", exerciseIdList: [], userId: ""};
-  days: IDay[] | undefined;
-  selectedDays: { name: string, type: Day }[] = [];
+  _touched: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private planApiCaller: PlanApiCallerService,
@@ -30,17 +24,6 @@ export class EditPlanComponent {
   }
 
   ngOnInit() {
-    this.days = [
-      { name: "Monday", type: Day.MONDAY },
-      { name: "Tuesday", type: Day.TUESDAY },
-      { name: "Wednesday", type: Day.WEDNESDAY },
-      { name: "Thursday", type: Day.THURSDAY },
-      { name: "Friday", type: Day.FRIDAY },
-      { name: "Saturday", type: Day.SATURDAY },
-      { name: "Sunday", type: Day.SUNDAY }
-    ];
-
-
     this.planId = this.route.snapshot.params['planId'];
 
 
@@ -66,5 +49,21 @@ export class EditPlanComponent {
     this.plan.exerciseIdList = this.targetExercise.map(exercise => exercise.id);
 
     this.planApiCaller.updatePlan(this.plan).subscribe();
+  }
+
+  get isPlanTouched() {
+    return this._touched;
+  }
+
+  isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
+
+  isDragdropEnabled() {
+    return !this.isMobile();
+  }
+
+  onItemsMoved() {
+    this._touched = true;
   }
 }
