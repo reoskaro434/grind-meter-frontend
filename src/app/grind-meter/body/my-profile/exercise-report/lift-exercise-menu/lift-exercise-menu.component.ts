@@ -5,6 +5,7 @@ import {WeightUnit} from "../../../../../models/weight";
 import {ExerciseReportApiCallerService} from "../../../../../api-caller/exercise-report-api-caller.service";
 import {LocalStorageService} from "../../../../../services/local-storage.service";
 import {debounce} from "lodash";
+import {ExerciseSet} from "../../../../../models/exercise-set";
 
 @Component({
   selector: 'app-lift-exercise-menu',
@@ -59,8 +60,13 @@ export class LiftExerciseMenuComponent  {
 
   public saveReport() {
     if (this.currentReport.sets.length === 0) {
+      this.exerciseReportApiCaller
+        .deleteReport(this.currentReport.exerciseId, this.currentReport.timestamp)
+        .subscribe(() => this.localStorage.saveForToday(`${this.currentExercise.id}_currentReport`, this.currentReport));
+
       return;
     }
+
 
     for (let i = 0; i < this.currentReport.sets.length; i++) {
       this.currentReport.sets[i].index = i + 1;
@@ -77,15 +83,20 @@ export class LiftExerciseMenuComponent  {
     this.exerciseReportApiCaller.saveLiftExerciseReport(this.currentReport).subscribe();
   }
 
-  deleteSeries(index: number) {
-    this.currentReport?.sets.splice(index, 1);
+  deleteSeries(set: ExerciseSet) {
+    if (this.currentReport === undefined) {
+      return
+    }
+
+    this.currentReport.sets.splice(this.currentReport.sets.indexOf(set), 1);
     this.debouncedReportSave();
   }
 
   addSeries() {
     if (this.currentReport === undefined)
       this.currentReport = {
-        exercise: this.currentExercise,
+        reportId: '',
+        exerciseId: this.currentExercise.id,
         sets: [],
         timestamp: this.getCurrentTimestamp()
       }

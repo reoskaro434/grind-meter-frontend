@@ -23,9 +23,27 @@ export class ExerciseReportApiCallerService {
     );
   }
 
+  public getReport(exercise_id: string, timestamp: number) {
+    return this.http.get<LiftExerciseReport>(
+      `${environment.apiURL}/exercise-report/get-report/${exercise_id}/${timestamp}`
+    );
+  }
+
   public getReports(exercise_id: string, page: number) {
     return this.http.get<LiftExerciseReport[]>(
       `${environment.apiURL}/exercise-report/get-reports/${exercise_id}/${page}`
+    );
+  }
+
+  getReportsFromRange(exerciseId: string, start: number, end: number) {
+    return this.http.get<LiftExerciseReport[]>(
+      `${environment.apiURL}/exercise-report/get-reports-from-range/${exerciseId}/${start}/${end}`
+    );
+  }
+
+  deleteReport(exercise_id: string, timestamp: number) {
+    return this.http.delete(
+      `${environment.apiURL}/exercise-report/delete-report/${exercise_id}/${timestamp}`
     );
   }
 }

@@ -1,0 +1,24 @@
+<div *ngIf="loaded; else loading" class="calendar-report-container">
+  <div class="flex justify-content-center mt-1">
+    <h3>{{exercise?.name}}</h3>
+  </div>
+  <div class="content-container mt-1 sm:flex justify-content-center">
+    <div class="calendar-container mr-1">
+      <p-calendar [styleClass]="'w-full'" (onSelect)="dateSelected()" (onMonthChange)="monthChanged($event)" [(ngModel)]="date" [inline]="true">
+        <ng-template pTemplate="date" let-date>
+          <div [ngClass]="{'red-day': isSpecialDate(date, forceUpdate, report)}">
+            {{date.day}}
+          </div>
+        </ng-template>
+      </p-calendar>
+    </div>
+    <div class="table-container mt-1 lg:w-5" *ngIf="exercise">
+      <app-edit-report-table [report]="report" [exerciseId]="exercise.id"></app-edit-report-table>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="mt-2">
+    <app-spinner></app-spinner>
+  </div>
+</ng-template>

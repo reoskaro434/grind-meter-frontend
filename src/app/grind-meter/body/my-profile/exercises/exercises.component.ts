@@ -45,6 +45,12 @@ export class ExercisesComponent implements OnInit {
           icon: 'pi pi-chart-bar'
         },
         {
+          label: 'Edit',
+          type: 'editNode',
+          icon: 'pi pi-cog',
+          data: exercise.id
+        },
+        {
           label: 'Rename',
           data: exercise.id,
           type: 'renameNode',
@@ -99,7 +105,7 @@ export class ExercisesComponent implements OnInit {
   }
 
   public navigateToStatistics(exerciseId: any) {
-    this.router.navigate([`../statistics/${exerciseId}`], { relativeTo: this.route }).then();
+    this.router.navigate([`../statistics/show/${exerciseId}`], { relativeTo: this.route }).then();
   }
 
   onPageChange(state: PaginatorState) {
@@ -136,5 +142,9 @@ export class ExercisesComponent implements OnInit {
         this.exerciseApiCaller.deleteExercise(data.exerciseId).subscribe((resp) => window.location.reload());
       },
       reject: () => {}});
+  }
+
+  editExercise(exerciseId: string) {
+    this.router.navigate([`../statistics/edit/${exerciseId}`], { relativeTo: this.route }).then();
   }
 }

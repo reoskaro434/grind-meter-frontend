@@ -2,7 +2,7 @@
 <div class="card mt-2">
   <div *ngIf="lastReport">
     <p-accordion>
-      <p-accordionTab [header]="(lastReport.timestamp | date) ?? lastReport.exercise.name">
+      <p-accordionTab [header]="(lastReport.timestamp | date) ?? currentExercise.name">
     <p-table
       #dt
       [value]="lastReport.sets"
@@ -68,7 +68,7 @@
         </td>
         <td class="col-2">
           <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
-                  (click)="deleteSeries(set.index - 1)"></button>
+                  (click)="deleteSeries(set)"></button>
         </td>
       </tr>
     </ng-template>

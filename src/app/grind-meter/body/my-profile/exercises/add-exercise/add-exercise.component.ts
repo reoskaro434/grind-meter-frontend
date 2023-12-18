@@ -1,12 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ExerciseApiCallerService} from "../../../../../api-caller/exercise-api-caller.service";
 import {Exercise, ExerciseType} from "../../../../../models/exercise";
-import {map} from "rxjs";
 import {ToastService} from "../../../../../services/toast.service";
-import {ToastType} from "../../../../../enums/toast-type";
 import {NgForm} from "@angular/forms";
 import {v4} from 'uuid';
-import {Plan} from "../../../../../models/plan";
 
 @Component({
   selector: 'app-add-exercise',
@@ -33,7 +30,7 @@ export class AddExerciseComponent implements OnInit {
       type: ExerciseType.Lift
     };
 
-    this.exerciseApiCaller.addExercise(exercise).subscribe();
+    this.exerciseApiCaller.addExercise(exercise).subscribe(()=> document.location.reload());
   }
 
 

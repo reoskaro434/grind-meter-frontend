@@ -19,6 +19,7 @@ import {
 import {ShowPlansComponent} from "./grind-meter/body/my-profile/plans/show-plans/show-plans.component";
 import {EditPlanComponent} from "./grind-meter/body/my-profile/plans/edit-plan/edit-plan.component";
 import {PlansComponent} from "./grind-meter/body/my-profile/plans/plans.component";
+import {EditExerciseComponent} from "./grind-meter/body/my-profile/statistics/edit-exercise/edit-exercise.component";
 
 const routes: Routes = [
   {
@@ -32,7 +33,8 @@ const routes: Routes = [
           {path: '', component: ExerciseReportComponent},
           {path: 'daily-report', component: ExerciseReportComponent},
           {path: 'statistics', component: StatisticsComponent, children: [
-                {path: ':exerciseId', component: ExerciseStatisticTableComponent},
+                {path: 'show/:exerciseId', component: ExerciseStatisticTableComponent},
+                {path: 'edit/:exerciseId', component: EditExerciseComponent},
             ]},
           {path: 'exercises', component: ExercisesComponent},
           {path: 'plans', component: PlansComponent, children: [

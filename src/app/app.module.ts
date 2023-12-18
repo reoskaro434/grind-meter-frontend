@@ -66,6 +66,9 @@ import {MessageModule} from "primeng/message";
 import {KeyFilterModule} from "primeng/keyfilter";
 import {ConfirmationService} from "primeng/api";
 import { SchedulePlansComponent } from './grind-meter/body/my-profile/plans/show-plans/schedule-plans/schedule-plans.component';
+import { EditExerciseComponent } from './grind-meter/body/my-profile/statistics/edit-exercise/edit-exercise.component';
+import {CalendarModule} from "primeng/calendar";
+import { EditReportTableComponent } from './grind-meter/body/my-profile/statistics/edit-exercise/edit-exercise-table/edit-report-table.component';
 
 export const DateFormats = {
   parse: {
@@ -105,7 +108,9 @@ export const DateFormats = {
     PlansComponent,
     SpinnerComponent,
     GmIconComponent,
-    SchedulePlansComponent
+    SchedulePlansComponent,
+    EditExerciseComponent,
+    EditReportTableComponent
   ],
   imports: [
     BrowserModule,
@@ -143,7 +148,8 @@ export const DateFormats = {
     TreeTableModule,
     PaginatorModule,
     MessageModule,
-    KeyFilterModule
+    KeyFilterModule,
+    CalendarModule
   ],
   providers: [
     [CookieService],

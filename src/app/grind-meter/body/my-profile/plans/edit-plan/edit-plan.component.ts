@@ -47,7 +47,7 @@ export class EditPlanComponent {
 
   onSavePressed() {
     this.plan.exerciseIdList = this.targetExercise.map(exercise => exercise.id);
-
+    this._touched = false
     this.planApiCaller.updatePlan(this.plan).subscribe();
   }
 

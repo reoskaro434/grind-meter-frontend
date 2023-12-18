@@ -8,6 +8,9 @@
       <ng-template let-node pTemplate="statisticsNode">
         <b (click)="navigateToStatistics(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
       </ng-template>
+      <ng-template let-node pTemplate="editNode">
+        <b (click)="editExercise(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
+      </ng-template>
       <ng-template let-node pTemplate="renameNode">
         <b (click)="rename(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
       </ng-template>
