@@ -50,7 +50,7 @@ export class InterceptorService implements HttpInterceptor {
       catchError(error => {
         if (error.status === 401) {
           this.auth.cleanAuthorization();
-          this.router.navigate(["/"]);
+          this.router.navigate(["/"]).then();
 
         }
 

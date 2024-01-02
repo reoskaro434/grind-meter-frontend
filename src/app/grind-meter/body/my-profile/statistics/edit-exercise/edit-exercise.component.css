@@ -1,4 +1,5 @@
 /* Add this in your component's CSS */
 .red-day {
-  color: green;
+  color: #fff90b;
+  font-size: large;
 }

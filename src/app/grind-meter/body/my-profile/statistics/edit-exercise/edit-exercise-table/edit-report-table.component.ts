@@ -1,9 +1,7 @@
-import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
-import {Exercise} from "../../../../../../models/exercise";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {WeightUnit} from "../../../../../../models/weight";
 import {LiftExerciseReport} from "../../../../../../models/lift-exercise-report";
 import {ExerciseReportApiCallerService} from "../../../../../../api-caller/exercise-report-api-caller.service";
-import {timestamp} from "rxjs";
 import {ExerciseSet} from "../../../../../../models/exercise-set";
 
 @Component({
@@ -13,6 +11,7 @@ import {ExerciseSet} from "../../../../../../models/exercise-set";
 })
 export class EditReportTableComponent implements OnInit{
   @Input() report!: LiftExerciseReport | undefined;
+  @Output() reportChange = new EventEmitter<LiftExerciseReport>();
   @Input() exerciseId!: string;
 
 
@@ -59,6 +58,7 @@ export class EditReportTableComponent implements OnInit{
     this.exerciseReportApiCaller.saveLiftExerciseReport(report).subscribe(() => {
       this.unsavedChanges = false
       this.report = report;
+      this.reportChange.emit(report);
     });
   }
 

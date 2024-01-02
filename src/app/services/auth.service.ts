@@ -23,7 +23,7 @@ export class AuthService {
 
   public cleanAuthorization() {
     this.cookie.delete("username","/", environment.domain, true, "None");
-    this.cookie.delete("refreshToken","/", environment.apiDomain, true, "Strict");
-    this.cookie.delete("accessToken","/", environment.apiDomain, true, "Strict");
+    this.cookie.delete("refreshToken","/", environment.domain, true, "Strict");
+    this.cookie.delete("accessToken","/", environment.domain, true, "Strict");
   }
 }

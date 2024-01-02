@@ -1,10 +1,10 @@
-<div *ngIf="loaded; else loading" class="calendar-report-container">
+<div *ngIf="loaded; else loading">
   <div class="flex justify-content-center mt-1">
     <h3>{{exercise?.name}}</h3>
   </div>
-  <div class="content-container mt-1 sm:flex justify-content-center">
-    <div class="calendar-container mr-1">
-      <p-calendar [styleClass]="'w-full'" (onSelect)="dateSelected()" (onMonthChange)="monthChanged($event)" [(ngModel)]="date" [inline]="true">
+  <div class="container">
+    <div class="flex justify-content-center">
+      <p-calendar (onSelect)="dateSelected()" (onClose)="calendarClosed()" (onMonthChange)="monthChanged($event)" [(ngModel)]="date">
         <ng-template pTemplate="date" let-date>
           <div [ngClass]="{'red-day': isSpecialDate(date, forceUpdate, report)}">
             {{date.day}}
@@ -12,8 +12,8 @@
         </ng-template>
       </p-calendar>
     </div>
-    <div class="table-container mt-1 lg:w-5" *ngIf="exercise">
-      <app-edit-report-table [report]="report" [exerciseId]="exercise.id"></app-edit-report-table>
+    <div *ngIf="exercise" class="">
+      <app-edit-report-table (reportChange)="reportChanged($event)" [report]="report" [exerciseId]="exercise.id"></app-edit-report-table>
     </div>
   </div>
 </div>

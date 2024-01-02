@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ExerciseApiCallerService} from "../../../../../api-caller/exercise-api-caller.service";
 import {Exercise} from "../../../../../models/exercise";
@@ -99,5 +99,20 @@ export class EditExerciseComponent {
     const dateStartOfDay = new Date(date.year, date.month, date.day).setHours(0, 0, 0, 0);
 
     return this.report_list.some(report => report.timestamp === dateStartOfDay);
+  }
+
+  calendarClosed() {
+    this.forceUpdate = !this.forceUpdate;
+  }
+
+  reportChanged(report: LiftExerciseReport) {
+    const idx =  this.report_list.findIndex(r => r.reportId === report.reportId);
+
+    if (idx !== -1) {
+      this.report_list[idx].sets = report.sets;
+    } else {
+
+      this.report_list.push(report);
+    }
   }
 }

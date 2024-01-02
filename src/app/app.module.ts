@@ -31,7 +31,6 @@ import {ExercisesComponent} from "./grind-meter/body/my-profile/exercises/exerci
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatTableModule} from '@angular/material/table'
 import {MatCheckboxModule} from "@angular/material/checkbox";
-import {DatePickerComponent} from './grind-meter/body/date-picker/date-picker.component';
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
@@ -101,7 +100,6 @@ export const DateFormats = {
     AddExerciseComponent,
     AddPlanComponent,
     ExercisesComponent,
-    DatePickerComponent,
     ExerciseStatisticTableComponent,
     ShowPlansComponent,
     EditPlanComponent,
