@@ -1,4 +1,4 @@
-<div *ngIf="exerciseReportList; else loading">
+<div *ngIf="loaded; else loading">
   <div>
     <h3>{{exercise?.name}}</h3>
   </div>
@@ -19,6 +19,9 @@
       </tr>
     </ng-template>
   </p-treeTable>
+  <div class="mt-1">
+    <p-calendar [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true" (onClose)="onCalendarClose()"></p-calendar>
+  </div>
 </div>
 <div>
   <ng-template #loading>

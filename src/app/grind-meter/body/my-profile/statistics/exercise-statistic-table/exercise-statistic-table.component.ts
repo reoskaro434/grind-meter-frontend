@@ -8,6 +8,7 @@ import {ToastService} from "../../../../../services/toast.service";
 import {LiftExerciseReport} from "../../../../../models/lift-exercise-report";
 import {Exercise} from "../../../../../models/exercise";
 import {TreeNode} from "primeng/api";
+import {PaginatorState} from "primeng/paginator";
 
 @Component({
   selector: 'app-exercise-statistic-table',
@@ -21,6 +22,7 @@ export class ExerciseStatisticTableComponent implements OnInit {
   loaded: boolean = false;
   treeNodes: TreeNode[] = [];
   cols: any[] =[];
+  date: any;
   constructor(private route:ActivatedRoute,
               private exerciseReportApiCaller: ExerciseReportApiCallerService,
               private exerciseApiCallerService: ExerciseApiCallerService,
@@ -72,21 +74,52 @@ export class ExerciseStatisticTableComponent implements OnInit {
 
     this.exerciseId = this.route.snapshot.params['exerciseId'];
 
+    this.date = new Date();
+    const currentMonth = this.date.getMonth() + 1;
+    const currentYear = this.date.getFullYear();
+
     this.exerciseApiCallerService.getExerciseById(this.exerciseId).pipe(map((exercise) => {
       this.exercise = exercise;
 
-      this.exerciseReportApiCaller.getReports(this.exerciseId, 1)
-        .pipe(map((exerciseReportList) => {
-          if (exerciseReportList.length == 0){
-            this.toast.showMessage('Could not find statistics for the exercise', ToastType.INFO);
-          }
-          this.exerciseReportList = exerciseReportList;
-          for (const el of this.exerciseReportList) {
-            this.treeNodes.push(this.getNode(el));
-          }
-          this.loaded = true;
-        })).subscribe();
+      const startEndTimestamps = this.getStartEndMonthTimestamps(currentMonth, currentYear);
+
+      this.loadNewReports(this.exerciseId, startEndTimestamps.start, startEndTimestamps.end);
     })).subscribe();
   }
 
+  private loadNewReports(id: string, start: number, end: number) {
+    this.exerciseReportApiCaller.getReportsFromRange(id, start, end)
+      .subscribe((report_list) => {
+        this.treeNodes = [];
+        this.exerciseReportList = report_list;
+        for (const el of this.exerciseReportList) {
+          this.treeNodes.push(this.getNode(el));
+        }
+        this.loaded = true;
+      });
+  }
+
+  private getStartEndMonthTimestamps(month: number, year: number): { start: number; end: number } {
+    // Adjust month to be 0-indexed
+    const adjustedMonth = month - 1;
+
+    const startTimestamp = new Date(year, adjustedMonth, 1).getTime();
+    const endTimestamp = new Date(year, adjustedMonth + 1, 0).getTime();
+
+    return {
+      start: startTimestamp,
+      end: endTimestamp
+    };
+  }
+
+  onCalendarClose() {
+    this.loaded = false;
+
+    const currentMonth = this.date.getMonth() + 1;
+    const currentYear = this.date.getFullYear();
+
+    const startEndTimestamps = this.getStartEndMonthTimestamps(currentMonth, currentYear);
+
+    this.loadNewReports(this.exerciseId, startEndTimestamps.start, startEndTimestamps.end);
+  }
 }
