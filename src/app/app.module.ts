@@ -68,6 +68,7 @@ import { SchedulePlansComponent } from './grind-meter/body/my-profile/plans/show
 import { EditExerciseComponent } from './grind-meter/body/my-profile/statistics/edit-exercise/edit-exercise.component';
 import {CalendarModule} from "primeng/calendar";
 import { EditReportTableComponent } from './grind-meter/body/my-profile/statistics/edit-exercise/edit-exercise-table/edit-report-table.component';
+import { AccountComponent } from './grind-meter/body/my-profile/account/account.component';
 
 export const DateFormats = {
   parse: {
@@ -108,7 +109,8 @@ export const DateFormats = {
     GmIconComponent,
     SchedulePlansComponent,
     EditExerciseComponent,
-    EditReportTableComponent
+    EditReportTableComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

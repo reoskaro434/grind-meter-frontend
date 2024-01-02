@@ -30,12 +30,13 @@ export class NavbarComponent implements OnInit {
       },
       {
         label: this.username,
-        items: [
-          {
-            label: 'Sign Out',
-            command: () => this.onSignOut(),
-          }
-        ]
+        routerLink: `${this.username}/account`
+        // items: [
+        //   {
+        //     label: 'Sign Out',
+        //     command: () => this.onSignOut(),
+        //   }
+        // ]
       }
     ];
   }
@@ -60,16 +61,16 @@ export class NavbarComponent implements OnInit {
       this.items = this.getItemsForGuest();
     }
   }
-
-  public onSignOut() {
-    this.accessApiCaller.signOut().subscribe((_) => {
-      this.auth.cleanAuthorization();
-      this.router.navigate(["/"]).then();
-      this.items = this.getItemsForGuest()
-    });
-  }
+  //
+  // public onSignOut() {
+  //   this.accessApiCaller.signOut().subscribe((_) => {
+  //     this.auth.cleanAuthorization();
+  //     this.router.navigate(["/"]).then();
+  //     this.items = this.getItemsForGuest()
+  //   });
+  // }
 
   onIconClicked() {
-    this.router.navigate(["/"]).then();
+    this.router.navigate(["/"]).then(() => window.location.reload());
   }
 }

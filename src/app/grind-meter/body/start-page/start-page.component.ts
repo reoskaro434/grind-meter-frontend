@@ -26,7 +26,10 @@ export class StartPageComponent implements OnInit {
     this.accountApiCaller.getAccount().subscribe(account => {
       this.account = account;
       this.findTodayPlan(account);
+      console.log(account);
 
+    }, err => {
+      this.router.navigate(['/sign-in']).then();
     });
     this.username = this.auth.getUsername()
   }
@@ -43,8 +46,8 @@ export class StartPageComponent implements OnInit {
     };
 
     const planId = dayPlans[this.day.toUpperCase()];
-
     if (planId !== "") {
+
       this.planApiCaller.getPlan(planId).subscribe((plan: Plan) => {
         this.plan = plan
         this.loaded = true;

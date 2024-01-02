@@ -1,0 +1,41 @@
+<div class="mt-1">
+  <div>
+    <p-accordion>
+      <p-accordionTab header="Sign Out">
+        <div>
+          <form (ngSubmit)="onSignOut(signOutForm)" #signOutForm="ngForm">
+            <div class="card flex flex-column md:flex-row gap-3">
+              <div class="p-inputgroup">
+      <span>
+        <h4>Sign out from grind meter</h4>
+      </span>
+              </div>
+            </div>
+            <div class="mt-1">
+              <p-button type="submit" label="Sign out"></p-button>
+            </div>
+          </form>
+        </div>
+      </p-accordionTab>
+
+    <p-accordionTab header="Delete Account">
+      <div>
+        <form (ngSubmit)="onDeleteAccount(deleteAccountForm)" #deleteAccountForm="ngForm">
+          <div class="card flex flex-column md:flex-row gap-3">
+            <div class="p-inputgroup">
+      <span>
+        <h4 style="color: #af1010">Delete account</h4>
+        <h5 style="color: #af1010">Your account will be removed within few days.</h5>
+      </span>
+            </div>
+          </div>
+          <div class="mt-1" >
+            <p-button  type="submit" label="Permanently delete"></p-button>
+          </div>
+        </form>
+      </div>
+    </p-accordionTab>
+    </p-accordion>
+  </div>
+</div>
+
