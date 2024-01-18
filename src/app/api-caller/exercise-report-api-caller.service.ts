@@ -22,13 +22,6 @@ export class ExerciseReportApiCallerService {
       `${environment.apiURL}/exercise-report/get-last-report/${exercise_id}/${count}`
     );
   }
-
-  public getReport(exercise_id: string, timestamp: number) {
-    return this.http.get<LiftExerciseReport>(
-      `${environment.apiURL}/exercise-report/get-report/${exercise_id}/${timestamp}`
-    );
-  }
-
   public getReports(exercise_id: string, page: number) {
     return this.http.get<LiftExerciseReport[]>(
       `${environment.apiURL}/exercise-report/get-reports/${exercise_id}/${page}`
@@ -44,6 +37,15 @@ export class ExerciseReportApiCallerService {
   deleteReport(exercise_id: string, timestamp: number) {
     return this.http.delete(
       `${environment.apiURL}/exercise-report/delete-report/${exercise_id}/${timestamp}`
+    );
+  }
+
+  public getCsvReport(exerciseId: string, start: number, end: number) {
+    return this.http.get<any>(
+      `${environment.apiURL}/exercise-report/download-csv-report/${exerciseId}/${start}/${end}`,
+      {
+        responseType: 'blob' as 'json'
+      }
     );
   }
 }

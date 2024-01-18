@@ -4,9 +4,7 @@ import {ExerciseApiCallerService} from "../../../../api-caller/exercise-api-call
 import {ActivatedRoute, Router} from "@angular/router";
 import {ConfirmationService, TreeNode} from "primeng/api";
 import {PaginatorState} from "primeng/paginator";
-import {NgForm} from "@angular/forms";
-import {Plan} from "../../../../models/plan";
-import {v4} from "uuid";
+import {ExerciseReportApiCallerService} from "../../../../api-caller/exercise-report-api-caller.service";
 
 @Component({
   selector: 'app-exercises',
@@ -30,7 +28,8 @@ export class ExercisesComponent implements OnInit {
   constructor(private exerciseApiCaller: ExerciseApiCallerService,
               private router: Router,
               private route: ActivatedRoute,
-              private confirmation: ConfirmationService)
+              private confirmation: ConfirmationService,
+              private exerciseReportApiCaller: ExerciseReportApiCallerService)
   {}
 
   private getNode(exercise: Exercise):TreeNode {
@@ -41,8 +40,22 @@ export class ExercisesComponent implements OnInit {
         {
           label: 'Statistics',
           data: exercise.id,
-          type: 'statisticsNode',
-          icon: 'pi pi-chart-bar'
+          // type: 'statisticsNode',
+          icon: 'pi pi-database',
+          children: [
+            {
+              label: 'Raw data',
+              data: exercise.id,
+              type: 'statisticsNode',
+              icon: 'pi pi-book'
+            },
+            {
+              label: 'CSV report',
+              data: exercise.id,
+              type: 'statisticsCsvNode',
+              icon: 'pi pi-arrow-circle-down'
+            }
+          ]
         },
         {
           label: 'Edit',
@@ -139,12 +152,37 @@ export class ExercisesComponent implements OnInit {
       header: data.exerciseName,
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.exerciseApiCaller.deleteExercise(data.exerciseId).subscribe((resp) => window.location.reload());
+        this.exerciseApiCaller.deleteExercise(data.exerciseId).subscribe(() => window.location.reload());
       },
       reject: () => {}});
   }
 
   editExercise(exerciseId: string) {
     this.router.navigate([`../statistics/edit/${exerciseId}`], { relativeTo: this.route }).then();
+  }
+
+  downloadCsv(exerciseId: string) {
+    const exercise = this.exercises.find((exercise) => exercise.id === exerciseId);
+
+    if (exercise === undefined)
+      throw Error("Could not find exercise while downloading");
+
+    const currentTimestamp = new Date().setHours(0, 0, 0, 0);
+
+    this.exerciseReportApiCaller.getCsvReport(exerciseId, 0, currentTimestamp).subscribe((data) => {
+      const blob = new Blob([data], { type: 'text/csv' });
+
+      const downloadURL = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+
+      link.href = downloadURL;
+      link.download = `${exercise.name}.csv`;
+
+      link.click();
+
+      window.URL.revokeObjectURL(downloadURL);
+
+      link.remove();
+    });
   }
 }
