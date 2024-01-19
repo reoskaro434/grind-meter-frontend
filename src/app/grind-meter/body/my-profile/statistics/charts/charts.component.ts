@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {ChartModule} from 'primeng/chart';
 import {ActivatedRoute} from "@angular/router";
 import {ExerciseReportApiCallerService} from "../../../../../api-caller/exercise-report-api-caller.service";
 import {ExerciseApiCallerService} from "../../../../../api-caller/exercise-api-caller.service";
 import {map} from "rxjs";
 import {Exercise} from "../../../../../models/exercise";
 import {LiftExerciseReport} from "../../../../../models/lift-exercise-report";
+import {LiftExerciseDataChunk} from "../../../../../models/lift-exercise-data-chunk";
 
 @Component({
   selector: 'app-charts',
@@ -13,12 +13,20 @@ import {LiftExerciseReport} from "../../../../../models/lift-exercise-report";
   styleUrls: ['./charts.component.css']
 })
 export class ChartsComponent implements OnInit {
-  data: any;
-  options: any;
+  seriesData: any;
+  volumeData: any;
+  repetitionData: any;
+  maxWeightData: any;
   loaded: boolean = false;
-  exerciseId :string = '';
+  exerciseId: string = '';
   date: any;
   exercise: Exercise | undefined;
+  generalPlotOptions= this.getGeneralPlotOptions();
+  generalBarOptions= this.getGeneralBarOptions();
+  dataChunkList: LiftExerciseDataChunk[] = [];
+  chartWidth: number = 0;
+  POLE_CHART_WIDTH: number = 25;
+
   constructor(private route:ActivatedRoute,
               private exerciseReportApiCaller: ExerciseReportApiCallerService,
               private exerciseApiCallerService: ExerciseApiCallerService
@@ -50,13 +58,40 @@ export class ChartsComponent implements OnInit {
       });
   }
 
-  private drawCharts(reportList: LiftExerciseReport[]) {
+  private getDataChunk(report: LiftExerciseReport): LiftExerciseDataChunk {
+    const seriesData = [];
+    let volume = 0;
+    let repetitions = 0;
+    let max = 0;
+
+    for (const set of report.sets) {
+      seriesData.push({
+          series: set.index,
+          volume: set.weight.mass * set.repetitions,
+          repetitions: set.repetitions,
+          mass: set.weight.mass
+      });
+      volume += set.weight.mass * set.repetitions;
+      repetitions += set.repetitions;
+      max = Math.max(max, set.weight.mass);
+    }
+
+    return {
+        date: new Date(report.timestamp).toLocaleDateString(),
+        volume: volume,
+        repetitions: repetitions,
+        max: max,
+        seriesData: seriesData
+    }
+  }
+
+  private getGeneralBarOptions() {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-    this.options = {
+    return {
       maintainAspectRatio: false,
       aspectRatio: 0.6,
       plugins: {
@@ -87,22 +122,115 @@ export class ChartsComponent implements OnInit {
         }
       }
     }
+  }
 
-    this.data = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  private getGeneralPlotOptions() {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+
+    return {
+      maintainAspectRatio: false,
+      aspectRatio: 0.6,
+      plugins: {
+        legend: {
+          labels: {
+            color: textColor
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: textColorSecondary
+          },
+          grid: {
+            color: surfaceBorder,
+            drawBorder: false
+          }
+        },
+        y: {
+          ticks: {
+            color: textColorSecondary
+          },
+          grid: {
+            color: surfaceBorder,
+            drawBorder: false
+          }
+        }
+      }
+    }
+  }
+
+  private drawCharts(reportList: LiftExerciseReport[])  {
+    this.chartWidth = reportList.length * this.POLE_CHART_WIDTH;
+    let maxIndex = 0;
+    const documentStyle = getComputedStyle(document.documentElement);
+
+    for (const report of reportList) {
+      maxIndex = Math.max(report.sets.length, maxIndex);
+      this.dataChunkList.unshift(this.getDataChunk(report));
+    }
+
+    const date = this.dataChunkList.map((chunk: LiftExerciseDataChunk) => chunk.date);
+
+    const dataset = [];
+
+    for (let i = 0; i < maxIndex; i++) {
+      dataset.push({
+        label: `series ${i+1}`,
+        data: this.dataChunkList.map((chunk: LiftExerciseDataChunk) => {
+          if (i < chunk.seriesData.length) {
+            return chunk.seriesData[i].mass;
+          }
+          return null;
+        }),
+        fill: false,
+        tension: 0.2
+      })
+    }
+
+    this.seriesData = {
+      labels: date,
+      datasets: dataset,
+
+    };
+
+    this.volumeData = {
+      labels: date,
       datasets: [
         {
-          label: 'First Dataset',
-          data: [65, 59, 80, 81, 56, 55, 40],
+          label: 'Total Repetitions [kg]',
+          data: this.dataChunkList.map((chunk: LiftExerciseDataChunk) => chunk.repetitions),
           fill: false,
           borderColor: documentStyle.getPropertyValue('--blue-500'),
           tension: 0.4
-        },
+        }
+      ]
+    };
+
+    this.repetitionData = {
+      labels: date,
+      datasets: [
         {
-          label: 'Second Dataset',
-          data: [28, 48, 40, 19, 86, 27, 90],
+          label: 'Total Volume [kg]',
+          data: this.dataChunkList.map((chunk: LiftExerciseDataChunk) => chunk.volume),
           fill: false,
-          borderColor: documentStyle.getPropertyValue('--pink-500'),
+          borderColor: documentStyle.getPropertyValue('--green-500'),
+          tension: 0.4
+        }
+      ]
+    };
+
+    this.maxWeightData = {
+      labels: date,
+      datasets: [
+        {
+          label: 'Max Weight [kg]',
+          data: this.dataChunkList.map((chunk: LiftExerciseDataChunk) => chunk.max),
+          fill: false,
+          borderColor: documentStyle.getPropertyValue('--red-500'),
           tension: 0.4
         }
       ]

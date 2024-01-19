@@ -1,11 +1,27 @@
 <div *ngIf="loaded; else loading">
   <div>
     <h3>{{exercise?.name}}</h3>
-    <h5>Chars coming soon!</h5>
   </div>
-<!--  <div class="card">-->
-<!--    <p-chart type="line" [data]="data" [options]="options"></p-chart>-->
-<!--  </div>-->
+  <div style="overflow-x: auto;">
+  <div class="card mt-3" [style.width.px]='chartWidth' [ngStyle]="{'min-width': '100%'}">
+    <p-chart type="bar" [data]="seriesData" [options]="generalBarOptions"></p-chart>
+  </div>
+    </div>
+  <div style="overflow-x: auto;">
+  <div class="card mt-3" [style.width.px]='chartWidth' [ngStyle]="{'min-width': '100%'}">
+    <p-chart type="line" [data]="volumeData" [options]="generalPlotOptions"></p-chart>
+  </div>
+    </div>
+  <div style="overflow-x: auto;">
+  <div class="card mt-3" [style.width.px]='chartWidth' [ngStyle]="{'min-width': '100%'}">
+    <p-chart type="line" [data]="repetitionData" [options]="generalPlotOptions"></p-chart>
+  </div>
+    </div>
+  <div style="overflow-x: auto;">
+  <div class="card mt-3" [style.width.px]='chartWidth' [ngStyle]="{'min-width': '100%'}">
+    <p-chart type="line" [data]="maxWeightData" [options]="generalPlotOptions"></p-chart>
+  </div>
+    </div>
 </div>
 
 <div>
