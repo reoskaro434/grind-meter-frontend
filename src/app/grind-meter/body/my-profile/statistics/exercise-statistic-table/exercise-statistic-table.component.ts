@@ -25,8 +25,8 @@ export class ExerciseStatisticTableComponent implements OnInit {
   date: any;
   constructor(private route:ActivatedRoute,
               private exerciseReportApiCaller: ExerciseReportApiCallerService,
-              private exerciseApiCallerService: ExerciseApiCallerService,
-              private toast: ToastService){}
+              private exerciseApiCallerService: ExerciseApiCallerService
+  ){}
 
   private getNode(report: LiftExerciseReport): TreeNode {
     const childNodes = [];

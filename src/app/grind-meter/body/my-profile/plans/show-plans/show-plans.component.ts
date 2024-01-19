@@ -86,7 +86,7 @@ export class ShowPlansComponent implements OnInit {
       for (const p of this.plans) {
         this.plansTree.push(this.getNode(p));
       }
-    });
+    }, error => this.plansLoaded = true);
   }
   onEditPressed(id: string) {
     this.router.navigate([`../edit/${id}`], { relativeTo: this.route }).then();

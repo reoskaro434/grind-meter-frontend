@@ -44,6 +44,12 @@ export class ExercisesComponent implements OnInit {
           icon: 'pi pi-database',
           children: [
             {
+              label: 'Charts',
+              data: exercise.id,
+              type: 'chartsNode',
+              icon: 'pi pi-chart-bar'
+            },
+            {
               label: 'Raw data',
               data: exercise.id,
               type: 'statisticsNode',
@@ -114,7 +120,7 @@ export class ExercisesComponent implements OnInit {
       this.loadPage(0, this.maxItemPerPage);
 
       this.loaded = true;
-    });
+    }, error => this.loaded = true);
   }
 
   public navigateToStatistics(exerciseId: any) {
@@ -184,5 +190,10 @@ export class ExercisesComponent implements OnInit {
 
       link.remove();
     });
+  }
+
+  navigateToCharts(exerciseId: string) {
+    this.router.navigate([`../statistics/charts/${exerciseId}`], { relativeTo: this.route }).then();
+
   }
 }

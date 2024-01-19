@@ -51,7 +51,7 @@ export class StartPageComponent implements OnInit {
       this.planApiCaller.getPlan(planId).subscribe((plan: Plan) => {
         this.plan = plan
         this.loaded = true;
-      });
+      }, error => this.loaded = true);
     } else {
       this.loaded = true;
     }

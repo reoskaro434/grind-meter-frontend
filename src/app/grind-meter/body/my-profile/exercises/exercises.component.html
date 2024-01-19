@@ -20,6 +20,9 @@
       <ng-template let-node pTemplate="statisticsCsvNode">
         <b (click)="downloadCsv(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
       </ng-template>
+      <ng-template let-node pTemplate="chartsNode">
+        <b (click)="navigateToCharts(node.data)" class="text-700 hover:text-primary">{{ node.label }}</b>
+      </ng-template>
     </p-tree>
   </div>
   <div class="mt-1">
