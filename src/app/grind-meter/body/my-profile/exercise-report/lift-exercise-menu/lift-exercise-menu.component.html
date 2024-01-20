@@ -59,7 +59,7 @@
         <td class="col-4" [pEditableColumn]="set.weight.mass" pEditableColumnField="mass">
           <p-cellEditor>
             <ng-template pTemplate="input">
-                <p-inputNumber inputStyleClass="w-5" inputId="integeronly" [(ngModel)]="set.weight.mass" (ngModelChange)="onTableNumberChange()"></p-inputNumber>
+                <p-inputNumber [showButtons]="true"  [step]="0.25" inputStyleClass="w-5" inputId="integeronly" [(ngModel)]="set.weight.mass" (ngModelChange)="onTableNumberChange()" [min]="0" [minFractionDigits]="0" [maxFractionDigits]="2"></p-inputNumber>
             </ng-template>
             <ng-template pTemplate="output">
               {{ set.weight.mass }}kg

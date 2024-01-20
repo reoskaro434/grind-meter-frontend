@@ -26,7 +26,6 @@ export class StartPageComponent implements OnInit {
     this.accountApiCaller.getAccount().subscribe(account => {
       this.account = account;
       this.findTodayPlan(account);
-      console.log(account);
 
     }, err => {
       this.router.navigate(['/sign-in']).then();
